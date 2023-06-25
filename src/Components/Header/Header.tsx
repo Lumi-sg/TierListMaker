@@ -1,5 +1,6 @@
 import "./header.css"
 import logoImage from "../../assets/tiermaker-logo.png"
+import searchIcon from "../../assets/magGlass.png"
 function Header() {
     return (
       <header className="header">
@@ -9,7 +10,7 @@ function Header() {
         </div>
         <div className="search">
           <input type="text" placeholder="Search" />
-          <button>Search</button>
+          <button><img className="searchIcon" src={searchIcon} alt="search"/></button>
         </div>
         <div className="buttons">
           <button>Create Template</button>
