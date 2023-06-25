@@ -6,7 +6,7 @@
 	align-items: center;
 	background-color: #101010;
 	width: 100%;
-	border-bottom: #ffbf7f 1px solid;
+	border-bottom: #7fff7f 2px solid;
 }
 
 .headerSubContainer {
@@ -50,6 +50,7 @@
 }
 .search > input {
 	padding: 0.6em 1.2em;
+	background-color: #101010;
 }
 .search > input:focus {
 	outline: none;

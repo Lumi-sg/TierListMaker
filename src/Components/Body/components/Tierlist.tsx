@@ -1,8 +1,8 @@
-import React from "react";
 import "../styles/tierlist.css";
+import { dummyTierlist } from "../../Tierlists/StreetFighter6";
 
 const Tierlist = () => {
-	return <div className="TierlistContainer"></div>;
+	return <>{dummyTierlist.renderTierlist()}</>;
 };
 
 export default Tierlist;

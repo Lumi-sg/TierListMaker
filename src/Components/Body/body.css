@@ -14,10 +14,10 @@
 
 .CardbankContainer {
 	width: 15%;
-	border-right: #ffff7f 1px solid;
+	border-right: #ffbf7f 2px solid;
 }
 
 .AnnotationContainer {
 	width: 15%;
-	border-left: #ffff7f 1px solid;
+	border-left: #ffbf7f 2px solid;
 }

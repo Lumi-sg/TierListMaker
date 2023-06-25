@@ -1,9 +1,5 @@
-import React from 'react'
-
 const Annotation = () => {
-  return (
-    <div className='AnnotationContainer'></div>
-  )
-}
+	return <div className="AnnotationContainer"></div>;
+};
 
-export default Annotation
+export default Annotation;
