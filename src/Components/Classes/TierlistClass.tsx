@@ -28,6 +28,7 @@ export class Tierlist {
 
 	renderTierlist() {
 		const uniqueTiers = new Set(this.characters.map((character) => character.characterTier));
+		//this is hacky but hopefully temporary
 		const tierOrder = ["S", "A", "B", "C", "D"];
 
 		const tierListMap = new Map<string, Character[]>();
