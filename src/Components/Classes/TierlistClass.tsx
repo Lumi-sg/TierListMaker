@@ -30,6 +30,22 @@ export class Tierlist {
 		const uniqueTiers = new Set(this.characters.map((character) => character.characterTier));
 		const tierOrder = ["S", "A", "B", "C", "D"];
 
+		const tierListMap = new Map<string, Character[]>();
+
+		// initialize the tierListMap with empty arrays for each tier
+		tierOrder.forEach((tier) => {
+			tierListMap.set(tier, []);
+		});
+
+		// add characters to their respective tier arrays
+		this.characters.forEach((character) => {
+			const tier = character.characterTier;
+			if (tierListMap.has(tier)) {
+				const tierArray = tierListMap.get(tier);
+				tierArray?.push(character);
+			}
+		});
+
 		return (
 			<div className="TierlistContainer">
 				<div className="TopOfTierlistContainer">
@@ -37,6 +53,7 @@ export class Tierlist {
 						<img
 							className="listLogo"
 							src={this.listImage}
+							alt="List Logo"
 						/>
 					</div>
 					<div className="TierListTextInfo">
@@ -48,6 +65,7 @@ export class Tierlist {
 				<div className="TierList">
 					{tierOrder.map((characterTier) => {
 						if (uniqueTiers.has(characterTier)) {
+							const charactersInTier = tierListMap.get(characterTier);
 							return (
 								<div
 									key={characterTier}
@@ -57,19 +75,17 @@ export class Tierlist {
 										{characterTier}
 									</div>
 									<div className="characters">
-										{this.characters
-											.filter(
-												(character) =>
-													character.characterTier === characterTier
-											)
-											.map((character) => (
-												<div
-													className="characterCard"
-													key={character.name}
-												>
-													<img src={character.image}></img>
-												</div>
-											))}
+										{charactersInTier?.map((character) => (
+											<div
+												className="characterCard"
+												key={character.name}
+											>
+												<img
+													src={character.image}
+													alt={character.name}
+												/>
+											</div>
+										))}
 									</div>
 								</div>
 							);
