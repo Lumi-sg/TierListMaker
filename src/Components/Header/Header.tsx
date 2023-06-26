@@ -19,8 +19,8 @@ function Header() {
           <button><img className="searchIcon" src={searchIcon} alt="search"/></button>
         </div>
         <div className="buttons">
-          <button>Create Template</button>
-          <button>Categories</button>
+          <button>Templates</button>
+          <button>Your  Tierlists</button>
           <LOGIN/>
           </div>
         </div>

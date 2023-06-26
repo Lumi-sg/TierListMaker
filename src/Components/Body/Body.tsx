@@ -1,16 +1,14 @@
-import "./body.css"
-import Tierlist from "./components/Tierlist"
-import Cardbank from "./components/Cardbank"
-import Annotation from "./components/Annotation"
+import "./body.css";
+import Tierlist from "./components/Tierlist";
+import Cardbank from "./components/Cardbank";
 
 const Body = () => {
-  return (
-    <div className='BodyContainer'>
-        <Cardbank/>
-        <Tierlist/>
-        <Annotation/>
-    </div>
-  )
-}
+	return (
+		<div className="BodyContainer">
+			<Cardbank />
+			<Tierlist />
+		</div>
+	);
+};
 
-export default Body
+export default Body;

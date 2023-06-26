@@ -1,8 +1,8 @@
 import "../styles/tierlist.css";
-import { dummyTierlist } from "../../Tierlists/StreetFighter6";
+import { sf6Tierlist } from "../../Tierlists/StreetFighter6";
 
 const Tierlist = () => {
-	return <>{dummyTierlist.renderTierlist()}</>;
+	return <>{sf6Tierlist.renderTierlist()}</>;
 };
 
 export default Tierlist;

@@ -67,7 +67,7 @@ export class Tierlist {
 													className="characterCard"
 													key={character.name}
 												>
-													{character.name}
+													<img src={character.image}></img>
 												</div>
 											))}
 									</div>

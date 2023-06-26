@@ -8,16 +8,9 @@
 
 .TierlistContainer {
 	width: 70%;
-	/* border-left: #646cff 1px solid ;
-    border-right: #646cff 1px solid ; */
 }
 
 .CardbankContainer {
-	width: 15%;
+	width: 30%;
 	border-right: #383838 2px solid;
-}
-
-.AnnotationContainer {
-	width: 15%;
-	border-left: #383838 2px solid;
 }
