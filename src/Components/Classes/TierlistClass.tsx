@@ -1,59 +1,50 @@
+export enum TierName {
+	S = "S",
+	A = "A",
+	B = "B",
+	C = "C",
+	D = "D",
+}
+
 export type Character = {
 	name: string;
-	image: string;
-	characterTier: string;
+	imageURL: string;
 	withinTierRank: number;
 };
 
+export type Tier = {
+	tierName: TierName;
+	characters: Character[];
+};
 export class Tierlist {
 	name: string;
 	category: string;
 	description: string;
-	listImage: string;
-	characters: Character[];
+	logoImageURL: string;
+	tiers: Tier[];
 
 	constructor(
 		name: string,
 		category: string,
 		description: string,
-		listImage: string,
-		characters: Character[]
+		logoImageURL: string,
+		tiers: Tier[]
 	) {
 		this.name = name;
 		this.category = category;
 		this.description = description;
-		this.listImage = listImage;
-		this.characters = characters;
+		this.logoImageURL = logoImageURL;
+		this.tiers = tiers;
 	}
 
 	renderTierlist() {
-		const uniqueTiers = new Set(this.characters.map((character) => character.characterTier));
-		//this is hacky but hopefully temporary
-		const tierOrder = ["S", "A", "B", "C", "D"];
-
-		const tierListMap = new Map<string, Character[]>();
-
-		// initialize the tierListMap with empty arrays for each tier
-		tierOrder.forEach((tier) => {
-			tierListMap.set(tier, []);
-		});
-
-		// add characters to their respective tier arrays
-		this.characters.forEach((character) => {
-			const tier = character.characterTier;
-			if (tierListMap.has(tier)) {
-				const tierArray = tierListMap.get(tier);
-				tierArray?.push(character);
-			}
-		});
-
 		return (
 			<div className="TierlistContainer">
 				<div className="TopOfTierlistContainer">
 					<div className="listLogoContainer">
 						<img
 							className="listLogo"
-							src={this.listImage}
+							src={this.logoImageURL}
 							alt="List Logo"
 						/>
 					</div>
@@ -64,35 +55,27 @@ export class Tierlist {
 				</div>
 
 				<div className="TierList">
-					{tierOrder.map((characterTier) => {
-						if (uniqueTiers.has(characterTier)) {
-							const charactersInTier = tierListMap.get(characterTier);
-							return (
-								<div
-									key={characterTier}
-									className={`tier-row ${characterTier}`}
-								>
-									<div className={`tier-name ${characterTier}-tier`}>
-										{characterTier}
+					{this.tiers.map((tier) => (
+						<div
+							key={tier.tierName}
+							className={`tier-row ${tier.tierName}`}
+						>
+							<div className={`tier-name ${tier.tierName}-tier`}>{tier.tierName}</div>
+							<div className="characters">
+								{tier.characters.map((character) => (
+									<div
+										className="characterCard"
+										key={character.name}
+									>
+										<img
+											src={character.imageURL}
+											alt={character.name}
+										/>
 									</div>
-									<div className="characters">
-										{charactersInTier?.map((character) => (
-											<div
-												className="characterCard"
-												key={character.name}
-											>
-												<img
-													src={character.image}
-													alt={character.name}
-												/>
-											</div>
-										))}
-									</div>
-								</div>
-							);
-						}
-						return null;
-					})}
+								))}
+							</div>
+						</div>
+					))}
 				</div>
 			</div>
 		);
