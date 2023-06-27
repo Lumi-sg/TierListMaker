@@ -3,11 +3,10 @@ import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { Tierlist } from "../../../Classes/TierlistClass";
 
 const Templates = () => {
-	const { setSelectedGame, setDisplayTemplates } = useUiNavigationStore();
+	const { setSelectedGame, setDisplayTemplates, setDisplayCardbank } = useUiNavigationStore();
 
 	const handleTemplateChoiceClick = (tierlist: Tierlist) => {
 		setSelectedGame(tierlist);
-		setDisplayTemplates(false);
 	};
 
 	return (

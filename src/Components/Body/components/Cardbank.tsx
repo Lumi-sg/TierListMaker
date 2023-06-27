@@ -1,7 +1,7 @@
 import React from "react";
 
 const Cardbank = () => {
-	return <div className="CardbankContainer"></div>;
+	return <div className="CardbankContainer">Cardbank</div>;
 };
 
 export default Cardbank;
