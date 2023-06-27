@@ -70,3 +70,37 @@
 .logoImage:hover {
 	cursor: pointer;
 }
+
+.loginContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	width: 12rem;
+	gap: 0.5rem;
+}
+
+.loginContainer > img {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	margin-left: 4rem;
+}
+
+.loginButton {
+	margin-left: auto;
+	width: 5rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	background-color: #262626;
+}
+.loginButtonOut {
+	margin-left: auto;
+	background-color: #262626;
+}
+
+.loginButton:hover {
+	background-color: #262626;
+}

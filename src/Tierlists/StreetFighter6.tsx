@@ -1,5 +1,5 @@
 import { Tierlist, Tier, TierName } from "../Classes/TierlistClass";
-import sf6Logo from "../../assets/Logos/Street_fighter_6_logo.webp";
+import sf6Logo from "../assets/Logos/Street_fighter_6_logo.webp";
 
 const sf6Tiers: Tier[] = [
 	{

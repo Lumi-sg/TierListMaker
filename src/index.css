@@ -21,13 +21,18 @@ button {
 	font-size: 1em;
 	font-weight: 500;
 	font-family: inherit;
-	background-color: #1a1a1a;
 	cursor: pointer;
 	transition: border-color 0.25s;
+	background-color: #262626;
 }
 button:hover {
 	border-color: #7fff7f;
 }
+button:not(.loginButton):hover {
+	border-color: #7fff7f;
+	background-color: #262626;
+}
+
 button:focus,
 button:focus-visible {
 	outline: 4px auto -webkit-focus-ring-color;
@@ -39,13 +44,10 @@ button:focus-visible {
 }
 
 .loginButton:hover {
-	border: 2px solid #7fff7f;
+	border: #ff6464 1px solid;
+	background-color: #262626;
 }
 
 .loginButtonOUT {
 	border: #ff6464 1px solid;
-}
-
-.loginButtonOUT:hover {
-	border: 2px solid #ff6464;
 }

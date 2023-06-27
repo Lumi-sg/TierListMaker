@@ -8,3 +8,7 @@
 .BodyContainer {
 	flex-grow: 1;
 }
+
+* {
+	box-sizing: border-box;
+}

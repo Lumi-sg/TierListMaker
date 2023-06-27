@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useUserStore } from "../../../Stores/userStore";
 import { auth, provider, signInWithPopup } from "../../../main";
 
 const LOGIN = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const { isLoggedIn, setIsLoggedIn, currentUserData, setCurrentUserData } = useUserStore();
 
 	const handleLogin = async () => {
 		if (!isLoggedIn) {
@@ -10,6 +10,7 @@ const LOGIN = () => {
 				const result = await signInWithPopup(auth, provider);
 				if (result) {
 					setIsLoggedIn(true);
+					setCurrentUserData(result.user);
 					return;
 				}
 			} catch (error) {
@@ -20,12 +21,22 @@ const LOGIN = () => {
 		setIsLoggedIn(false);
 	};
 	return (
-		<button
-			className={isLoggedIn ? "loginButtonOUT" : "loginButton"}
-			onClick={handleLogin}
-		>
-			{isLoggedIn ? "Logout" : "Login"}
-		</button>
+		<div className="loginContainer">
+			{isLoggedIn && (
+				<img
+					className="loginIcon"
+					src={currentUserData?.photoURL || ""}
+					alt="login"
+				/>
+			)}
+
+			<button
+				className={isLoggedIn ? "loginButton" : "loginButtonOUT"}
+				onClick={handleLogin}
+			>
+				{isLoggedIn ? "Logout" : "Login"}
+			</button>
+		</div>
 	);
 };
 
