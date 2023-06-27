@@ -16,11 +16,12 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 }
 
 .TemplateContainer > img {
-	height: 25%;
-	width: 50%;
+	height: 33%;
+	width: 60%;
 	border-bottom: 1px solid #383838;
 }
 

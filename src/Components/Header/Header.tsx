@@ -41,6 +41,7 @@ function Header() {
 				<div className="buttons">
 					<button onClick={handleTemplateClick}>Templates</button>
 					<button>Your Tierlists</button>
+					<button>Create a tierlist</button>
 					<LOGIN />
 				</div>
 			</div>
