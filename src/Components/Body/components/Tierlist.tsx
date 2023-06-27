@@ -1,8 +1,11 @@
 import "../styles/tierlist.css";
-import { sf6Tierlist } from "../../../Tierlists/StreetFighter6";
+
+import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 
 const Tierlist = () => {
-	return <>{sf6Tierlist.renderTierlist()}</>;
+	const { selectedGame } = useUiNavigationStore();
+
+	return <>{selectedGame && selectedGame.renderTierlist()}</>;
 };
 
 export default Tierlist;

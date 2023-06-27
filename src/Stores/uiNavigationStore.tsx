@@ -1,0 +1,16 @@
+import { create } from "zustand";
+import { Tierlist } from "../Classes/TierlistClass";
+
+type uiNavigationState = {
+	displayTemplates: boolean;
+	setDisplayTemplates: (value: boolean) => void;
+	selectedGame: Tierlist | null;
+	setSelectedGame: (game: Tierlist) => void;
+};
+
+export const useUiNavigationStore = create<uiNavigationState>()((set) => ({
+	selectedGame: null,
+	setSelectedGame: (game) => set({ selectedGame: game }),
+	displayTemplates: false,
+	setDisplayTemplates: (value) => set({ displayTemplates: value }),
+}));
