@@ -10,7 +10,20 @@
 	width: 70%;
 }
 
-.CardbankContainer {
+.TemplateContainer {
 	width: 30%;
 	border-right: #383838 2px solid;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.TemplateContainer > img {
+	height: 25%;
+	width: 50%;
+	border-bottom: 1px solid #383838;
+}
+
+.TemplateContainer > img:hover {
+	cursor: pointer;
 }

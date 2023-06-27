@@ -1,4 +1,3 @@
-import React from "react";
 import { TierlistArray } from "../../../Tierlists/TierlistArray";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { Tierlist } from "../../../Classes/TierlistClass";
@@ -12,14 +11,14 @@ const Templates = () => {
 	};
 
 	return (
-		<div className="TemplatesContainer">
+		<div className="TemplateContainer">
 			{TierlistArray.map((tierlist) => (
-				<button
+				<img
+					src={tierlist.logoImageURL}
+					className="TemplateLogo"
 					onClick={() => handleTemplateChoiceClick(tierlist)}
 					key={tierlist.name}
-				>
-					{tierlist.name}
-				</button>
+				></img>
 			))}
 		</div>
 	);

@@ -8,14 +8,10 @@ const Body = () => {
 	const { displayTemplates } = useUiNavigationStore();
 	return (
 		<div className="BodyContainer">
-			{displayTemplates ? (
+			<>
 				<Templates />
-			) : (
-				<>
-					<Cardbank />
-					<Tierlist />
-				</>
-			)}
+				<Tierlist />
+			</>
 		</div>
 	);
 };
