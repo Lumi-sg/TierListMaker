@@ -1,9 +1,19 @@
 export enum TierName {
+	SPlus = "S+",
 	S = "S",
+	SMinus = "S-",
+	APlus = "A+",
 	A = "A",
+	AMinus = "A-",
+	BPlus = "B+",
 	B = "B",
+	BMinus = "B-",
+	CPlus = "C+",
 	C = "C",
+	CMinus = "C-",
+	DPlus = "D+",
 	D = "D",
+	DMinus = "D-",
 }
 
 export type Character = {
