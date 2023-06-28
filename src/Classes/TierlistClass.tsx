@@ -89,7 +89,23 @@ export class Tierlist {
 							>
 								{tier.tierName}
 							</div>
-							<div className={`characters ${tier.tierName}`}>
+							<div
+								className={"characters"}
+								onDragOver={(event) => {
+									event.preventDefault();
+								}}
+								onDrop={(event) => {
+									event.preventDefault();
+									const characterURL = event.dataTransfer.getData("imageURL");
+									<div className="characterCard">
+										<img
+											src={characterURL}
+											alt={characterURL}
+										/>
+									</div>;
+									console.log(characterURL);
+								}}
+							>
 								{tier.characters.map((character) => (
 									<div
 										className="characterCard"
@@ -117,6 +133,9 @@ export class Tierlist {
 						tier.characters.map((character) => (
 							<img
 								draggable={true}
+								onDragStart={(event) => {
+									event.dataTransfer.setData("imageURL", character.imageURL);
+								}}
 								src={character.imageURL}
 								alt={character.name}
 								key={character.name}
