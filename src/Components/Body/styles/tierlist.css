@@ -26,7 +26,8 @@
 }
 
 .listLogo {
-	height: 10rem;
+	height: 12rem;
+	border: 1px solid #383838;
 }
 
 .TierListTextInfo {
