@@ -64,13 +64,6 @@ export class Tierlist {
 		return (
 			<div className="TierlistContainer">
 				<div className="TopOfTierlistContainer">
-					<div className="listLogoContainer">
-						<img
-							className="listLogo"
-							src={this.logoImageURL}
-							alt="List Logo"
-						/>
-					</div>
 					<div className="TierListTextInfo">
 						<h1>{this.name}</h1>
 						<p>{this.description}</p>
@@ -89,33 +82,13 @@ export class Tierlist {
 							>
 								{tier.tierName}
 							</div>
-							<div
-								className={"characters"}
-								onDragOver={(event) => {
-									event.preventDefault();
-								}}
-								onDrop={(event) => {
-									event.preventDefault();
-									const characterURL = event.dataTransfer.getData("imageURL");
-									<div className="characterCard">
-										<img
-											src={characterURL}
-											alt={characterURL}
-										/>
-									</div>;
-									console.log(characterURL);
-								}}
-							>
+							<div className="characterImages">
 								{tier.characters.map((character) => (
-									<div
-										className="characterCard"
-										key={character.name}
-									>
-										<img
-											src={character.imageURL}
-											alt={character.name}
-										/>
-									</div>
+									<img
+										className="characterImage"
+										src={character.imageURL}
+										alt={character.name}
+									/>
 								))}
 							</div>
 						</div>
@@ -123,34 +96,5 @@ export class Tierlist {
 				</div>
 			</div>
 		);
-	}
-
-	renderCardBank() {
-		return (
-			<div className="CardbankContainer">
-				<div className="cardBankCharacters">
-					{this.tiers.map((tier) =>
-						tier.characters.map((character) => (
-							<img
-								draggable={true}
-								onDragStart={(event) => {
-									event.dataTransfer.setData("imageURL", character.imageURL);
-								}}
-								src={character.imageURL}
-								alt={character.name}
-								key={character.name}
-							/>
-						))
-					)}
-				</div>
-			</div>
-		);
-	}
-
-	emptyTierListDOM() {
-		const characterCard = document.querySelectorAll(".characterCard");
-		characterCard.forEach((characterCard) => {
-			characterCard.remove();
-		});
 	}
 }

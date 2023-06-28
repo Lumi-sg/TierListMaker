@@ -2,10 +2,10 @@ import "../styles/tierlist.css";
 
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 
-const Tierlist = () => {
+const PremadeTierlist = () => {
 	const { selectedGame } = useUiNavigationStore();
 
 	return <>{selectedGame && selectedGame.renderTierlist()}</>;
 };
 
-export default Tierlist;
+export default PremadeTierlist;

@@ -8,6 +8,10 @@ type uiNavigationState = {
 	setDisplayCardbank: (value: boolean) => void;
 	selectedGame: Tierlist | null;
 	setSelectedGame: (game: Tierlist) => void;
+	createMode: boolean;
+	setCreateMode: (value: boolean) => void;
+	displayPremades: boolean;
+	setDisplayPremades: (value: boolean) => void;
 };
 
 export const useUiNavigationStore = create<uiNavigationState>()((set) => ({
@@ -17,4 +21,8 @@ export const useUiNavigationStore = create<uiNavigationState>()((set) => ({
 	setDisplayTemplates: (value) => set({ displayTemplates: value }),
 	displayCardbank: false,
 	setDisplayCardbank: (value) => set({ displayCardbank: value }),
+	createMode: false,
+	setCreateMode: (value) => set({ createMode: value }),
+	displayPremades: false,
+	setDisplayPremades: (value) => set({ displayPremades: value }),
 }));

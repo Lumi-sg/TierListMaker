@@ -1,7 +1,14 @@
 .TierlistContainer {
 	display: flex;
 	flex-direction: column;
-	align-items: left;
+	justify-content: center;
+	align-items: center;
+}
+
+.TopOfTierlistContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 .TierListTextInfo {
@@ -10,7 +17,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-top: 5rem;
+	margin-top: 1rem;
 }
 
 .TierListTextInfo > h1 {
@@ -23,67 +30,42 @@
 .TierListTextInfo > p {
 	font-size: 1.25rem;
 }
+
 .TierList {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	width: 67.5%;
-	height: 65%;
+	width: 60%;
 	border: 2px solid #383838;
 	background-color: #141412;
 	border-bottom: none;
-	margin-bottom: 0.25rem;
-	margin-left: 0.25rem;
 }
 
 .tier-row {
-	font-size: x-large;
-	width: 100%;
-	height: 20%;
 	border-bottom: #383838 2px solid;
 	display: flex;
 	flex-direction: row;
-}
-
-.characters {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+	flex-wrap: wrap; /* Wrap items to a new line */
 	width: 100%;
-}
-.characterCard {
-	height: 100%;
-	width: 12.5%;
-}
-.characterCard > img {
-	height: 100%;
-	width: 100%;
-}
-
-.tier-name {
-	border-right: #383838 2px solid;
-	width: 15%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	font-size: 1.5rem;
 	color: black;
 }
 
-.TopOfTierlistContainer {
+.tier-name {
+	width: 7rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.characterImage {
+	width: 7rem;
+	height: 7rem;
+	display: flex;
+	justify-content: flex-start;
+	flex-shrink: 0; /* Prevent image from shrinking to fit */
+}
+.characterImages {
 	display: flex;
 	flex-direction: row;
-	justify-content: left;
-	height: 35%;
-}
-
-.listLogoContainer {
-	max-width: 25%;
-	max-height: 100%;
-	margin-right: 2rem;
-	margin-left: 1rem;
-}
-
-.listLogo {
-	width: 100%;
-	height: 100%;
 }

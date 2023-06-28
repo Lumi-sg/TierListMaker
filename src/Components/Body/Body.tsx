@@ -1,20 +1,16 @@
 import "./body.css";
-import Tierlist from "./components/Tierlist";
-import Cardbank from "./components/Cardbank";
+import PremadeTierlist from "./components/PremadeTierlist";
+
 import Templates from "./components/Templates";
 import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
-import { useEffect } from "react";
 
 const Body = () => {
-	const { displayTemplates, displayCardbank } = useUiNavigationStore();
+	const { displayTemplates, displayPremades } = useUiNavigationStore();
 
 	return (
 		<div className="BodyContainer">
-			<>
-				{displayTemplates && !displayCardbank && <Templates />}
-				{!displayTemplates && displayCardbank && <Cardbank />}
-				<Tierlist />
-			</>
+			<>{displayTemplates && <Templates />}</>
+			<>{displayPremades && <PremadeTierlist />}</>
 		</div>
 	);
 };

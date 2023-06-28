@@ -1,28 +1,31 @@
+import "../styles/Templates.css";
 import { TierlistArray } from "../../../Tierlists/TierlistArray";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { Tierlist } from "../../../Classes/TierlistClass";
 
 const Templates = () => {
-	const { setSelectedGame, setDisplayTemplates, setDisplayCardbank } = useUiNavigationStore();
+	const { setSelectedGame, createMode, setDisplayPremades, setDisplayTemplates } =
+		useUiNavigationStore();
 
 	const handleTemplateChoiceClick = (tierlist: Tierlist) => {
-		setSelectedGame(tierlist);
+		if (!createMode) {
+			setDisplayTemplates(false);
+			setSelectedGame(tierlist);
+			setDisplayPremades(true);
+		}
 	};
 
 	return (
-		<>
-			<div className="TemplateContainer">
-				{TierlistArray.map((tierlist) => (
-					<img
-						src={tierlist.logoImageURL}
-						className="TemplateLogo"
-						onClick={() => handleTemplateChoiceClick(tierlist)}
-						key={tierlist.name}
-					></img>
-				))}
-
-			</div>
-		</>
+		<div className="PremadeLists">
+			{TierlistArray.map((tierlist) => (
+				<img
+					src={tierlist.logoImageURL}
+					className="TemplateLogo"
+					onClick={() => handleTemplateChoiceClick(tierlist)}
+					key={tierlist.name}
+				></img>
+			))}
+		</div>
 	);
 };
 
