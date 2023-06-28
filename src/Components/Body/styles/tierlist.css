@@ -69,30 +69,6 @@
 	color: black;
 }
 
-.S-tier {
-	background-color: #ff7f7f;
-}
-
-.A-tier {
-	background-color: #ffbf7f;
-}
-
-.B-tier {
-	background-color: #ffdf7f;
-}
-
-.C-tier {
-	background-color: #bfff7f;
-}
-
-.D-tier {
-	background-color: #7fff7f;
-}
-
-.tier-row.D {
-	/* border-bottom: none; */
-}
-
 .TopOfTierlistContainer {
 	display: flex;
 	flex-direction: row;

@@ -4,7 +4,7 @@ import searchIcon from "../../assets/magGlass.png";
 import LOGIN from "./components/LOGIN";
 import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
 function Header() {
-	const { setDisplayTemplates } = useUiNavigationStore();
+	const { setDisplayTemplates, setDisplayCardbank, selectedGame } = useUiNavigationStore();
 
 	const handlePictureClick = () => {
 		window.location.href = "http://127.0.0.1:5173/TierListMaker";
@@ -12,6 +12,12 @@ function Header() {
 
 	const handleTemplateClick = () => {
 		setDisplayTemplates(true);
+	};
+
+	const handleRemixClick = () => {
+		setDisplayTemplates(false);
+		setDisplayCardbank(true);
+		selectedGame?.emptyTierListDOM();
 	};
 
 	return (
@@ -40,8 +46,9 @@ function Header() {
 				</div>
 				<div className="buttons">
 					<button onClick={handleTemplateClick}>Templates</button>
+					<button onClick={handleRemixClick}>Remix tierlist</button>
 					<button>Your Tierlists</button>
-					<button>Create a tierlist</button>
+
 					<LOGIN />
 				</div>
 			</div>

@@ -10,16 +10,19 @@ const Templates = () => {
 	};
 
 	return (
-		<div className="TemplateContainer">
-			{TierlistArray.map((tierlist) => (
-				<img
-					src={tierlist.logoImageURL}
-					className="TemplateLogo"
-					onClick={() => handleTemplateChoiceClick(tierlist)}
-					key={tierlist.name}
-				></img>
-			))}
-		</div>
+		<>
+			<div className="TemplateContainer">
+				{TierlistArray.map((tierlist) => (
+					<img
+						src={tierlist.logoImageURL}
+						className="TemplateLogo"
+						onClick={() => handleTemplateChoiceClick(tierlist)}
+						key={tierlist.name}
+					></img>
+				))}
+
+			</div>
+		</>
 	);
 };
 

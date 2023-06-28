@@ -16,6 +16,19 @@ export enum TierName {
 	DMinus = "D-",
 }
 
+const tierColors: string[] = [
+	"#ff7f7f",
+	"#ffbf7f",
+	"#ffdf7f",
+	"#bfff7f",
+	"#7fff7f",
+	"#7fffff",
+	"#7fbfff",
+	"#7f7fff",
+	"#ff7fff",
+	"#bf7fbf",
+];
+
 export type Character = {
 	name: string;
 	imageURL: string;
@@ -65,13 +78,18 @@ export class Tierlist {
 				</div>
 
 				<div className="TierList">
-					{this.tiers.map((tier) => (
+					{this.tiers.map((tier, index) => (
 						<div
 							key={tier.tierName}
 							className={`tier-row ${tier.tierName}`}
 						>
-							<div className={`tier-name ${tier.tierName}-tier`}>{tier.tierName}</div>
-							<div className="characters">
+							<div
+								className={`tier-name ${tier.tierName}-tier`}
+								style={{ backgroundColor: tierColors[index] }}
+							>
+								{tier.tierName}
+							</div>
+							<div className={`characters ${tier.tierName}`}>
 								{tier.characters.map((character) => (
 									<div
 										className="characterCard"
@@ -89,5 +107,31 @@ export class Tierlist {
 				</div>
 			</div>
 		);
+	}
+
+	renderCardBank() {
+		return (
+			<div className="CardbankContainer">
+				<div className="cardBankCharacters">
+					{this.tiers.map((tier) =>
+						tier.characters.map((character) => (
+							<img
+								draggable={true}
+								src={character.imageURL}
+								alt={character.name}
+								key={character.name}
+							/>
+						))
+					)}
+				</div>
+			</div>
+		);
+	}
+
+	emptyTierListDOM() {
+		const characterCard = document.querySelectorAll(".characterCard");
+		characterCard.forEach((characterCard) => {
+			characterCard.remove();
+		});
 	}
 }

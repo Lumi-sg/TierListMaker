@@ -11,7 +11,7 @@
 }
 
 .TemplateContainer {
-	width: 30%;
+	width: 20%;
 	border-right: #383838 2px solid;
 	display: flex;
 	flex-direction: column;
@@ -20,8 +20,8 @@
 }
 
 .TemplateContainer > img {
-
-	width: 35%;
+	width: 50%;
+	height: 20%;
 	border-bottom: 1px solid #383838;
 }
 
@@ -30,10 +30,19 @@
 }
 
 .CardbankContainer {
-	width: 30%;
+	width: 20%;
 	border-right: #383838 2px solid;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-end;
+	margin-bottom: 1rem;
+}
+
+.cardBankCharacters > img {
+	width: 20%;
+}
+
+.buttonContainer {
+	margin-top: 1rem;
 }

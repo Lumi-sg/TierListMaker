@@ -1,7 +1,8 @@
-import React from "react";
+import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 
 const Cardbank = () => {
-	return <div className="CardbankContainer">Cardbank</div>;
+	const { selectedGame } = useUiNavigationStore();
+	return <>{selectedGame && selectedGame.renderCardBank()}</>;
 };
 
 export default Cardbank;
