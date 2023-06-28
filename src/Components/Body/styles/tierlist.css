@@ -1,4 +1,5 @@
 .TierlistContainer {
+	margin-top: 4rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -35,20 +36,18 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	width: 60%;
+	max-width: 77.5%;
 	border: 2px solid #383838;
 	background-color: #141412;
 	border-bottom: none;
+	margin-bottom: 1rem;
 }
 
 .tier-row {
 	border-bottom: #383838 2px solid;
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap; /* Wrap items to a new line */
+	flex-wrap: wrap;
 	width: 100%;
-	font-size: 1.5rem;
-	color: black;
 }
 
 .tier-name {
@@ -56,6 +55,16 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	color: black;
+	font-size: 1.5rem;
+	flex-shrink: 0;
+	box-shadow: inset 0 0 0 1px #000000;
+}
+
+.characterImages {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 .characterImage {
@@ -63,9 +72,11 @@
 	height: 7rem;
 	display: flex;
 	justify-content: flex-start;
-	flex-shrink: 0; /* Prevent image from shrinking to fit */
+	flex-shrink: 0;
 }
-.characterImages {
+
+.rowContainer {
 	display: flex;
 	flex-direction: row;
+	width: 100%;
 }

@@ -7,6 +7,8 @@
 	background-color: #101010;
 	width: 100%;
 	border-bottom: #7fff7f 2px solid;
+	position: fixed;
+	top: 0;
 }
 
 .headerSubContainer {

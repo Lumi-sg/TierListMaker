@@ -72,24 +72,26 @@ export class Tierlist {
 
 				<div className="TierList">
 					{this.tiers.map((tier, index) => (
-						<div
-							key={tier.tierName}
-							className={`tier-row ${tier.tierName}`}
-						>
+						<div className="rowContainer">
 							<div
 								className={`tier-name ${tier.tierName}-tier`}
 								style={{ backgroundColor: tierColors[index] }}
 							>
 								{tier.tierName}
 							</div>
-							<div className="characterImages">
-								{tier.characters.map((character) => (
-									<img
-										className="characterImage"
-										src={character.imageURL}
-										alt={character.name}
-									/>
-								))}
+							<div
+								key={tier.tierName}
+								className={`tier-row ${tier.tierName}`}
+							>
+								<div className="characterImages">
+									{tier.characters.map((character) => (
+										<img
+											className="characterImage"
+											src={character.imageURL}
+											alt={character.name}
+										/>
+									))}
+								</div>
 							</div>
 						</div>
 					))}
