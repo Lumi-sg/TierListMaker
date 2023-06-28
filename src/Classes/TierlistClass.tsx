@@ -64,6 +64,13 @@ export class Tierlist {
 		return (
 			<div className="TierlistContainer">
 				<div className="TopOfTierlistContainer">
+					<div className="listLogoContainer">
+						<img
+							className="listLogo"
+							src={this.logoImageURL}
+							alt="List Logo"
+						/>
+					</div>
 					<div className="TierListTextInfo">
 						<h1>{this.name}</h1>
 						<p>{this.description}</p>

@@ -10,11 +10,28 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+	align-items: center;
+	margin-top: 1rem;
+	width: 70%;
+	gap: 2rem;
+	background-color: #141412;
+	border-radius: 10px;
+	border: 2px solid #383838;
+	margin-bottom: 1rem;
+}
+.listLogoContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+}
+
+.listLogo {
+	height: 10rem;
 }
 
 .TierListTextInfo {
 	width: 50%;
-	margin-bottom: 5rem;
+	margin-bottom: 3rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
