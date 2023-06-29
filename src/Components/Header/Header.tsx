@@ -3,8 +3,11 @@ import logoImage from "../../assets/tiermaker-logo.png";
 import searchIcon from "../../assets/magGlass.png";
 import LOGIN from "./components/LOGIN";
 import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
+
 function Header() {
 	const { setDisplayTemplates, setDisplayPremades, setCreateMode } = useUiNavigationStore();
+
+	// const { setDisplayCreateTierlist } = useTierListStore();
 
 	const handlePictureClick = () => {
 		window.location.href = "http://127.0.0.1:5173/TierListMaker";

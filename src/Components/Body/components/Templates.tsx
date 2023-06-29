@@ -21,12 +21,12 @@ const Templates = () => {
 			setSelectedGame(tierlist);
 			setCurrentTierlist(tierlist);
 			setDisplayPremades(true);
+			setDisplayCreateTierlist(false);
 		} else if (createMode) {
 			setDisplayPremades(false);
 			setDisplayTemplates(false);
 			setDisplayCreateTierlist(true);
 			setSelectedGame(tierlist);
-			console.table(tierlist);
 		}
 	};
 
