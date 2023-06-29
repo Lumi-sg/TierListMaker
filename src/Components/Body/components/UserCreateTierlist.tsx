@@ -41,7 +41,26 @@ const UserCreateTierlist = () => {
 		console.log(`drag started: ${character.name}`);
 	};
 
-	const handleCardBankDrop = (event: React.DragEvent<HTMLDivElement>, tierName: string) => {
+	const handleTierlistDrag = (
+		event: React.DragEvent<HTMLDivElement>,
+		character: Character,
+		tierName: string
+	) => {
+		event.dataTransfer.setData("text/plain", JSON.stringify(character));
+		console.log(`drag started: ${character.name}`);
+		const updatedTierList = currentTierlist;
+		updatedTierList!.tiers.forEach((tier) => {
+			if (tier.tierName === tierName) {
+				tier.characters.splice(tier.characters.indexOf(character), 1);
+				console.log("removed from tierlist");
+			}
+		});
+	};
+
+	const handleCardBankDropOntoTierlist = (
+		event: React.DragEvent<HTMLDivElement>,
+		tierName: string
+	) => {
 		event.preventDefault();
 		const characterData = event.dataTransfer.getData("text/plain");
 		const character = JSON.parse(characterData) as Character;
@@ -75,8 +94,6 @@ const UserCreateTierlist = () => {
 		extractCharactersFromTierlist(selectedGame);
 		setCurrentTierlist(newEmptyTierList!);
 	}, []);
-
-	useEffect(() => {}, [tierlistCharacterBank, currentTierlist]);
 	return (
 		<>
 			<div className="TierlistContainer">
@@ -116,7 +133,7 @@ const UserCreateTierlist = () => {
 										<div
 											className={`tier-row ${tier.tierName}`}
 											onDrop={(event: React.DragEvent<HTMLDivElement>) =>
-												handleCardBankDrop(event, tier.tierName)
+												handleCardBankDropOntoTierlist(event, tier.tierName)
 											}
 											onDragOver={handleDragOver}
 										>
@@ -126,6 +143,14 @@ const UserCreateTierlist = () => {
 														className="characterImage"
 														src={character.imageURL}
 														alt={character.name}
+														draggable={true}
+														onDragStart={(event) =>
+															handleTierlistDrag(
+																event,
+																character,
+																tier.tierName
+															)
+														}
 													/>
 												))}
 											</div>
