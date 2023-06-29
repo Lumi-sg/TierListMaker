@@ -4,14 +4,25 @@ import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { Tierlist } from "../../../Classes/TierlistClass";
 
 const Templates = () => {
-	const { setSelectedGame, createMode, setDisplayPremades, setDisplayTemplates } =
-		useUiNavigationStore();
+	const {
+		setSelectedGame,
+		createMode,
+		setDisplayPremades,
+		setDisplayTemplates,
+		setDisplayCreateTierlist,
+	} = useUiNavigationStore();
 
 	const handleTemplateChoiceClick = (tierlist: Tierlist) => {
 		if (!createMode) {
 			setDisplayTemplates(false);
 			setSelectedGame(tierlist);
 			setDisplayPremades(true);
+		} else if (createMode) {
+			setDisplayPremades(false);
+			setDisplayTemplates(false);
+			setDisplayCreateTierlist(true);
+			setSelectedGame(tierlist);
+			console.table(tierlist);
 		}
 	};
 

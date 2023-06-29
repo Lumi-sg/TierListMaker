@@ -16,7 +16,7 @@ export enum TierName {
 	DMinus = "D-",
 }
 
-const tierColors: string[] = [
+export const tierColors: string[] = [
 	"#ff7f7f",
 	"#ffbf7f",
 	"#ffdf7f",

@@ -4,7 +4,7 @@ import searchIcon from "../../assets/magGlass.png";
 import LOGIN from "./components/LOGIN";
 import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
 function Header() {
-	const { setDisplayTemplates, setDisplayPremades } = useUiNavigationStore();
+	const { setDisplayTemplates, setDisplayPremades, setCreateMode } = useUiNavigationStore();
 
 	const handlePictureClick = () => {
 		window.location.href = "http://127.0.0.1:5173/TierListMaker";
@@ -13,11 +13,13 @@ function Header() {
 	const handlePremadesClick = () => {
 		setDisplayPremades(false);
 		setDisplayTemplates(true);
+		setCreateMode(false);
 	};
 
 	const handleCreateClick = () => {
 		setDisplayPremades(false);
 		setDisplayTemplates(true);
+		setCreateMode(true);
 	};
 
 	return (
