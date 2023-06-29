@@ -41,12 +41,22 @@ const UserCreateTierlist = () => {
 		console.log(`drag started: ${character.name}`);
 	};
 
-	const handleCardBankDrop = (event: React.DragEvent<HTMLImageElement>) => {
+	const handleCardBankDrop = (event: React.DragEvent<HTMLDivElement>, tierName: string) => {
 		event.preventDefault();
 		const characterData = event.dataTransfer.getData("text/plain");
 		const character = JSON.parse(characterData) as Character;
 		console.log(`dropped: ${character.name}`);
 		removeCharFromBank();
+
+		const updatedTierlist = currentTierlist;
+		updatedTierlist!.tiers.forEach((tier) => {
+			if (tier.tierName === tierName) {
+				console.log(`found tier: ${tierName}`);
+				tier.characters.push(character);
+			}
+		});
+		setCurrentTierlist(updatedTierlist!);
+		console.table(updatedTierlist);
 
 		function removeCharFromBank() {
 			const updatedCharacterBank = tierlistCharacterBank.filter(
@@ -66,7 +76,7 @@ const UserCreateTierlist = () => {
 		setCurrentTierlist(newEmptyTierList!);
 	}, []);
 
-	useEffect(() => {}, [tierlistCharacterBank]);
+	useEffect(() => {}, [tierlistCharacterBank, currentTierlist]);
 	return (
 		<>
 			<div className="TierlistContainer">
@@ -105,9 +115,21 @@ const UserCreateTierlist = () => {
 										</div>
 										<div
 											className={`tier-row ${tier.tierName}`}
-											onDrop={handleCardBankDrop}
+											onDrop={(event: React.DragEvent<HTMLDivElement>) =>
+												handleCardBankDrop(event, tier.tierName)
+											}
 											onDragOver={handleDragOver}
-										></div>
+										>
+											<div className="characterImages">
+												{tier.characters.map((character) => (
+													<img
+														className="characterImage"
+														src={character.imageURL}
+														alt={character.name}
+													/>
+												))}
+											</div>
+										</div>
 									</div>
 								);
 							})}
