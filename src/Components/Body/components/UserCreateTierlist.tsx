@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useTierListStore } from "../../../Stores/tierListStore";
 import { Tierlist, Tier, tierColors, Character } from "../../../Classes/TierlistClass";
+import html2canvas from "html2canvas";
 
 const UserCreateTierlist = () => {
 	const { selectedGame } = useUiNavigationStore();
 	const { currentTierlist, setCurrentTierlist, tierlistCharacterBank, setTierlistCharacterBank } =
 		useTierListStore();
+	const tierlistRef = useRef<HTMLDivElement>(null);
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
 			console.log("tierlist is null");
@@ -75,7 +77,6 @@ const UserCreateTierlist = () => {
 			}
 		});
 		setCurrentTierlist(updatedTierlist!);
-		console.table(updatedTierlist);
 
 		function removeCharFromBank() {
 			const updatedCharacterBank = tierlistCharacterBank.filter(
@@ -87,6 +88,23 @@ const UserCreateTierlist = () => {
 
 	const handleDragOver = (event: React.DragEvent<HTMLImageElement>) => {
 		event.preventDefault();
+	};
+
+	const handleDownloadClick = () => {
+		const tierlistDomElement = document.querySelector(".TierList") as HTMLElement;
+		if (!tierlistDomElement) {
+			console.log("tierlistDomElement is null");
+			return;
+		}
+		html2canvas(tierlistDomElement).then((canvas) => {
+			const link = document.createElement("a");
+			link.href = canvas.toDataURL("image/png"); // Set the canvas data URL as the link's source
+			link.download = "tierlist.png"; // Specify the download filename
+
+			// Programmatically trigger the download
+			link.click();
+			console.log(canvas);
+		});
 	};
 
 	useEffect(() => {
@@ -112,8 +130,21 @@ const UserCreateTierlist = () => {
 								<p>{currentTierlist.description}</p>
 							</div>
 						</div>
-
-						<div className="TierList">
+						<div className="tierlistButtonContainer">
+							{" "}
+							<button className="tierListButton">Save Tierlist</button>
+							<button className="tierListButton">Reset Tierlist</button>
+							<button
+								className="tierListButton"
+								onClick={handleDownloadClick}
+							>
+								Download Tierlist
+							</button>
+						</div>
+						<div
+							className="TierList"
+							ref={tierlistRef}
+						>
 							{currentTierlist.tiers.map((tier, index) => {
 								if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
 									return null; // Skip the iteration

@@ -115,3 +115,15 @@
 	height: 5rem;
 	width: 5rem;
 }
+
+.tierlistButtonContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 35%;
+}
+.tierListButton {
+	margin: 0.5rem;
+	width: 11rem;
+	height: 3rem;
+}
