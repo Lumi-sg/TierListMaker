@@ -10,8 +10,8 @@ const Body = () => {
 	return (
 		<div className="BodyContainer">
 			<>{displayTemplates && <Templates />}</>
-			<>{displayPremades && <PremadeTierlist />}</>
-			<>{displayCreateTierlist && <UserCreateTierlist />}</>
+			<>{displayPremades && !displayCreateTierlist && <PremadeTierlist />}</>
+			<>{displayCreateTierlist && !displayTemplates && <UserCreateTierlist />}</>
 		</div>
 	);
 };

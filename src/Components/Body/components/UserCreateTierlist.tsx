@@ -62,31 +62,37 @@ const UserCreateTierlist = () => {
 					</div>
 
 					<div className="TierList">
-						{currentTierlist.tiers.map((tier, index) => (
-							<div
-								className="rowContainer"
-								key={tier.tierName}
-							>
+						{currentTierlist.tiers.map((tier, index) => {
+							if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
+								return null; // Skip the iteration
+							}
+
+							return (
 								<div
-									className={`tier-name ${tier.tierName}-tier`}
-									style={{ backgroundColor: tierColors[index] }}
+									className="rowContainer"
+									key={tier.tierName}
 								>
-									{tier.tierName}
-								</div>
-								<div className={`tier-row ${tier.tierName}`}>
-									<div className="characterImages">
-										{tier.characters.map((character, characterIndex) => (
-											<img
-												className="characterImage"
-												key={characterIndex}
-												src={character.imageURL}
-												alt={character.name}
-											/>
-										))}
+									<div
+										className={`tier-name ${tier.tierName}-tier`}
+										style={{ backgroundColor: tierColors[index] }}
+									>
+										{tier.tierName}
+									</div>
+									<div className={`tier-row ${tier.tierName}`}>
+										<div className="characterImages">
+											{tier.characters.map((character, characterIndex) => (
+												<img
+													className="characterImage"
+													key={characterIndex}
+													src={character.imageURL}
+													alt={character.name}
+												/>
+											))}
+										</div>
 									</div>
 								</div>
-							</div>
-						))}
+							);
+						})}
 					</div>
 				</>
 			)}

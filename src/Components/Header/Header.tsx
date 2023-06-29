@@ -11,15 +11,15 @@ function Header() {
 	};
 
 	const handlePremadesClick = () => {
+		setCreateMode(false);
 		setDisplayPremades(false);
 		setDisplayTemplates(true);
-		setCreateMode(false);
 	};
 
 	const handleCreateClick = () => {
+		setCreateMode(true);
 		setDisplayPremades(false);
 		setDisplayTemplates(true);
-		setCreateMode(true);
 	};
 
 	return (
