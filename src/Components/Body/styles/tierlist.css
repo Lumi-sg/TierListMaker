@@ -101,3 +101,17 @@
 	flex-direction: row;
 	width: 100%;
 }
+.CharacterBank {
+	display: flex;
+	flex-wrap: wrap;
+	width: 80%;
+	margin: 1rem;
+	padding: 0.5rem;
+	background-color: #141412;
+	border-radius: 10px;
+	border: #383838 1px solid;
+}
+.characterImageBank {
+	height: 5rem;
+	width: 5rem;
+}

@@ -7,7 +7,11 @@ const UserCreateTierlist = () => {
 	const { selectedGame } = useUiNavigationStore();
 	const { currentTierlist, setCurrentTierlist, tierlistCharacterBank, setTierlistCharacterBank } =
 		useTierListStore();
-	const prepareForUserCreatedTierlist = (tierlist: any): Tierlist => {
+	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
+		if (!tierlist) {
+			console.log("tierlist is null");
+			return null;
+		}
 		//empty out the tiers
 		const emptyTiers: Tier[] = tierlist.tiers.map((tier: Tier) => ({
 			...tier,
@@ -32,10 +36,34 @@ const UserCreateTierlist = () => {
 		setTierlistCharacterBank(tempCharacterBank);
 	};
 
+	const handleCardBankDrag = (event: React.DragEvent<HTMLImageElement>, character: Character) => {
+		event.dataTransfer.setData("text/plain", JSON.stringify(character));
+		console.log(`drag started: ${character.name}`);
+	};
+
+	const handleCardBankDrop = (event: React.DragEvent<HTMLImageElement>) => {
+		event.preventDefault();
+		const characterData = event.dataTransfer.getData("text/plain");
+		const character = JSON.parse(characterData) as Character;
+		console.log(`dropped: ${character.name}`);
+		removeCharFromBank();
+
+		function removeCharFromBank() {
+			const updatedCharacterBank = tierlistCharacterBank.filter(
+				(draggedChar) => draggedChar.name !== character.name
+			);
+			setTierlistCharacterBank(updatedCharacterBank);
+		}
+	};
+
+	const handleDragOver = (event: React.DragEvent<HTMLImageElement>) => {
+		event.preventDefault();
+	};
+
 	useEffect(() => {
 		const newEmptyTierList = prepareForUserCreatedTierlist(selectedGame);
 		extractCharactersFromTierlist(selectedGame);
-		setCurrentTierlist(newEmptyTierList);
+		setCurrentTierlist(newEmptyTierList!);
 	}, []);
 
 	useEffect(() => {}, [tierlistCharacterBank]);
@@ -75,23 +103,30 @@ const UserCreateTierlist = () => {
 										>
 											{tier.tierName}
 										</div>
-										<div className={`tier-row ${tier.tierName}`}></div>
+										<div
+											className={`tier-row ${tier.tierName}`}
+											onDrop={handleCardBankDrop}
+											onDragOver={handleDragOver}
+										></div>
 									</div>
 								);
 							})}
 						</div>
 					</>
 				)}
-			</div>
-			<div className="CharacterBank">
-				{tierlistCharacterBank.map((character, index) => (
-					<img
-						className="characterImage"
-						key={index}
-						src={character.imageURL}
-						alt={character.name}
-					/>
-				))}
+				<div className="CharacterBank">
+					{tierlistCharacterBank.map((character, index) => (
+						<img
+							className="characterImageBank"
+							key={index}
+							src={character.imageURL}
+							alt={character.name}
+							draggable={true}
+							onDragStart={(event) => handleCardBankDrag(event, character)}
+							style={{ cursor: "grab" }}
+						/>
+					))}
+				</div>
 			</div>
 		</>
 	);
