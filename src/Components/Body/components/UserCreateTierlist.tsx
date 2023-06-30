@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useTierListStore } from "../../../Stores/tierListStore";
 import { Tierlist, Tier, tierColors, Character } from "../../../Classes/TierlistClass";
@@ -9,6 +9,8 @@ const UserCreateTierlist = () => {
 	const { currentTierlist, setCurrentTierlist, tierlistCharacterBank, setTierlistCharacterBank } =
 		useTierListStore();
 	const tierlistRef = useRef<HTMLDivElement>(null);
+	const [copiedTemplateCharacterBank, setcopiedTemplateCharacterBank] = useState<Character[]>([]);
+
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
 			console.log("tierlist is null");
@@ -35,6 +37,7 @@ const UserCreateTierlist = () => {
 				tempCharacterBank.push(character);
 			});
 		});
+		setcopiedTemplateCharacterBank(tempCharacterBank);
 		setTierlistCharacterBank(tempCharacterBank);
 	};
 
@@ -107,11 +110,22 @@ const UserCreateTierlist = () => {
 		});
 	};
 
+	const handleResetClick = () => {
+		const resetTierlist = selectedGame;
+		resetTierlist?.tiers.forEach((tier) => {
+			tier.characters = [];
+		});
+		setCurrentTierlist(resetTierlist!);
+		setTierlistCharacterBank(copiedTemplateCharacterBank);
+	};
+
 	useEffect(() => {
 		const newEmptyTierList = prepareForUserCreatedTierlist(selectedGame);
 		extractCharactersFromTierlist(selectedGame);
 		setCurrentTierlist(newEmptyTierList!);
+		console.log("useeffect ran");
 	}, []);
+
 	return (
 		<>
 			<div className="TierlistContainer">
@@ -133,7 +147,12 @@ const UserCreateTierlist = () => {
 						<div className="tierlistButtonContainer">
 							{" "}
 							<button className="tierListButton">Save Tierlist</button>
-							<button className="tierListButton">Reset Tierlist</button>
+							<button
+								className="tierListButton"
+								onClick={handleResetClick}
+							>
+								Reset Tierlist
+							</button>
 							<button
 								className="tierListButton"
 								onClick={handleDownloadClick}
