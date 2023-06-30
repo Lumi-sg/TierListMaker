@@ -142,8 +142,8 @@ const sf6Tiers: Tier[] = [
 ];
 
 export const sf6Tierlist = new Tierlist(
+	"",
 	"Street Fighter 6",
-	"Fighting Game",
 	"Street Fighter 6 is the latest entry in the franchise, featuring a cast of returning veterans reimagined and new characters joining the fight.",
 	sf6Logo,
 	sf6Tiers

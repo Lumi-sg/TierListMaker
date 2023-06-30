@@ -168,8 +168,8 @@ const templateStriveTiers: Tier[] = [
 ];
 
 export const templateStriveTierlist = new Tierlist(
+	"",
 	"Guilty Gear: Strive",
-	"Fighting Game",
 	"The cutting-edge 2D/3D hybrid graphics pioneered in the Guilty Gear series have been raised to the next level in “GUILTY GEAR -STRIVE.",
 	StriveLogo,
 	templateStriveTiers

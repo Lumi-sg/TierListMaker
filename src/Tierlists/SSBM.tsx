@@ -186,8 +186,8 @@ const templateSSBMTiers: Tier[] = [
 ];
 
 export const templateSSBMTierlist = new Tierlist(
+	"",
 	"Super Smash Bros. Melee",
-	"Fighting Game",
 	"The Second installment in the Super Smash Bros. series. It features characters from Nintendo video game franchises such as Mario, The Legend of Zelda, Star Fox and Pokémon, and Donkey Kong among others.",
 	ssbmLogo,
 	templateSSBMTiers

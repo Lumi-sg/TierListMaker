@@ -15,6 +15,7 @@ const UserCreateTierlist = () => {
 	const tierlistRef = useRef<HTMLDivElement>(null);
 	const [copiedTemplateCharacterBank, setcopiedTemplateCharacterBank] = useState<Character[]>([]);
 	const { isLoggedIn, currentUserData } = useUserStore();
+	const [tierlistName, setTierlistName] = useState("");
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -28,7 +29,7 @@ const UserCreateTierlist = () => {
 		}));
 		return new Tierlist(
 			tierlist.name,
-			tierlist.category,
+			tierlist.game,
 			tierlist.description,
 			tierlist.logoImageURL,
 			emptyTiers
@@ -128,7 +129,7 @@ const UserCreateTierlist = () => {
 		try {
 			const tierlistObject = {
 				name: currentTierlist!.name,
-				category: currentTierlist!.category,
+				game: currentTierlist!.game,
 				description: currentTierlist!.description,
 				logoImageURL: currentTierlist!.logoImageURL,
 				uniqueID: uuid(),
@@ -150,6 +151,16 @@ const UserCreateTierlist = () => {
 		}
 	};
 
+	const handleTierListNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setTierlistName(event.target.value);
+	};
+
+	useEffect(() => {
+		if (currentTierlist) {
+			currentTierlist.name = tierlistName;
+		}
+	}, [tierlistName]);
+
 	useEffect(() => {
 		const newEmptyTierList = prepareForUserCreatedTierlist(selectedGame);
 		extractCharactersFromTierlist(selectedGame);
@@ -170,16 +181,18 @@ const UserCreateTierlist = () => {
 								/>
 							</div>
 							<div className="TierListTextInfo">
-								<h1>{currentTierlist.name}</h1>
+								<h1>{currentTierlist.game}</h1>
 								<p>{currentTierlist.description}</p>
 							</div>
 						</div>
 						<div className="tierlistButtonContainer">
-							{" "}
+							<input
+								placeholder="Tierlist Name"
+								onChange={handleTierListNameChange}
+							></input>
 							<button
 								className="tierListButton"
 								onClick={handleSaveTierlistClick}
-								// style={{ borderColor: isLoggedIn ? "7fff7f" : "#ff6464" }}
 								disabled={!isLoggedIn}
 							>
 								Save Tierlist

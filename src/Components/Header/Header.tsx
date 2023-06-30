@@ -6,8 +6,14 @@ import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
 import { useUserStore } from "../../Stores/userStore";
 
 function Header() {
-	const { setDisplayTemplates, setDisplayPremades, setCreateMode, setDisplayYourTierlists } =
-		useUiNavigationStore();
+	const {
+		setDisplayTemplates,
+		setDisplayPremades,
+		setCreateMode,
+		setDisplayYourTierlists,
+		setDisplayCreateTierlist,
+		setDisplayingTierlist,
+	} = useUiNavigationStore();
 
 	const { isLoggedIn } = useUserStore();
 
@@ -16,22 +22,26 @@ function Header() {
 	};
 
 	const handlePremadesClick = () => {
+		setDisplayTemplates(true);
 		setCreateMode(false);
 		setDisplayPremades(false);
-		setDisplayTemplates(true);
+		setDisplayYourTierlists(false);
 	};
 
 	const handleCreateClick = () => {
 		setCreateMode(true);
 		setDisplayPremades(false);
 		setDisplayTemplates(true);
+		setDisplayYourTierlists(false);
 	};
 
 	const handleYourTierlistsClick = () => {
+		setDisplayYourTierlists(true);
+		setDisplayingTierlist(false);
 		setCreateMode(false);
 		setDisplayPremades(false);
 		setDisplayTemplates(false);
-		setDisplayYourTierlists(true);
+		setDisplayCreateTierlist(false);
 	};
 
 	return (
@@ -60,7 +70,12 @@ function Header() {
 				</div>
 				<div className="buttons">
 					<button onClick={handlePremadesClick}>Premades</button>
-					<button onClick={handleCreateClick}>Create Tierlist</button>
+					<button
+						onClick={handleCreateClick}
+						disabled={!isLoggedIn}
+					>
+						Create Tierlist
+					</button>
 					<button
 						onClick={handleYourTierlistsClick}
 						disabled={!isLoggedIn}

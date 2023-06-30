@@ -22,9 +22,6 @@ const LOGIN = () => {
 		setIsLoggedIn(false);
 	};
 
-	useEffect(() => {
-		console.table(currentUserData);
-	}, [currentUserData]);
 	return (
 		<div className="loginContainer">
 			{isLoggedIn && (

@@ -41,7 +41,7 @@ export type Tier = {
 };
 export class Tierlist {
 	name: string;
-	category: string;
+	game: string;
 	description: string;
 	logoImageURL: string;
 
@@ -50,14 +50,14 @@ export class Tierlist {
 
 	constructor(
 		name: string,
-		category: string,
+		game: string,
 		description: string,
 		logoImageURL: string,
 		tiers: Tier[],
 		uniqueId?: string
 	) {
 		this.name = name;
-		this.category = category;
+		this.game = game;
 		this.description = description;
 		this.logoImageURL = logoImageURL;
 		this.tiers = tiers;
@@ -76,7 +76,7 @@ export class Tierlist {
 						/>
 					</div>
 					<div className="TierListTextInfo">
-						<h1>{this.name}</h1>
+						<h1>{this.game}</h1>
 						<p>{this.description}</p>
 					</div>
 				</div>

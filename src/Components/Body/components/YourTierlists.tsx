@@ -3,10 +3,17 @@ import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { convertFirestoreDataToTierlist } from "../../../Helpers/convertFirestoreDataToTierlist";
+import { Tierlist } from "../../../Classes/TierlistClass";
+import "../styles/YourTierlists.css";
+import { tierColors } from "../../../Classes/TierlistClass";
+import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 
 const YourTierlists = () => {
 	const { currentUserData } = useUserStore();
 	const [tierlistData, setTierlistData] = useState<any[]>([]);
+	const { displayingTierlist, setDisplayingTierlist } = useUiNavigationStore();
+
+	const [tierlistToView, settierlistToView] = useState<Tierlist | null>(null);
 
 	const retrieveData = async () => {
 		try {
@@ -32,24 +39,102 @@ const YourTierlists = () => {
 		}
 	};
 
+	const handleViewTierlistClick = (uniqueId: string) => {
+		const viewingTierlist = tierlistData.find((item) => item.tierlist.uniqueId === uniqueId);
+		console.log(viewingTierlist);
+		if (viewingTierlist) {
+			settierlistToView(viewingTierlist.tierlist);
+			setDisplayingTierlist(true);
+		} else {
+			console.log("No tierlist found");
+		}
+	};
+
 	useEffect(() => {
+		setDisplayingTierlist(false);
 		retrieveData();
 	}, []);
-	//TODO ADD DELETE FUNCTION FOR EACH TIERLIST
-	return (
-		<div>
+
+	useEffect(() => {
+		console.table(tierlistToView);
+	}, [tierlistToView]);
+
+	return !displayingTierlist ? (
+		<div className="YourTierlists">
 			{tierlistData.map((item) => (
-				<div key={item.docId}>
-					<h2>Name: {item.tierlist.name}</h2>
+				<div
+					className="ListCard"
+					key={item.docId}
+				>
+					<div className="topOfListCard">
+						<h2 className="yourTierlistName">{item.tierlist.name}</h2>
+					</div>
+
 					<img
 						src={item.tierlist.logoImageURL}
 						alt="List Logo"
-						className="TemplateLogo"
+						className="yourTierListLogo"
 					></img>
-					<p>ID: {item.tierlist.uniqueId}</p>
+					<div className="bottomOfListCard">
+						<button
+							className="YourTierlistButton"
+							onClick={() => handleViewTierlistClick(item.tierlist.uniqueId)}
+						>
+							View
+						</button>
+						<button className="YourTierlistButton">Delete</button>
+					</div>
 				</div>
 			))}
 		</div>
+	) : (
+		tierlistToView && (
+			<div className="TierlistContainer">
+				<div className="TopOfTierlistContainer">
+					<div className="listLogoContainer">
+						<img
+							className="listLogo"
+							src={tierlistToView!.logoImageURL}
+							alt="List Logo"
+						/>
+					</div>
+					<div className="TierListTextInfo">
+						<h1>{tierlistToView.game}</h1>
+						<p>{tierlistToView.description}</p>
+					</div>
+				</div>
+				<div className="tierlistButtonContainer">
+					<button className="YourTierlistButton">Delete</button>
+				</div>
+				<div className="TierList">
+					{tierlistToView.tiers.map((tier, index) => (
+						<div className="rowContainer">
+							<div
+								className={`tier-name ${tier.tierName}-tier`}
+								style={{ backgroundColor: tierColors[index] }}
+								key={tier.tierName + index}
+							>
+								{tier.tierName}
+							</div>
+							<div
+								key={tier.tierName}
+								className={`tier-row ${tier.tierName}`}
+							>
+								<div className="characterImages">
+									{tier.characters.map((character) => (
+										<img
+											className="characterImage"
+											src={character.imageURL}
+											alt={character.name}
+										/>
+									))}
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		)
 	);
 };
 

@@ -14,7 +14,7 @@ const Body = () => {
 			<>{displayTemplates && <Templates />}</>
 			<>{displayPremades && !displayCreateTierlist && <PremadeTierlist />}</>
 			<>{displayCreateTierlist && !displayTemplates && <UserCreateTierlist />}</>
-			<>{displayYourTierlists && <YourTierlists />}</>
+			<>{displayYourTierlists && !displayCreateTierlist && <YourTierlists />}</>
 		</div>
 	);
 };

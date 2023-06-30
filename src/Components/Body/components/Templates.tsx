@@ -37,7 +37,7 @@ const Templates = () => {
 					src={tierlist.logoImageURL}
 					className="TemplateLogo"
 					onClick={() => handleTemplateChoiceClick(tierlist)}
-					key={tierlist.name}
+					key={tierlist.game}
 				></img>
 			))}
 		</div>
