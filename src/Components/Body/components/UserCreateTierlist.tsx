@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useTierListStore } from "../../../Stores/tierListStore";
 import { Tierlist, Tier, tierColors, Character } from "../../../Classes/TierlistClass";
-import html2canvas from "html2canvas";
 import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
 import { collection, addDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
+import html2canvas from "html2canvas";
 
 const UserCreateTierlist = () => {
 	const { selectedGame } = useUiNavigationStore();
@@ -32,7 +32,8 @@ const UserCreateTierlist = () => {
 			tierlist.game,
 			tierlist.description,
 			tierlist.logoImageURL,
-			emptyTiers
+			emptyTiers,
+			tierlist.dateCreated
 		);
 	};
 
@@ -126,6 +127,11 @@ const UserCreateTierlist = () => {
 	};
 
 	const handleSaveTierlistClick = async () => {
+		if (tierlistName === "") {
+			console.log("tierlist name is empty");
+			return;
+		}
+		setTierlistName("saving!");
 		try {
 			const tierlistObject = {
 				name: currentTierlist!.name,
@@ -137,6 +143,7 @@ const UserCreateTierlist = () => {
 					tierName: tier.tierName,
 					characters: tier.characters,
 				})),
+				dateCreated: new Date(),
 			};
 			const docRef = await addDoc(collection(firestoreDB, "tierlistData"), {
 				userID: currentUserData?.uid,
@@ -144,12 +151,14 @@ const UserCreateTierlist = () => {
 				displayName: currentUserData?.displayName,
 				email: currentUserData?.email,
 			});
+			setTierlistName("");
 			console.log("Document written with ID: ", docRef.id);
+			handleResetClick();
+
 			return docRef.id;
 		} catch (error) {
 			console.log("Error saving tierlist:", error);
 		}
-		setTierlistName("");
 	};
 
 	const handleTierListNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -190,6 +199,7 @@ const UserCreateTierlist = () => {
 							<input
 								placeholder="Tierlist Name"
 								onChange={handleTierListNameChange}
+								value={tierlistName}
 							></input>
 							<button
 								className="tierListButton"
@@ -200,15 +210,15 @@ const UserCreateTierlist = () => {
 							</button>
 							<button
 								className="tierListButton"
-								onClick={handleResetClick}
-							>
-								Reset Tierlist
-							</button>
-							<button
-								className="tierListButton"
 								onClick={handleDownloadClick}
 							>
 								Download Tierlist
+							</button>
+							<button
+								className="tierListButton"
+								onClick={handleResetClick}
+							>
+								Reset Tierlist
 							</button>
 						</div>
 						<div
@@ -239,9 +249,10 @@ const UserCreateTierlist = () => {
 											onDragOver={handleDragOver}
 										>
 											<div className="characterImages">
-												{tier.characters.map((character) => (
+												{tier.characters.map((character, index) => (
 													<img
 														className="characterImage"
+														key={index}
 														src={character.imageURL}
 														alt={character.name}
 														draggable={true}

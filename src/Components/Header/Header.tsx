@@ -55,7 +55,7 @@ function Header() {
 						onClick={handlePictureClick}
 					/>
 				</div>
-				<div className="search">
+				{/* <div className="search">
 					<input
 						type="text"
 						placeholder=""
@@ -67,7 +67,7 @@ function Header() {
 							alt="search"
 						/>
 					</button>
-				</div>
+				</div> */}
 				<div className="buttons">
 					<button onClick={handlePremadesClick}>Premades</button>
 					<button

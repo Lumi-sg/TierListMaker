@@ -172,5 +172,6 @@ export const templateStriveTierlist = new Tierlist(
 	"Guilty Gear: Strive",
 	"The cutting-edge 2D/3D hybrid graphics pioneered in the Guilty Gear series have been raised to the next level in “GUILTY GEAR -STRIVE.",
 	StriveLogo,
-	templateStriveTiers
+	templateStriveTiers,
+	new Date()
 );

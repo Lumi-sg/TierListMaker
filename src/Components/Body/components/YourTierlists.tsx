@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, deleteDoc } from "firebase/firestore";
 import { convertFirestoreDataToTierlist } from "../../../Helpers/convertFirestoreDataToTierlist";
 import { Tierlist } from "../../../Classes/TierlistClass";
 import "../styles/YourTierlists.css";
@@ -40,8 +40,8 @@ const YourTierlists = () => {
 	};
 
 	const handleViewTierlistClick = (uniqueId: string) => {
+		console.log("Viewing tierlist: ", uniqueId);
 		const viewingTierlist = tierlistData.find((item) => item.tierlist.uniqueId === uniqueId);
-		console.log(viewingTierlist);
 		if (viewingTierlist) {
 			settierlistToView(viewingTierlist.tierlist);
 			setDisplayingTierlist(true);
@@ -50,14 +50,33 @@ const YourTierlists = () => {
 		}
 	};
 
+	const handleDeleteClick = async (uniqueId: string | undefined) => {
+		if (!uniqueId) return; // Exit early if uniqueId is undefined
+
+		try {
+			setDisplayingTierlist(false);
+			const tierlistQuery = query(
+				collection(firestoreDB, "tierlistData"),
+				where("tierlist.uniqueID", "==", uniqueId)
+			);
+			const querySnapshot = await getDocs(tierlistQuery);
+
+			querySnapshot.forEach((doc) => {
+				deleteDoc(doc.ref);
+			});
+			console.log("Deleted tierlist: ", uniqueId);
+			retrieveData();
+		} catch (error) {
+			console.error("Error deleting document: ", error);
+		}
+	};
+
 	useEffect(() => {
 		setDisplayingTierlist(false);
 		retrieveData();
 	}, []);
 
-	useEffect(() => {
-		console.table(tierlistToView);
-	}, [tierlistToView]);
+	useEffect(() => {}, [tierlistData]);
 
 	return !displayingTierlist ? (
 		<div className="YourTierlists">
@@ -82,7 +101,12 @@ const YourTierlists = () => {
 						>
 							View
 						</button>
-						<button className="YourTierlistButton">Delete</button>
+						<button
+							className="YourTierlistButtonDelete"
+							onClick={() => handleDeleteClick(item.tierlist.uniqueId)}
+						>
+							Delete
+						</button>
 					</div>
 				</div>
 			))}
@@ -94,7 +118,7 @@ const YourTierlists = () => {
 					<div className="listLogoContainer">
 						<img
 							className="listLogo"
-							src={tierlistToView!.logoImageURL}
+							src={tierlistToView.logoImageURL}
 							alt="List Logo"
 						/>
 					</div>
@@ -104,11 +128,19 @@ const YourTierlists = () => {
 					</div>
 				</div>
 				<div className="tierlistButtonContainer">
-					<button className="YourTierlistButton">Delete</button>
+					<button
+						className="YourTierlistButtonDelete"
+						onClick={() => handleDeleteClick(tierlistToView.uniqueId)}
+					>
+						Delete
+					</button>
 				</div>
 				<div className="TierList">
 					{tierlistToView.tiers.map((tier, index) => (
-						<div className="rowContainer">
+						<div
+							className="rowContainer"
+							key={index}
+						>
 							<div
 								className={`tier-name ${tier.tierName}-tier`}
 								style={{ backgroundColor: tierColors[index] }}
@@ -126,6 +158,7 @@ const YourTierlists = () => {
 											className="characterImage"
 											src={character.imageURL}
 											alt={character.name}
+											key={character.name}
 										/>
 									))}
 								</div>

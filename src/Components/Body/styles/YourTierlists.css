@@ -2,6 +2,7 @@
 	display: flex;
 	align-self: flex-start;
 	justify-content: flex-start;
+	flex-wrap: wrap;
 	height: 100%;
 	width: 100%;
 	margin-top: 5rem;
@@ -42,4 +43,7 @@
 
 .YourTierlistButton {
 	margin: 0.5rem;
+}
+.YourTierlistButtonDelete:hover {
+	border: #ff6464 1px solid;
 }

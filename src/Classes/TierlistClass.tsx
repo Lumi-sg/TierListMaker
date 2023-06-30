@@ -44,8 +44,8 @@ export class Tierlist {
 	game: string;
 	description: string;
 	logoImageURL: string;
-
 	tiers: Tier[];
+	dateCreated: Date;
 	uniqueId?: string;
 
 	constructor(
@@ -54,6 +54,7 @@ export class Tierlist {
 		description: string,
 		logoImageURL: string,
 		tiers: Tier[],
+		dateCreated: Date,
 		uniqueId?: string
 	) {
 		this.name = name;
@@ -61,6 +62,7 @@ export class Tierlist {
 		this.description = description;
 		this.logoImageURL = logoImageURL;
 		this.tiers = tiers;
+		this.dateCreated = dateCreated;
 		this.uniqueId = uniqueId;
 	}
 
@@ -83,7 +85,10 @@ export class Tierlist {
 
 				<div className="TierList">
 					{this.tiers.map((tier, index) => (
-						<div className="rowContainer">
+						<div
+							className="rowContainer"
+							key={index}
+						>
 							<div
 								className={`tier-name ${tier.tierName}-tier`}
 								style={{ backgroundColor: tierColors[index] }}
@@ -100,6 +105,7 @@ export class Tierlist {
 											className="characterImage"
 											src={character.imageURL}
 											alt={character.name}
+											key={character.name}
 										/>
 									))}
 								</div>

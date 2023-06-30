@@ -28,10 +28,10 @@ button {
 button:hover {
 	border-color: #7fff7f;
 }
-button:not(.loginButton):hover {
+/* button:not(.loginButton):hover {
 	border-color: #7fff7f;
 	background-color: #262626;
-}
+} */
 
 button:focus,
 button:focus-visible {

@@ -266,5 +266,6 @@ export const templatePPlusTierlist = new Tierlist(
 	"Project +",
 	"Introducing Project +: The community-driven patch for Project M. Experience enhanced gameplay with balanced rosters and exciting new mechanics, taking your Project M experience to the next level.",
 	pPlusLogo,
-	templatePPlusTiers
+	templatePPlusTiers,
+	new Date()
 );
