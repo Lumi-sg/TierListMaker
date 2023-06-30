@@ -1,5 +1,3 @@
-import { uniqueId } from "lodash";
-
 export enum TierName {
 	SPlus = "S+",
 	S = "S",

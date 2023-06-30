@@ -3,7 +3,6 @@ import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { convertFirestoreDataToTierlist } from "../../../Helpers/convertFirestoreDataToTierlist";
-import { uniqueId } from "lodash";
 
 const YourTierlists = () => {
 	const { currentUserData } = useUserStore();
