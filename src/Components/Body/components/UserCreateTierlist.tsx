@@ -3,6 +3,9 @@ import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useTierListStore } from "../../../Stores/tierListStore";
 import { Tierlist, Tier, tierColors, Character } from "../../../Classes/TierlistClass";
 import html2canvas from "html2canvas";
+import { useUserStore } from "../../../Stores/userStore";
+import { firestoreDB } from "../../../main";
+import { collection, addDoc } from "firebase/firestore";
 
 const UserCreateTierlist = () => {
 	const { selectedGame } = useUiNavigationStore();
@@ -10,6 +13,7 @@ const UserCreateTierlist = () => {
 		useTierListStore();
 	const tierlistRef = useRef<HTMLDivElement>(null);
 	const [copiedTemplateCharacterBank, setcopiedTemplateCharacterBank] = useState<Character[]>([]);
+	const { isLoggedIn, currentUserData } = useUserStore();
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -119,11 +123,35 @@ const UserCreateTierlist = () => {
 		setTierlistCharacterBank(copiedTemplateCharacterBank);
 	};
 
+	const handleSaveTierlistClick = async () => {
+		try {
+			const tierlistObject = {
+				name: currentTierlist!.name,
+				category: currentTierlist!.category,
+				description: currentTierlist!.description,
+				logoImageURL: currentTierlist!.logoImageURL,
+				tiers: currentTierlist!.tiers.map((tier) => ({
+					tierName: tier.tierName,
+					characters: tier.characters,
+				})),
+			};
+			const docRef = await addDoc(collection(firestoreDB, "tierlistData"), {
+				userID: currentUserData?.uid,
+				tierlist: tierlistObject,
+				displayName: currentUserData?.displayName,
+				email: currentUserData?.email,
+			});
+			console.log("Document written with ID: ", docRef.id);
+			return docRef.id;
+		} catch (error) {
+			console.log("Error saving tierlist:", error);
+		}
+	};
+
 	useEffect(() => {
 		const newEmptyTierList = prepareForUserCreatedTierlist(selectedGame);
 		extractCharactersFromTierlist(selectedGame);
 		setCurrentTierlist(newEmptyTierList!);
-		console.log("useeffect ran");
 	}, []);
 
 	return (
@@ -146,7 +174,14 @@ const UserCreateTierlist = () => {
 						</div>
 						<div className="tierlistButtonContainer">
 							{" "}
-							<button className="tierListButton">Save Tierlist</button>
+							<button
+								className="tierListButton"
+								onClick={handleSaveTierlistClick}
+								// style={{ borderColor: isLoggedIn ? "7fff7f" : "#ff6464" }}
+								disabled={!isLoggedIn}
+							>
+								Save Tierlist
+							</button>
 							<button
 								className="tierListButton"
 								onClick={handleResetClick}

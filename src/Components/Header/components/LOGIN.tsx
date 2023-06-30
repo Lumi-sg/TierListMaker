@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useUserStore } from "../../../Stores/userStore";
 import { auth, provider, signInWithPopup } from "../../../main";
 
@@ -20,6 +21,10 @@ const LOGIN = () => {
 		}
 		setIsLoggedIn(false);
 	};
+
+	useEffect(() => {
+		console.table(currentUserData);
+	}, [currentUserData]);
 	return (
 		<div className="loginContainer">
 			{isLoggedIn && (

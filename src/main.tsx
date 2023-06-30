@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -24,6 +23,7 @@ const firebaseConfig = {
 
 	appId: "1:574883619100:web:2e73e6fe812cd06edd5ad9",
 };
+
 const myFirebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(myFirebaseApp);
 
