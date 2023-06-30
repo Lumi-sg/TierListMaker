@@ -14,15 +14,15 @@ const Body = () => {
 	const { isLoggedIn } = useUserStore();
 	return (
 		<div className="BodyContainer">
+			{displayTemplates && <Templates />}
+			{displayPremades && !displayCreateTierlist && <PremadeTierlist />}
 			{isLoggedIn && (
 				<>
-					{displayTemplates && <Templates />}
-					{displayPremades && !displayCreateTierlist && <PremadeTierlist />}
 					{displayCreateTierlist && !displayTemplates && <UserCreateTierlist />}
 					{displayYourTierlists && !displayCreateTierlist && <YourTierlists />}
 				</>
 			)}
-			{!isLoggedIn && <WelcomePage />}
+			{!isLoggedIn && !displayTemplates && !displayPremades && <WelcomePage />}
 		</div>
 	);
 };
