@@ -1,3 +1,5 @@
+import { uniqueId } from "lodash";
+
 export enum TierName {
 	SPlus = "S+",
 	S = "S",
@@ -44,20 +46,24 @@ export class Tierlist {
 	category: string;
 	description: string;
 	logoImageURL: string;
+
 	tiers: Tier[];
+	uniqueId?: string;
 
 	constructor(
 		name: string,
 		category: string,
 		description: string,
 		logoImageURL: string,
-		tiers: Tier[]
+		tiers: Tier[],
+		uniqueId?: string
 	) {
 		this.name = name;
 		this.category = category;
 		this.description = description;
 		this.logoImageURL = logoImageURL;
 		this.tiers = tiers;
+		this.uniqueId = uniqueId;
 	}
 
 	renderTierlist() {

@@ -4,7 +4,7 @@ export const convertFirestoreDataToTierlist = (firestoreData: any): Tierlist | n
 	if (!firestoreData) {
 		return null;
 	}
-	const { name, category, description, logoImageURL, tiers } = firestoreData;
+	const { name, category, description, logoImageURL, uniqueID, tiers } = firestoreData;
 
 	const convertedTiers: Tier[] = tiers.map((tierData: any) => {
 		const { tierName, characters } = tierData;
@@ -31,7 +31,8 @@ export const convertFirestoreDataToTierlist = (firestoreData: any): Tierlist | n
 		category,
 		description,
 		logoImageURL,
-		convertedTiers
+		convertedTiers,
+		uniqueID
 	);
 	return convertedTierlist;
 };

@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
 import { collection, addDoc } from "firebase/firestore";
+import { v4 as uuid } from "uuid";
 
 const UserCreateTierlist = () => {
 	const { selectedGame } = useUiNavigationStore();
@@ -130,6 +131,7 @@ const UserCreateTierlist = () => {
 				category: currentTierlist!.category,
 				description: currentTierlist!.description,
 				logoImageURL: currentTierlist!.logoImageURL,
+				uniqueID: uuid(),
 				tiers: currentTierlist!.tiers.map((tier) => ({
 					tierName: tier.tierName,
 					characters: tier.characters,
