@@ -7,6 +7,7 @@ import { Tierlist } from "../../../Classes/TierlistClass";
 import "../styles/YourTierlists.css";
 import { tierColors } from "../../../Classes/TierlistClass";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
+import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 
 const YourTierlists = () => {
 	const { currentUserData } = useUserStore();
@@ -128,6 +129,12 @@ const YourTierlists = () => {
 					</div>
 				</div>
 				<div className="tierlistButtonContainer">
+					<button
+						className="tierListButton"
+						onClick={handleDownloadClick}
+					>
+						Download Tierlist
+					</button>
 					<button
 						className="YourTierlistButtonDelete"
 						onClick={() => handleDeleteClick(tierlistToView.uniqueId)}
