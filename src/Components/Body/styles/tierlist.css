@@ -67,7 +67,7 @@
 	border-bottom: #383838 2px solid;
 	display: flex;
 	flex-wrap: wrap;
-	min-height: 5rem;
+	min-height: 6.15rem;
 	width: 100%;
 }
 
@@ -89,8 +89,8 @@
 }
 
 .characterImage {
-	width: 7rem;
-	height: 7rem;
+	width: 6rem;
+	height: 6rem;
 	display: flex;
 	justify-content: flex-start;
 	flex-shrink: 0;
@@ -104,7 +104,7 @@
 .CharacterBank {
 	display: flex;
 	flex-wrap: wrap;
-	width: 80%;
+	width: 65%;
 	margin: 1rem;
 	padding: 0.5rem;
 	background-color: #141412;

@@ -31,15 +31,23 @@ const Templates = () => {
 	};
 
 	return (
-		<div className="PremadeLists">
-			{TierlistArray.map((tierlist) => (
-				<img
-					src={tierlist.logoImageURL}
-					className="TemplateLogo"
-					onClick={() => handleTemplateChoiceClick(tierlist)}
-					key={tierlist.game}
-				></img>
-			))}
+		<div className="TemplateContainer">
+			<div className="templateTopTextContainer">
+				<h1 className="templateTopText">
+					{" "}
+					{createMode ? "Create a Tierlist" : "Choose a premade tierlist"}
+				</h1>
+			</div>
+			<div className="PremadeLists">
+				{TierlistArray.map((tierlist) => (
+					<img
+						src={tierlist.logoImageURL}
+						className="TemplateLogo"
+						onClick={() => handleTemplateChoiceClick(tierlist)}
+						key={tierlist.game}
+					></img>
+				))}
+			</div>
 		</div>
 	);
 };
