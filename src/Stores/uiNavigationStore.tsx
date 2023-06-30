@@ -15,6 +15,8 @@ type uiNavigationState = {
 	setDisplayPremades: (value: boolean) => void;
 	displayCreateTierlist: boolean;
 	setDisplayCreateTierlist: (value: boolean) => void;
+	displayYourTierlists: boolean;
+	setDisplayYourTierlists: (value: boolean) => void;
 };
 
 export const useUiNavigationStore = create<uiNavigationState>()(
@@ -33,5 +35,8 @@ export const useUiNavigationStore = create<uiNavigationState>()(
 		displayCreateTierlist: false,
 		setDisplayCreateTierlist: (value) =>
 			set({ displayCreateTierlist: value }, false, "setDisplayCreateTierlist"),
+		displayYourTierlists: false,
+		setDisplayYourTierlists: (value) =>
+			set({ displayYourTierlists: value }, false, "setDisplayYourTierlists"),
 	}))
 );

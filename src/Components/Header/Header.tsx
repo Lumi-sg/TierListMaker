@@ -6,7 +6,8 @@ import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
 import { useUserStore } from "../../Stores/userStore";
 
 function Header() {
-	const { setDisplayTemplates, setDisplayPremades, setCreateMode } = useUiNavigationStore();
+	const { setDisplayTemplates, setDisplayPremades, setCreateMode, setDisplayYourTierlists } =
+		useUiNavigationStore();
 
 	const { isLoggedIn } = useUserStore();
 
@@ -24,6 +25,13 @@ function Header() {
 		setCreateMode(true);
 		setDisplayPremades(false);
 		setDisplayTemplates(true);
+	};
+
+	const handleYourTierlistsClick = () => {
+		setCreateMode(false);
+		setDisplayPremades(false);
+		setDisplayTemplates(false);
+		setDisplayYourTierlists(true);
 	};
 
 	return (
@@ -53,7 +61,12 @@ function Header() {
 				<div className="buttons">
 					<button onClick={handlePremadesClick}>Premades</button>
 					<button onClick={handleCreateClick}>Create Tierlist</button>
-					<button disabled={!isLoggedIn}>Your Tierlists</button>
+					<button
+						onClick={handleYourTierlistsClick}
+						disabled={!isLoggedIn}
+					>
+						Your Tierlists
+					</button>
 
 					<LOGIN />
 				</div>
