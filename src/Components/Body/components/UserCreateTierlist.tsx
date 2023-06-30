@@ -149,6 +149,7 @@ const UserCreateTierlist = () => {
 		} catch (error) {
 			console.log("Error saving tierlist:", error);
 		}
+		setTierlistName("");
 	};
 
 	const handleTierListNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
