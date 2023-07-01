@@ -49,21 +49,22 @@ const UserCreateTierlist = () => {
 	};
 
 	const extractCharactersFromTierlist = (tierlist: Tierlist | null) => {
-		const tempCharacterBank: Character[] = [];
+		const characterBank: Character[] = [];
+
 		tierlist?.tiers.forEach((tier) => {
 			tier.characters.forEach((character) => {
-				tempCharacterBank.push(character);
+				characterBank.push(character);
 			});
 		});
-		console.table(tempCharacterBank);
 
-		if (!tempCharacterBank || !tempCharacterBank.length || tempCharacterBank === undefined) {
+		console.table(characterBank);
+
+		if (!characterBank || characterBank.length === 0) {
 			setcopiedTemplateCharacterBank(bugFixCharacterBank);
 			setTierlistCharacterBank(bugFixCharacterBank);
-			console.log("used backup");
 		} else {
-			setcopiedTemplateCharacterBank(tempCharacterBank);
-			setTierlistCharacterBank(tempCharacterBank);
+			setcopiedTemplateCharacterBank(characterBank);
+			setTierlistCharacterBank(characterBank);
 		}
 	};
 
@@ -73,7 +74,7 @@ const UserCreateTierlist = () => {
 		console.log(`drag started: ${character.name}`);
 	};
 
-	const handleTierlistDrag = (event: React.DragEvent<HTMLDivElement>, character: Character, tierName: string) => {
+	const handleTierlistDrag = (event: React.DragEvent<HTMLDivElement>, character: Character) => {
 		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
 		console.log(`drag started: ${character.name}`);
@@ -84,16 +85,22 @@ const UserCreateTierlist = () => {
 		setTierlistCharacterBank(updatedCharacterBank);
 	}
 
+	//Handle the event when a card is dropped onto a tierlist.
 	const handleCardBankDropOntoTierlist = (event: React.DragEvent<HTMLDivElement>, tierName: string) => {
 		event.preventDefault();
 		event.stopPropagation();
+		// Disable dropping the card onto text inputs
 		setdraggingPreventHoverPlus(false);
 
+		// Get the index where the card should be inserted
 		const insertIndex = event.currentTarget.getAttribute("data-index");
+		// Get the character data from the data transfer
 		const characterData = event.dataTransfer.getData("text/plain");
+		// Remove the character from the current tierlist if it already exists
 		removeCharacterIfExists(characterData, currentTierlist);
 
 		if (insertIndex !== null) {
+			// If an insert index is provided, insert the character at that index
 			const index = parseInt(insertIndex);
 			const character = JSON.parse(characterData) as Character;
 			removeCharFromBank(character);
@@ -107,6 +114,7 @@ const UserCreateTierlist = () => {
 			return;
 		}
 
+		// If no insert index is provided, add the character to the end of the tier
 		const character = JSON.parse(characterData) as Character;
 		removeCharFromBank(character);
 		const updatedTierlist = currentTierlist;
@@ -182,15 +190,13 @@ const UserCreateTierlist = () => {
 
 	function removeCharacterIfExists(characterData: string, currentTierlist: Tierlist | null) {
 		const characterToRemove = JSON.parse(characterData) as Character;
-		const updatedTierlistCharacterRemove = currentTierlist;
-		updatedTierlistCharacterRemove!.tiers.forEach((tier) => {
-			tier.characters.forEach((character) => {
-				if (character.name === characterToRemove.name) {
-					tier.characters.splice(tier.characters.indexOf(character), 1);
-					console.log(`${character.name} was removed from tierlist`);
-				}
+		const updatedTierlist = (currentTierlist && { ...currentTierlist }) || null;
+
+		if (updatedTierlist) {
+			updatedTierlist.tiers.forEach((tier) => {
+				tier.characters = tier.characters.filter((character) => character.name !== characterToRemove.name);
 			});
-		});
+		}
 	}
 
 	useEffect(() => {
@@ -314,9 +320,7 @@ const UserCreateTierlist = () => {
 															src={character.imageURL}
 															alt={character.name}
 															draggable={true}
-															onDragStart={(event) =>
-																handleTierlistDrag(event, character, tier.tierName)
-															}
+															onDragStart={(event) => handleTierlistDrag(event, character)}
 														/>
 														<div
 															className={`placeholder2 ${isDragging ? "dragging" : ""}`}
