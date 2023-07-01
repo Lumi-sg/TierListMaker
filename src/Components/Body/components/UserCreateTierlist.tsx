@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useTierListStore } from "../../../Stores/tierListStore";
-import { Tierlist, Tier, tierColors, Character } from "../../../Classes/TierlistClass";
+import { Tierlist, Tier, tierColors, Character, TierName } from "../../../Classes/TierlistClass";
 import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
 import { collection, addDoc } from "firebase/firestore";
@@ -22,16 +22,9 @@ const UserCreateTierlist = () => {
 	const [copiedTemplateCharacterBank, setcopiedTemplateCharacterBank] = useState<Character[]>([]);
 	const { isLoggedIn, currentUserData } = useUserStore();
 	const [tierlistName, setTierlistName] = useState("");
-
-	const handleMouseDown = () => {
-		setIsDragging(false);
-		console.log("isDragging", isDragging);
-	};
-
-	const handleMouseUp = () => {
-		setIsDragging(true);
-		console.log("isDragging", isDragging);
-	};
+	const [domTierListNames, setDomTierListNames] = useState<string[]>(
+		selectedGame?.tiers.map((tier) => tier.tierName) || []
+	);
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -43,6 +36,7 @@ const UserCreateTierlist = () => {
 			...tier,
 			characters: [],
 		}));
+
 		return new Tierlist(
 			tierlist.name,
 			tierlist.game,
@@ -61,6 +55,7 @@ const UserCreateTierlist = () => {
 			});
 		});
 		console.table(tempCharacterBank);
+
 		if (!tempCharacterBank || !tempCharacterBank.length || tempCharacterBank === undefined) {
 			setcopiedTemplateCharacterBank(bugFixCharacterBank);
 			setTierlistCharacterBank(bugFixCharacterBank);
@@ -125,7 +120,7 @@ const UserCreateTierlist = () => {
 				}
 			});
 			setCurrentTierlist(updatedTierlist!);
-			handleMouseUp();
+
 			return;
 		}
 		const characterData = event.dataTransfer.getData("text/plain");
@@ -140,7 +135,7 @@ const UserCreateTierlist = () => {
 				tier.characters.push(character);
 			}
 		});
-		handleMouseUp();
+
 		setCurrentTierlist(updatedTierlist!);
 	};
 
@@ -156,6 +151,7 @@ const UserCreateTierlist = () => {
 		setCurrentTierlist(resetTierlist!);
 		setTierlistCharacterBank(copiedTemplateCharacterBank);
 		setBugFixCharacterBank(copiedTemplateCharacterBank);
+		setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
 	};
 
 	const handleSaveTierlistClick = async () => {
@@ -171,8 +167,8 @@ const UserCreateTierlist = () => {
 				description: currentTierlist!.description,
 				logoImageURL: currentTierlist!.logoImageURL,
 				uniqueID: uuid(),
-				tiers: currentTierlist!.tiers.map((tier) => ({
-					tierName: tier.tierName,
+				tiers: currentTierlist!.tiers.map((tier, index) => ({
+					tierName: domTierListNames[index],
 					characters: tier.characters,
 				})),
 				dateCreated: new Date(),
@@ -195,6 +191,17 @@ const UserCreateTierlist = () => {
 
 	const handleTierListNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setTierlistName(event.target.value);
+	};
+
+	const changeTierNameChange = (
+		event: React.ChangeEvent<HTMLInputElement>,
+		tierIndex: number
+	) => {
+		const updatedTierListNames = [...domTierListNames];
+		updatedTierListNames[tierIndex] = event.target.value;
+		setDomTierListNames(updatedTierListNames);
+
+		console.log(`changed tier name to ${event.target.value} at index ${tierIndex}`);
 	};
 
 	useEffect(() => {
@@ -261,9 +268,9 @@ const UserCreateTierlist = () => {
 							ref={tierlistRef}
 						>
 							{currentTierlist.tiers.map((tier, index) => {
-								if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
-									return null; // Skip the iteration
-								}
+								// if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
+								// 	return null; // Skip the iteration
+								// }
 
 								return (
 									<div
@@ -276,7 +283,15 @@ const UserCreateTierlist = () => {
 											className={`tier-name ${tier.tierName}-tier`}
 											style={{ backgroundColor: tierColors[index] }}
 										>
-											{tier.tierName}
+											<input
+												value={domTierListNames[index]}
+												className="tierNameInput"
+												style={{ backgroundColor: tierColors[index] }}
+												onChange={(event) =>
+													changeTierNameChange(event, index)
+												}
+												required
+											/>
 										</div>
 										<div
 											className={`tier-row ${tier.tierName}`}
