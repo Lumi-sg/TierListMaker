@@ -144,13 +144,25 @@
 	height: 3rem;
 }
 .placeholder {
-	border: 2px dashed #ccc;
 	background-color: #f5f5f5;
 	color: #999;
-	width: 5rem;
+	height: 6rem;
+	width: 3rem;
+	position: absolute;
+	margin-left: 3rem;
+}
+
+.placeholder1 {
+	background-color: #ff000000;
+	color: #99999900;
+	height: 6rem;
+	width: 3rem;
+	margin-right: -3rem;
 	z-index: 999;
 }
 
-.placeholder:hover {
-	border-color: #999;
+.characterContainer {
+	position: relative;
+	display: flex;
+	align-items: center;
 }
