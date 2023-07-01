@@ -7,6 +7,8 @@ type tierListStoreState = {
 	setCurrentTierlist: (tierlist: Tierlist) => void;
 	tierlistCharacterBank: Character[];
 	setTierlistCharacterBank: (characters: Character[]) => void;
+	bugFixCharacterBank: Character[];
+	setBugFixCharacterBank: (characters: Character[]) => void;
 };
 
 export const useTierListStore = create<tierListStoreState>()(
@@ -17,5 +19,8 @@ export const useTierListStore = create<tierListStoreState>()(
 		tierlistCharacterBank: [],
 		setTierlistCharacterBank: (characters) =>
 			set({ tierlistCharacterBank: characters }, false, "setTierlistCharacterBank"),
+		bugFixCharacterBank: [],
+		setBugFixCharacterBank: (characters) =>
+			set({ bugFixCharacterBank: characters }, false, "setBugFixCharacterBank"),
 	}))
 );

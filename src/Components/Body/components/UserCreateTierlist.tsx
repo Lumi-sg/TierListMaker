@@ -10,8 +10,14 @@ import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 
 const UserCreateTierlist = () => {
 	const { selectedGame } = useUiNavigationStore();
-	const { currentTierlist, setCurrentTierlist, tierlistCharacterBank, setTierlistCharacterBank } =
-		useTierListStore();
+	const {
+		currentTierlist,
+		setCurrentTierlist,
+		tierlistCharacterBank,
+		setTierlistCharacterBank,
+		bugFixCharacterBank,
+		setBugFixCharacterBank,
+	} = useTierListStore();
 	const tierlistRef = useRef<HTMLDivElement>(null);
 	const [copiedTemplateCharacterBank, setcopiedTemplateCharacterBank] = useState<Character[]>([]);
 	const { isLoggedIn, currentUserData } = useUserStore();
@@ -44,8 +50,15 @@ const UserCreateTierlist = () => {
 				tempCharacterBank.push(character);
 			});
 		});
-		setcopiedTemplateCharacterBank(tempCharacterBank);
-		setTierlistCharacterBank(tempCharacterBank);
+		console.table(tempCharacterBank);
+		if (!tempCharacterBank || !tempCharacterBank.length || tempCharacterBank === undefined) {
+			setcopiedTemplateCharacterBank(bugFixCharacterBank);
+			setTierlistCharacterBank(bugFixCharacterBank);
+			console.log("used backup");
+		} else {
+			setcopiedTemplateCharacterBank(tempCharacterBank);
+			setTierlistCharacterBank(tempCharacterBank);
+		}
 	};
 
 	const handleCardBankDrag = (event: React.DragEvent<HTMLImageElement>, character: Character) => {
@@ -130,6 +143,7 @@ const UserCreateTierlist = () => {
 		});
 		setCurrentTierlist(resetTierlist!);
 		setTierlistCharacterBank(copiedTemplateCharacterBank);
+		setBugFixCharacterBank(copiedTemplateCharacterBank);
 	};
 
 	const handleSaveTierlistClick = async () => {
@@ -254,6 +268,17 @@ const UserCreateTierlist = () => {
 											}
 											onDragOver={handleDragOver}
 										>
+											{/* <div
+												className="placeholder"
+												data-index={0}
+												onDrop={(event: React.DragEvent<HTMLDivElement>) =>
+													handleCardBankDropOntoTierlist(
+														event,
+														tier.tierName
+													)
+												}
+												onDragOver={handleDragOver}
+											></div> */}
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
 													<div
