@@ -170,3 +170,13 @@
 	display: flex;
 	align-items: center;
 }
+
+.placeholder2.dragging {
+	pointer-events: none;
+	/* background-color: red; */
+}
+
+.placeholder1.dragging {
+	pointer-events: none;
+	/* background-color: rgb(209, 255, 4); */
+}

@@ -19,6 +19,8 @@ type uiNavigationState = {
 	setDisplayYourTierlists: (value: boolean) => void;
 	displayingTierlist: boolean;
 	setDisplayingTierlist: (value: boolean) => void;
+	isDragging: boolean;
+	setIsDragging: (value: boolean) => void;
 };
 
 export const useUiNavigationStore = create<uiNavigationState>()(
@@ -43,5 +45,7 @@ export const useUiNavigationStore = create<uiNavigationState>()(
 		displayingTierlist: false,
 		setDisplayingTierlist: (value) =>
 			set({ displayingTierlist: value }, false, "setDisplayingTierlist"),
+		isDragging: false,
+		setIsDragging: (value) => set({ isDragging: value }, false, "setIsDragging"),
 	}))
 );

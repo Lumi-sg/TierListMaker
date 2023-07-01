@@ -9,7 +9,7 @@ import { v4 as uuid } from "uuid";
 import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 
 const UserCreateTierlist = () => {
-	const { selectedGame } = useUiNavigationStore();
+	const { selectedGame, isDragging, setIsDragging } = useUiNavigationStore();
 	const {
 		currentTierlist,
 		setCurrentTierlist,
@@ -22,6 +22,16 @@ const UserCreateTierlist = () => {
 	const [copiedTemplateCharacterBank, setcopiedTemplateCharacterBank] = useState<Character[]>([]);
 	const { isLoggedIn, currentUserData } = useUserStore();
 	const [tierlistName, setTierlistName] = useState("");
+
+	const handleMouseDown = () => {
+		setIsDragging(false);
+		console.log("isDragging", isDragging);
+	};
+
+	const handleMouseUp = () => {
+		setIsDragging(true);
+		console.log("isDragging", isDragging);
+	};
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -115,6 +125,7 @@ const UserCreateTierlist = () => {
 				}
 			});
 			setCurrentTierlist(updatedTierlist!);
+			handleMouseUp();
 			return;
 		}
 		const characterData = event.dataTransfer.getData("text/plain");
@@ -129,6 +140,7 @@ const UserCreateTierlist = () => {
 				tier.characters.push(character);
 			}
 		});
+		handleMouseUp();
 		setCurrentTierlist(updatedTierlist!);
 	};
 
@@ -198,7 +210,10 @@ const UserCreateTierlist = () => {
 	}, []);
 
 	return (
-		<>
+		<div
+		// onMouseDown={handleMouseDown}
+		// onMouseUp={handleMouseUp}
+		>
 			<div className="TierlistContainer">
 				{currentTierlist && (
 					<>
@@ -254,6 +269,8 @@ const UserCreateTierlist = () => {
 									<div
 										className="rowContainer"
 										key={tier.tierName}
+										onMouseEnter={() => setIsDragging(true)}
+										onMouseLeave={() => setIsDragging(false)}
 									>
 										<div
 											className={`tier-name ${tier.tierName}-tier`}
@@ -268,17 +285,6 @@ const UserCreateTierlist = () => {
 											}
 											onDragOver={handleDragOver}
 										>
-											{/* <div
-												className="placeholder"
-												data-index={0}
-												onDrop={(event: React.DragEvent<HTMLDivElement>) =>
-													handleCardBankDropOntoTierlist(
-														event,
-														tier.tierName
-													)
-												}
-												onDragOver={handleDragOver}
-											></div> */}
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
 													<div
@@ -286,7 +292,9 @@ const UserCreateTierlist = () => {
 														key={index}
 													>
 														<div
-															className="placeholder1"
+															className={`placeholder1 ${
+																isDragging ? "dragging" : ""
+															}`}
 															data-index={index}
 															onDrop={(event) =>
 																handleCardBankDropOntoTierlist(
@@ -310,7 +318,9 @@ const UserCreateTierlist = () => {
 															}
 														/>
 														<div
-															className="placeholder2"
+															className={`placeholder2 ${
+																isDragging ? "dragging" : ""
+															}`}
 															data-index={index + 1}
 															onDrop={(event) =>
 																handleCardBankDropOntoTierlist(
@@ -344,7 +354,7 @@ const UserCreateTierlist = () => {
 					))}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
