@@ -96,6 +96,9 @@
 	justify-content: flex-start;
 	flex-shrink: 0;
 }
+.characterImage:hover {
+	cursor: grab;
+}
 
 .rowContainer {
 	display: flex;
@@ -154,6 +157,7 @@
 	width: 3rem;
 	position: absolute;
 	margin-left: 3rem;
+	z-index: 1;
 }
 
 .placeholder1 {
@@ -162,6 +166,7 @@
 	height: 6rem;
 	width: 3rem;
 	margin-right: -3rem;
+	z-index: 1;
 }
 
 .characterContainer {
@@ -172,7 +177,7 @@
 
 .placeholder2.dragging {
 	pointer-events: none;
-	/* background-color: red; */
+	/* background-color: rgb(6, 255, 43); */
 }
 
 .placeholder1.dragging {
@@ -192,4 +197,7 @@
 	border: none;
 	outline: none;
 	border: #383838 1px solid;
+}
+input.dragging {
+	pointer-events: none;
 }

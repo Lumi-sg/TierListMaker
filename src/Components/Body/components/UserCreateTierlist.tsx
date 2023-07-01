@@ -25,6 +25,7 @@ const UserCreateTierlist = () => {
 	const [domTierListNames, setDomTierListNames] = useState<string[]>(
 		selectedGame?.tiers.map((tier) => tier.tierName) || []
 	);
+	const [draggingPreventHoverPlus, setdraggingPreventHoverPlus] = useState(false);
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -67,6 +68,7 @@ const UserCreateTierlist = () => {
 	};
 
 	const handleCardBankDrag = (event: React.DragEvent<HTMLImageElement>, character: Character) => {
+		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
 		console.log(`drag started: ${character.name}`);
 	};
@@ -76,15 +78,16 @@ const UserCreateTierlist = () => {
 		character: Character,
 		tierName: string
 	) => {
+		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
 		console.log(`drag started: ${character.name}`);
-		const updatedTierList = currentTierlist;
-		updatedTierList!.tiers.forEach((tier) => {
-			if (tier.tierName === tierName) {
-				tier.characters.splice(tier.characters.indexOf(character), 1);
-				console.log("removed from tierlist");
-			}
-		});
+		// const updatedTierList = currentTierlist;
+		// updatedTierList!.tiers.forEach((tier) => {
+		// 	if (tier.tierName === tierName) {
+		// 		tier.characters.splice(tier.characters.indexOf(character), 1);
+		// 		console.log(`${character.name} was removed from tierlist`);
+		// 	}
+		// });
 	};
 
 	function removeCharFromBank(character: Character) {
@@ -100,8 +103,21 @@ const UserCreateTierlist = () => {
 	) => {
 		event.preventDefault();
 		event.stopPropagation();
+		setdraggingPreventHoverPlus(false);
 		const insertCharacterAtIndex = event.currentTarget.getAttribute("data-index");
 		console.log(insertCharacterAtIndex);
+		const characterToRemoveData = event.dataTransfer.getData("text/plain");
+		const characterToRemove = JSON.parse(characterToRemoveData) as Character;
+		const updatedTierlistCharacterRemove = currentTierlist;
+		updatedTierlistCharacterRemove!.tiers.forEach((tier) => {
+			tier.characters.forEach((character) => {
+				if (character.name === characterToRemove.name) {
+					tier.characters.splice(tier.characters.indexOf(character), 1);
+					console.log(`${character.name} was removed from tierlist`);
+				}
+			});
+		});
+
 		if (insertCharacterAtIndex !== null) {
 			const index = parseInt(insertCharacterAtIndex);
 
@@ -125,7 +141,7 @@ const UserCreateTierlist = () => {
 		}
 		const characterData = event.dataTransfer.getData("text/plain");
 		const character = JSON.parse(characterData) as Character;
-		console.log(`dropped: ${character.name}`);
+		console.log(`${character.name} was added to the tierlist`);
 		removeCharFromBank(character);
 
 		const updatedTierlist = currentTierlist;
@@ -239,6 +255,9 @@ const UserCreateTierlist = () => {
 						</div>
 						<div className="tierlistButtonContainer">
 							<input
+								className={`tierlistNameInput${
+									draggingPreventHoverPlus ? " dragging" : ""
+								}`}
 								placeholder="Tierlist Name"
 								onChange={handleTierListNameChange}
 								value={tierlistName}
@@ -285,11 +304,20 @@ const UserCreateTierlist = () => {
 										>
 											<input
 												value={domTierListNames[index]}
-												className="tierNameInput"
+												className={`tierNameInput${
+													draggingPreventHoverPlus ? " dragging" : ""
+												}`}
 												style={{ backgroundColor: tierColors[index] }}
 												onChange={(event) =>
 													changeTierNameChange(event, index)
 												}
+												type="text"
+												onDrop={(event) => {
+													event.preventDefault();
+												}}
+												onDragOver={(event) => {
+													event.preventDefault();
+												}}
 												required
 											/>
 										</div>
