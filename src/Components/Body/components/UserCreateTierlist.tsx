@@ -10,6 +10,7 @@ import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 
 const UserCreateTierlist = () => {
 	const { selectedGame, isDragging, setIsDragging } = useUiNavigationStore();
+
 	const {
 		currentTierlist,
 		setCurrentTierlist,
@@ -18,13 +19,16 @@ const UserCreateTierlist = () => {
 		bugFixCharacterBank,
 		setBugFixCharacterBank,
 	} = useTierListStore();
+
 	const tierlistRef = useRef<HTMLDivElement>(null);
 	const [copiedTemplateCharacterBank, setcopiedTemplateCharacterBank] = useState<Character[]>([]);
 	const { isLoggedIn, currentUserData } = useUserStore();
 	const [tierlistName, setTierlistName] = useState("");
+
 	const [domTierListNames, setDomTierListNames] = useState<string[]>(
 		selectedGame?.tiers.map((tier) => tier.tierName) || []
 	);
+
 	const [draggingPreventHoverPlus, setdraggingPreventHoverPlus] = useState(false);
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
