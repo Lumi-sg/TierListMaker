@@ -178,10 +178,8 @@ const UserCreateTierlist = () => {
 	}, [tierlistName]);
 
 	useEffect(() => {
+		extractCharactersFromTierlist(selectedGame);
 		const newEmptyTierList = prepareForUserCreatedTierlist(selectedGame);
-		if (tierlistCharacterBank.length === 0) {
-			extractCharactersFromTierlist(selectedGame);
-		}
 		setCurrentTierlist(newEmptyTierList!);
 	}, []);
 
@@ -256,8 +254,8 @@ const UserCreateTierlist = () => {
 											}
 											onDragOver={handleDragOver}
 										>
-											<div
-												className="placeholder1"
+											{/* <div
+												className="placeholder"
 												data-index={0}
 												onDrop={(event: React.DragEvent<HTMLDivElement>) =>
 													handleCardBankDropOntoTierlist(
@@ -266,13 +264,24 @@ const UserCreateTierlist = () => {
 													)
 												}
 												onDragOver={handleDragOver}
-											></div>
+											></div> */}
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
 													<div
 														className="characterContainer"
 														key={index}
 													>
+														<div
+															className="placeholder1"
+															data-index={index}
+															onDrop={(event) =>
+																handleCardBankDropOntoTierlist(
+																	event,
+																	tier.tierName
+																)
+															}
+															onDragOver={handleDragOver}
+														></div>
 														<img
 															className="characterImage"
 															src={character.imageURL}
@@ -287,7 +296,7 @@ const UserCreateTierlist = () => {
 															}
 														/>
 														<div
-															className="placeholder"
+															className="placeholder2"
 															data-index={index + 1}
 															onDrop={(event) =>
 																handleCardBankDropOntoTierlist(

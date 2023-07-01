@@ -54,8 +54,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	min-width: 50%;
-	max-width: 77.5%;
+	min-width: 48.25rem;
+	max-width: 48.25rem;
 	min-height: 25rem;
 	border: 2px solid #383838;
 	background-color: #141412;
@@ -106,12 +106,17 @@
 .CharacterBank {
 	display: flex;
 	flex-wrap: wrap;
-	width: 65%;
+	justify-content: left;
+	align-items: center;
+	width: 46.5rem;
+	height: auto;
 	margin: 1rem;
-	padding: 0.5rem;
+	padding: 0.25rem;
 	background-color: #141412;
 	border-radius: 10px;
 	border: #383838 1px solid;
+	gap: 0.1rem;
+	row-gap: 0.25rem;
 }
 .characterImageBank {
 	height: 5rem;
@@ -143,8 +148,8 @@
 	width: 11rem;
 	height: 3rem;
 }
-.placeholder {
-	background-color: #f5f5f5;
+.placeholder2 {
+	background-color: #f5f5f500;
 	color: #999;
 	height: 6rem;
 	width: 3rem;

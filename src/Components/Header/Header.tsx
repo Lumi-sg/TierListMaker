@@ -18,7 +18,7 @@ function Header() {
 	const { isLoggedIn } = useUserStore();
 
 	const handlePictureClick = () => {
-		window.location.href = "http://127.0.0.1:5173/TierListMaker";
+		// window.location.href = "http://127.0.0.1:5173/TierListMaker";
 	};
 
 	const handlePremadesClick = () => {
