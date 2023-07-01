@@ -81,36 +81,42 @@ const YourTierlists = () => {
 
 	return !displayingTierlist ? (
 		<div className="YourTierlists">
-			{tierlistData.map((item) => (
-				<div
-					className="ListCard"
-					key={item.docId}
-				>
-					<div className="topOfListCard">
-						<h2 className="yourTierlistName">{item.tierlist.name}</h2>
-					</div>
-
-					<img
-						src={item.tierlist.logoImageURL}
-						alt="List Logo"
-						className="yourTierListLogo"
-					></img>
-					<div className="bottomOfListCard">
-						<button
-							className="YourTierlistButton"
-							onClick={() => handleViewTierlistClick(item.tierlist.uniqueId)}
-						>
-							View
-						</button>
-						<button
-							className="YourTierlistButtonDelete"
-							onClick={() => handleDeleteClick(item.tierlist.uniqueId)}
-						>
-							Delete
-						</button>
-					</div>
+			{tierlistData.length === 0 ? (
+				<div className="noTierlists">
+					<p className="noTierlistsText">No tierlists available!</p>
+					<p className="noTierlistsText"> Click "Create Tierlist" to get started!</p>
 				</div>
-			))}
+			) : (
+				tierlistData.map((item) => (
+					<div
+						className="ListCard"
+						key={item.docId}
+					>
+						<div className="topOfListCard">
+							<h2 className="yourTierlistName">{item.tierlist.name}</h2>
+						</div>
+						<img
+							src={item.tierlist.logoImageURL}
+							alt="List Logo"
+							className="yourTierListLogo"
+						></img>
+						<div className="bottomOfListCard">
+							<button
+								className="YourTierlistButton"
+								onClick={() => handleViewTierlistClick(item.tierlist.uniqueId)}
+							>
+								View
+							</button>
+							<button
+								className="YourTierlistButtonDelete"
+								onClick={() => handleDeleteClick(item.tierlist.uniqueId)}
+							>
+								Delete
+							</button>
+						</div>
+					</div>
+				))
+			)}
 		</div>
 	) : (
 		tierlistToView && (

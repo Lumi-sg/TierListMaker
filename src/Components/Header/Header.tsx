@@ -21,13 +21,6 @@ function Header() {
 		// window.location.href = "http://127.0.0.1:5173/TierListMaker";
 	};
 
-	const handlePremadesClick = () => {
-		setDisplayTemplates(true);
-		setCreateMode(false);
-		setDisplayPremades(false);
-		setDisplayYourTierlists(false);
-	};
-
 	const handleCreateClick = () => {
 		setCreateMode(true);
 		setDisplayPremades(false);
@@ -55,21 +48,8 @@ function Header() {
 						onClick={handlePictureClick}
 					/>
 				</div>
-				{/* <div className="search">
-					<input
-						type="text"
-						placeholder=""
-					/>
-					<button>
-						<img
-							className="searchIcon"
-							src={searchIcon}
-							alt="search"
-						/>
-					</button>
-				</div> */}
+
 				<div className="buttons">
-					<button onClick={handlePremadesClick}>Premades</button>
 					<button
 						onClick={handleCreateClick}
 						disabled={!isLoggedIn}

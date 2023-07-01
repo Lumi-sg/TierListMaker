@@ -47,3 +47,13 @@
 .YourTierlistButtonDelete:hover {
 	border: #ff6464 1px solid;
 }
+
+.noTierLists {
+	display: flex;
+	flex-direction: column;
+}
+
+.noTierlistsText {
+	font-size: 2rem;
+	margin-bottom: 2rem;
+}

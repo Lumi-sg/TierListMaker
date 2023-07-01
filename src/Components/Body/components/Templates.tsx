@@ -17,13 +17,11 @@ const Templates = () => {
 
 	const handleTemplateChoiceClick = (tierlist: Tierlist) => {
 		if (!createMode) {
-			setDisplayTemplates(false);
 			setSelectedGame(tierlist);
 			setCurrentTierlist(tierlist);
 			setDisplayPremades(true);
 			setDisplayCreateTierlist(false);
 		} else if (createMode) {
-			setDisplayPremades(false);
 			setDisplayTemplates(false);
 			setDisplayCreateTierlist(true);
 			setSelectedGame(tierlist);
@@ -33,10 +31,7 @@ const Templates = () => {
 	return (
 		<div className="TemplateContainer">
 			<div className="templateTopTextContainer">
-				<h1 className="templateTopText">
-					{" "}
-					{createMode ? "Create a Tierlist" : "Choose a premade tierlist"}
-				</h1>
+				<h1 className="templateTopText">Choose game to create Tierlist with</h1>
 			</div>
 			<div className="PremadeLists">
 				{TierlistArray.map((tierlist) => (
