@@ -67,13 +67,13 @@
 	border-bottom: #383838 2px solid;
 	display: flex;
 	flex-wrap: wrap;
-	min-height: 6.01rem;
+	min-height: auto; /* Update the min-height property */
 	width: 100%;
 }
 
 .tier-name {
 	width: 6rem;
-	height: 6rem;
+	min-height: 6rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -100,7 +100,6 @@
 .rowContainer {
 	display: flex;
 	flex-direction: row;
-	height: 6rem;
 	width: 100%;
 }
 .CharacterBank {
