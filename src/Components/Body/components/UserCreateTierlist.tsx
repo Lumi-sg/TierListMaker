@@ -254,17 +254,6 @@ const UserCreateTierlist = () => {
 											}
 											onDragOver={handleDragOver}
 										>
-											{/* <div
-												className="placeholder"
-												data-index={0}
-												onDrop={(event: React.DragEvent<HTMLDivElement>) =>
-													handleCardBankDropOntoTierlist(
-														event,
-														tier.tierName
-													)
-												}
-												onDragOver={handleDragOver}
-											></div> */}
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
 													<div
