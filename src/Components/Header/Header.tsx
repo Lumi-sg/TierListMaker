@@ -1,6 +1,6 @@
 import "./header.css";
 import logoImage from "../../assets/tiermaker-logo.png";
-import searchIcon from "../../assets/magGlass.png";
+
 import LOGIN from "./components/LOGIN";
 import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
 import { useUserStore } from "../../Stores/userStore";

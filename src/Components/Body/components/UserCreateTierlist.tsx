@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useTierListStore } from "../../../Stores/tierListStore";
-import { Tierlist, Tier, tierColors, Character, TierName } from "../../../Classes/TierlistClass";
+import { Tierlist, Tier, tierColors, Character } from "../../../Classes/TierlistClass";
 import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
 import { collection, addDoc } from "firebase/firestore";

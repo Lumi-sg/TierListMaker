@@ -1,5 +1,5 @@
 import "./body.css";
-import PremadeTierlist from "./components/PremadeTierlist";
+
 import UserCreateTierlist from "./components/UserCreateTierlist";
 import Templates from "./components/Templates";
 import YourTierlists from "./components/YourTierlists";
@@ -8,21 +8,20 @@ import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
 import { useUserStore } from "../../Stores/userStore";
 
 const Body = () => {
-	const { displayTemplates, displayPremades, displayCreateTierlist, displayYourTierlists } =
+	const { displayTemplates, displayCreateTierlist, displayYourTierlists } =
 		useUiNavigationStore();
 
 	const { isLoggedIn } = useUserStore();
 	return (
 		<div className="BodyContainer">
-			{displayTemplates && <Templates />}
-			{displayPremades && !displayCreateTierlist && <PremadeTierlist />}
 			{isLoggedIn && (
 				<>
+					{displayTemplates && <Templates />}
 					{displayCreateTierlist && !displayTemplates && <UserCreateTierlist />}
 					{displayYourTierlists && !displayCreateTierlist && <YourTierlists />}
 				</>
 			)}
-			{!isLoggedIn && !displayTemplates && !displayPremades && <WelcomePage />}
+			{!isLoggedIn && <WelcomePage />}
 		</div>
 	);
 };
