@@ -148,7 +148,19 @@ const UserCreateTierlist = () => {
 		}
 		setTierlistName("saving!");
 		try {
-			const tierlistObject = {
+			const tierlistObject = convertTierlistToNormalObject();
+			const docRef = await saveTierlistToFirestore(tierlistObject);
+			setTierlistName("");
+			console.log("Document written with ID: ", docRef.id);
+			handleResetClick();
+
+			return docRef.id;
+		} catch (error) {
+			console.log("Error saving tierlist:", error);
+		}
+
+		function convertTierlistToNormalObject() {
+			return {
 				name: currentTierlist!.name,
 				game: currentTierlist!.game,
 				description: currentTierlist!.description,
@@ -160,19 +172,23 @@ const UserCreateTierlist = () => {
 				})),
 				dateCreated: new Date(),
 			};
-			const docRef = await addDoc(collection(firestoreDB, "tierlistData"), {
+		}
+
+		async function saveTierlistToFirestore(tierlistObject: {
+			name: string;
+			game: string;
+			description: string;
+			logoImageURL: string;
+			uniqueID: string;
+			tiers: { tierName: string; characters: Character[] }[];
+			dateCreated: Date;
+		}) {
+			return await addDoc(collection(firestoreDB, "tierlistData"), {
 				userID: currentUserData?.uid,
 				tierlist: tierlistObject,
 				displayName: currentUserData?.displayName,
 				email: currentUserData?.email,
 			});
-			setTierlistName("");
-			console.log("Document written with ID: ", docRef.id);
-			handleResetClick();
-
-			return docRef.id;
-		} catch (error) {
-			console.log("Error saving tierlist:", error);
 		}
 	};
 
