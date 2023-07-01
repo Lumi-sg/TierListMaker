@@ -73,85 +73,48 @@ const UserCreateTierlist = () => {
 		console.log(`drag started: ${character.name}`);
 	};
 
-	const handleTierlistDrag = (
-		event: React.DragEvent<HTMLDivElement>,
-		character: Character,
-		tierName: string
-	) => {
+	const handleTierlistDrag = (event: React.DragEvent<HTMLDivElement>, character: Character, tierName: string) => {
 		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
 		console.log(`drag started: ${character.name}`);
-		// const updatedTierList = currentTierlist;
-		// updatedTierList!.tiers.forEach((tier) => {
-		// 	if (tier.tierName === tierName) {
-		// 		tier.characters.splice(tier.characters.indexOf(character), 1);
-		// 		console.log(`${character.name} was removed from tierlist`);
-		// 	}
-		// });
 	};
 
 	function removeCharFromBank(character: Character) {
-		const updatedCharacterBank = tierlistCharacterBank.filter(
-			(draggedChar) => draggedChar.name !== character.name
-		);
+		const updatedCharacterBank = tierlistCharacterBank.filter((draggedChar) => draggedChar.name !== character.name);
 		setTierlistCharacterBank(updatedCharacterBank);
 	}
 
-	const handleCardBankDropOntoTierlist = (
-		event: React.DragEvent<HTMLDivElement>,
-		tierName: string
-	) => {
+	const handleCardBankDropOntoTierlist = (event: React.DragEvent<HTMLDivElement>, tierName: string) => {
 		event.preventDefault();
 		event.stopPropagation();
 		setdraggingPreventHoverPlus(false);
-		const insertCharacterAtIndex = event.currentTarget.getAttribute("data-index");
-		console.log(insertCharacterAtIndex);
-		const characterToRemoveData = event.dataTransfer.getData("text/plain");
-		const characterToRemove = JSON.parse(characterToRemoveData) as Character;
-		const updatedTierlistCharacterRemove = currentTierlist;
-		updatedTierlistCharacterRemove!.tiers.forEach((tier) => {
-			tier.characters.forEach((character) => {
-				if (character.name === characterToRemove.name) {
-					tier.characters.splice(tier.characters.indexOf(character), 1);
-					console.log(`${character.name} was removed from tierlist`);
-				}
-			});
-		});
 
-		if (insertCharacterAtIndex !== null) {
-			const index = parseInt(insertCharacterAtIndex);
+		const insertIndex = event.currentTarget.getAttribute("data-index");
+		const characterData = event.dataTransfer.getData("text/plain");
+		removeCharacterIfExists(characterData, currentTierlist);
 
-			console.log("placeholder detected");
-			console.log(`insert character at index ${insertCharacterAtIndex}`);
-			const characterData = event.dataTransfer.getData("text/plain");
+		if (insertIndex !== null) {
+			const index = parseInt(insertIndex);
 			const character = JSON.parse(characterData) as Character;
-			console.log(`dropped: ${character.name}`);
 			removeCharFromBank(character);
-
 			const updatedTierlist = currentTierlist;
 			updatedTierlist!.tiers.forEach((tier) => {
 				if (tier.tierName === tierName) {
-					console.log(`found tier: ${tierName}`);
 					tier.characters.splice(index, 0, character);
 				}
 			});
 			setCurrentTierlist(updatedTierlist!);
-
 			return;
 		}
-		const characterData = event.dataTransfer.getData("text/plain");
-		const character = JSON.parse(characterData) as Character;
-		console.log(`${character.name} was added to the tierlist`);
-		removeCharFromBank(character);
 
+		const character = JSON.parse(characterData) as Character;
+		removeCharFromBank(character);
 		const updatedTierlist = currentTierlist;
 		updatedTierlist!.tiers.forEach((tier) => {
 			if (tier.tierName === tierName) {
-				console.log(`found tier: ${tierName}`);
 				tier.characters.push(character);
 			}
 		});
-
 		setCurrentTierlist(updatedTierlist!);
 	};
 
@@ -209,16 +172,26 @@ const UserCreateTierlist = () => {
 		setTierlistName(event.target.value);
 	};
 
-	const changeTierNameChange = (
-		event: React.ChangeEvent<HTMLInputElement>,
-		tierIndex: number
-	) => {
+	const changeTierNameChange = (event: React.ChangeEvent<HTMLInputElement>, tierIndex: number) => {
 		const updatedTierListNames = [...domTierListNames];
 		updatedTierListNames[tierIndex] = event.target.value;
 		setDomTierListNames(updatedTierListNames);
 
 		console.log(`changed tier name to ${event.target.value} at index ${tierIndex}`);
 	};
+
+	function removeCharacterIfExists(characterData: string, currentTierlist: Tierlist | null) {
+		const characterToRemove = JSON.parse(characterData) as Character;
+		const updatedTierlistCharacterRemove = currentTierlist;
+		updatedTierlistCharacterRemove!.tiers.forEach((tier) => {
+			tier.characters.forEach((character) => {
+				if (character.name === characterToRemove.name) {
+					tier.characters.splice(tier.characters.indexOf(character), 1);
+					console.log(`${character.name} was removed from tierlist`);
+				}
+			});
+		});
+	}
 
 	useEffect(() => {
 		if (currentTierlist) {
@@ -255,9 +228,7 @@ const UserCreateTierlist = () => {
 						</div>
 						<div className="tierlistButtonContainer">
 							<input
-								className={`tierlistNameInput${
-									draggingPreventHoverPlus ? " dragging" : ""
-								}`}
+								className={`tierlistNameInput${draggingPreventHoverPlus ? " dragging" : ""}`}
 								placeholder="Tierlist Name"
 								onChange={handleTierListNameChange}
 								value={tierlistName}
@@ -304,13 +275,9 @@ const UserCreateTierlist = () => {
 										>
 											<input
 												value={domTierListNames[index]}
-												className={`tierNameInput${
-													draggingPreventHoverPlus ? " dragging" : ""
-												}`}
+												className={`tierNameInput${draggingPreventHoverPlus ? " dragging" : ""}`}
 												style={{ backgroundColor: tierColors[index] }}
-												onChange={(event) =>
-													changeTierNameChange(event, index)
-												}
+												onChange={(event) => changeTierNameChange(event, index)}
 												type="text"
 												onDrop={(event) => {
 													event.preventDefault();
@@ -335,15 +302,10 @@ const UserCreateTierlist = () => {
 														key={index}
 													>
 														<div
-															className={`placeholder1 ${
-																isDragging ? "dragging" : ""
-															}`}
+															className={`placeholder1 ${isDragging ? "dragging" : ""}`}
 															data-index={index}
 															onDrop={(event) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
+																handleCardBankDropOntoTierlist(event, tier.tierName)
 															}
 															onDragOver={handleDragOver}
 														></div>
@@ -353,23 +315,14 @@ const UserCreateTierlist = () => {
 															alt={character.name}
 															draggable={true}
 															onDragStart={(event) =>
-																handleTierlistDrag(
-																	event,
-																	character,
-																	tier.tierName
-																)
+																handleTierlistDrag(event, character, tier.tierName)
 															}
 														/>
 														<div
-															className={`placeholder2 ${
-																isDragging ? "dragging" : ""
-															}`}
+															className={`placeholder2 ${isDragging ? "dragging" : ""}`}
 															data-index={index + 1}
 															onDrop={(event) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
+																handleCardBankDropOntoTierlist(event, tier.tierName)
 															}
 															onDragOver={handleDragOver}
 														></div>
