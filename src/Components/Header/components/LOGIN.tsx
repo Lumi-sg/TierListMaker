@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useUserStore } from "../../../Stores/userStore";
 import { auth, provider, signInWithPopup } from "../../../main";
 
