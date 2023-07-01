@@ -69,15 +69,45 @@ const UserCreateTierlist = () => {
 		});
 	};
 
+	function removeCharFromBank(character: Character) {
+		const updatedCharacterBank = tierlistCharacterBank.filter(
+			(draggedChar) => draggedChar.name !== character.name
+		);
+		setTierlistCharacterBank(updatedCharacterBank);
+	}
+
 	const handleCardBankDropOntoTierlist = (
 		event: React.DragEvent<HTMLDivElement>,
 		tierName: string
 	) => {
 		event.preventDefault();
+		event.stopPropagation();
+		const insertCharacterAtIndex = event.currentTarget.getAttribute("data-index");
+		console.log(insertCharacterAtIndex);
+		if (insertCharacterAtIndex !== null) {
+			const index = parseInt(insertCharacterAtIndex);
+
+			console.log("placeholder detected");
+			console.log(`insert character at index ${insertCharacterAtIndex}`);
+			const characterData = event.dataTransfer.getData("text/plain");
+			const character = JSON.parse(characterData) as Character;
+			console.log(`dropped: ${character.name}`);
+			removeCharFromBank(character);
+
+			const updatedTierlist = currentTierlist;
+			updatedTierlist!.tiers.forEach((tier) => {
+				if (tier.tierName === tierName) {
+					console.log(`found tier: ${tierName}`);
+					tier.characters.splice(index, 0, character);
+				}
+			});
+			setCurrentTierlist(updatedTierlist!);
+			return;
+		}
 		const characterData = event.dataTransfer.getData("text/plain");
 		const character = JSON.parse(characterData) as Character;
 		console.log(`dropped: ${character.name}`);
-		removeCharFromBank();
+		removeCharFromBank(character);
 
 		const updatedTierlist = currentTierlist;
 		updatedTierlist!.tiers.forEach((tier) => {
@@ -87,35 +117,11 @@ const UserCreateTierlist = () => {
 			}
 		});
 		setCurrentTierlist(updatedTierlist!);
-
-		function removeCharFromBank() {
-			const updatedCharacterBank = tierlistCharacterBank.filter(
-				(draggedChar) => draggedChar.name !== character.name
-			);
-			setTierlistCharacterBank(updatedCharacterBank);
-		}
 	};
 
 	const handleDragOver = (event: React.DragEvent<HTMLImageElement>) => {
 		event.preventDefault();
 	};
-
-	// const handleDownloadClick = () => {
-	// 	const tierlistDomElement = document.querySelector(".TierList") as HTMLElement;
-	// 	if (!tierlistDomElement) {
-	// 		console.log("tierlistDomElement is null");
-	// 		return;
-	// 	}
-	// 	html2canvas(tierlistDomElement).then((canvas) => {
-	// 		const link = document.createElement("a");
-	// 		link.href = canvas.toDataURL("image/png"); // Set the canvas data URL as the link's source
-	// 		link.download = "tierlist.png"; // Specify the download filename
-
-	// 		// Programmatically trigger the download
-	// 		link.click();
-	// 		console.log(canvas);
-	// 	});
-	// };
 
 	const handleResetClick = () => {
 		const resetTierlist = selectedGame;
@@ -248,22 +254,50 @@ const UserCreateTierlist = () => {
 											}
 											onDragOver={handleDragOver}
 										>
+											<div
+												className="placeholder"
+												data-index={0}
+												onDrop={(event: React.DragEvent<HTMLDivElement>) =>
+													handleCardBankDropOntoTierlist(
+														event,
+														tier.tierName
+													)
+												}
+												onDragOver={handleDragOver}
+											></div>
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
-													<img
-														className="characterImage"
-														key={index}
-														src={character.imageURL}
-														alt={character.name}
-														draggable={true}
-														onDragStart={(event) =>
-															handleTierlistDrag(
-																event,
-																character,
-																tier.tierName
-															)
-														}
-													/>
+													<>
+														<img
+															className="characterImage"
+															key={index}
+															src={character.imageURL}
+															alt={character.name}
+															draggable={true}
+															onDragStart={(event) =>
+																handleTierlistDrag(
+																	event,
+																	character,
+																	tier.tierName
+																)
+															}
+														/>
+														<div
+															key={uuid()}
+															className="placeholder"
+															data-index={index + 1}
+															onDrop={
+																(
+																	event: React.DragEvent<HTMLDivElement>
+																) =>
+																	handleCardBankDropOntoTierlist(
+																		event,
+																		tier.tierName
+																	) // Insert at the end of the row
+															}
+															onDragOver={handleDragOver}
+														></div>
+													</>
 												))}
 											</div>
 										</div>

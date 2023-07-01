@@ -67,12 +67,13 @@
 	border-bottom: #383838 2px solid;
 	display: flex;
 	flex-wrap: wrap;
-	min-height: 6.15rem;
+	min-height: 6.01rem;
 	width: 100%;
 }
 
 .tier-name {
-	width: 7rem;
+	width: 6rem;
+	height: 6rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -99,6 +100,7 @@
 .rowContainer {
 	display: flex;
 	flex-direction: row;
+	height: 6rem;
 	width: 100%;
 }
 .CharacterBank {
@@ -140,4 +142,15 @@
 	margin: 0.5rem;
 	width: 11rem;
 	height: 3rem;
+}
+.placeholder {
+	border: 2px dashed #ccc;
+	background-color: #f5f5f5;
+	color: #999;
+	width: 5rem;
+	z-index: 999;
+}
+
+.placeholder:hover {
+	border-color: #999;
 }
