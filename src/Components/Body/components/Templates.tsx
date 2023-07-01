@@ -31,7 +31,7 @@ const Templates = () => {
 	return (
 		<div className="TemplateContainer">
 			<div className="templateTopTextContainer">
-				<h1 className="templateTopText">Choose game to create Tierlist with</h1>
+				<h1 className="templateTopText">Choose a game to create a tierlist with</h1>
 			</div>
 			<div className="PremadeLists">
 				{TierlistArray.map((tierlist) => (
