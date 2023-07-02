@@ -168,10 +168,11 @@ const YourTierlists = () => {
 								<div className="characterImages">
 									{tier.characters.map((character) => (
 										<img
-											className="characterImage"
+											className="characterImage noDrag"
 											src={character.imageURL}
 											alt={character.name}
 											key={character.name}
+											draggable={false}
 										/>
 									))}
 								</div>

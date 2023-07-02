@@ -85,7 +85,9 @@ const UserCreateTierlist = () => {
 	};
 
 	function removeCharFromBank(character: Character) {
-		const updatedCharacterBank = tierlistCharacterBank.filter((draggedChar) => draggedChar.name !== character.name);
+		const updatedCharacterBank = tierlistCharacterBank.filter(
+			(draggedChar) => draggedChar.name !== character.name
+		);
 		setTierlistCharacterBank(updatedCharacterBank);
 	}
 
@@ -94,7 +96,6 @@ const UserCreateTierlist = () => {
 		event.preventDefault();
 		event.stopPropagation();
 		// Disable dropping the card onto text inputs
-		setdraggingPreventHoverPlus(false);
 
 		// Get the index where the card should be inserted
 		const insertIndex = event.currentTarget.getAttribute("data-index");
@@ -115,6 +116,10 @@ const UserCreateTierlist = () => {
 				}
 			});
 			setCurrentTierlist(updatedTierlist!);
+			setTimeout(() => {
+				setdraggingPreventHoverPlus(false);
+			}, 100);
+
 			return;
 		}
 
@@ -128,6 +133,9 @@ const UserCreateTierlist = () => {
 			}
 		});
 		setCurrentTierlist(updatedTierlist!);
+		setTimeout(() => {
+			setdraggingPreventHoverPlus(false);
+		}, 100);
 	};
 
 	const handleDragOver = (event: React.DragEvent<HTMLImageElement>) => {
@@ -214,10 +222,16 @@ const UserCreateTierlist = () => {
 
 		if (updatedTierlist) {
 			updatedTierlist.tiers.forEach((tier) => {
-				tier.characters = tier.characters.filter((character) => character.name !== characterToRemove.name);
+				tier.characters = tier.characters.filter(
+					(character) => character.name !== characterToRemove.name
+				);
 			});
 		}
 	}
+
+	// const handleDragStateRows = (setting: boolean) => {
+	// 	setdraggingPreventHoverPlus(setting);
+	// };
 
 	useEffect(() => {
 		if (currentTierlist) {
@@ -232,10 +246,7 @@ const UserCreateTierlist = () => {
 	}, []);
 
 	return (
-		<div
-		// onMouseDown={handleMouseDown}
-		// onMouseUp={handleMouseUp}
-		>
+		<div onMouseUp={() => setdraggingPreventHoverPlus(false)}>
 			<div className="TierlistContainer">
 				{currentTierlist && (
 					<>
@@ -282,6 +293,9 @@ const UserCreateTierlist = () => {
 						<div
 							className="TierList"
 							ref={tierlistRef}
+							onMouseLeave={() => {
+								setdraggingPreventHoverPlus(false);
+							}}
 						>
 							{currentTierlist.tiers.map((tier, index) => {
 								// if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
@@ -292,8 +306,6 @@ const UserCreateTierlist = () => {
 									<div
 										className="rowContainer"
 										key={tier.tierName}
-										onMouseEnter={() => setIsDragging(true)}
-										onMouseLeave={() => setIsDragging(false)}
 									>
 										<div
 											className={`tier-name ${tier.tierName}-tier`}
@@ -301,7 +313,9 @@ const UserCreateTierlist = () => {
 										>
 											<input
 												value={domTierListNames[index]}
-												className={`tierNameInput${draggingPreventHoverPlus ? " dragging" : ""}`}
+												className={`tierNameInput${
+													draggingPreventHoverPlus ? " dragging" : ""
+												}`}
 												style={{ backgroundColor: tierColors[index] }}
 												onChange={(event) => changeTierNameChange(event, index)}
 												type="text"
@@ -320,6 +334,8 @@ const UserCreateTierlist = () => {
 												handleCardBankDropOntoTierlist(event, tier.tierName)
 											}
 											onDragOver={handleDragOver}
+											// onMouseEnter={() => handleDragStateRows(true)}
+											// onMouseLeave={() => handleDragStateRows(false)}
 										>
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
@@ -328,10 +344,15 @@ const UserCreateTierlist = () => {
 														key={index}
 													>
 														<div
-															className={`placeholder1 ${isDragging ? "dragging" : ""}`}
+															className={`placeholder1 ${
+																draggingPreventHoverPlus ? "dragging" : ""
+															}`}
 															data-index={index}
 															onDrop={(event) =>
-																handleCardBankDropOntoTierlist(event, tier.tierName)
+																handleCardBankDropOntoTierlist(
+																	event,
+																	tier.tierName
+																)
 															}
 															onDragOver={handleDragOver}
 														></div>
@@ -340,13 +361,23 @@ const UserCreateTierlist = () => {
 															src={character.imageURL}
 															alt={character.name}
 															draggable={true}
-															onDragStart={(event) => handleTierlistDrag(event, character)}
+															onDragStart={(event) =>
+																handleTierlistDrag(event, character)
+															}
+															onDragEnd={() =>
+																setdraggingPreventHoverPlus(false)
+															}
 														/>
 														<div
-															className={`placeholder2 ${isDragging ? "dragging" : ""}`}
+															className={`placeholder2 ${
+																draggingPreventHoverPlus ? "dragging" : ""
+															}`}
 															data-index={index + 1}
 															onDrop={(event) =>
-																handleCardBankDropOntoTierlist(event, tier.tierName)
+																handleCardBankDropOntoTierlist(
+																	event,
+																	tier.tierName
+																)
 															}
 															onDragOver={handleDragOver}
 														></div>
@@ -370,6 +401,7 @@ const UserCreateTierlist = () => {
 							draggable={true}
 							onDragStart={(event) => handleCardBankDrag(event, character)}
 							style={{ cursor: "grab" }}
+							onDragEnd={() => setdraggingPreventHoverPlus(false)}
 						/>
 					))}
 				</div>
