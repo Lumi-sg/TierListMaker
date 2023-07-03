@@ -131,7 +131,7 @@
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-	width: 50%;
+	width: 55%;
 	margin-bottom: 0.5rem;
 }
 .tierlistButtonContainer > input {
@@ -178,14 +178,10 @@
 	align-items: center;
 }
 
-.placeholder2.dragging {
-	background-color: rgba(6, 255, 43, 0.525);
-	display: block;
-}
-
+.placeholder2.dragging,
 .placeholder1.dragging {
+	/* background-color: rgba(6, 255, 43, 0.525); */
 	display: block;
-	background-color: rgba(209, 255, 4, 0.491);
 }
 
 .tierNameInput {
