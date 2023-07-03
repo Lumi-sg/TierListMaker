@@ -30,7 +30,6 @@ const UserCreateTierlist = () => {
 	);
 
 	const [draggingPreventHoverPlus, setdraggingPreventHoverPlus] = useState(false);
-	const [draggedCharacter, setdraggedCharacter] = useState<Character | null>(null);
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -62,6 +61,8 @@ const UserCreateTierlist = () => {
 			});
 		});
 
+		console.table(characterBank);
+
 		if (!characterBank || characterBank.length === 0) {
 			setcopiedTemplateCharacterBank(bugFixCharacterBank);
 			setTierlistCharacterBank(bugFixCharacterBank);
@@ -74,13 +75,11 @@ const UserCreateTierlist = () => {
 	const handleCardBankDrag = (event: React.DragEvent<HTMLImageElement>, character: Character) => {
 		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
-		setdraggedCharacter(character);
 	};
 
 	const handleTierlistDrag = (event: React.DragEvent<HTMLDivElement>, character: Character) => {
 		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
-		setdraggedCharacter(character);
 	};
 
 	function removeCharFromBank(character: Character) {
@@ -99,44 +98,51 @@ const UserCreateTierlist = () => {
 		// Get the index where the card should be inserted
 		const insertIndex = event.currentTarget.getAttribute("data-index");
 		// Get the character data from the data transfer
+		const characterData = event.dataTransfer.getData("text/plain");
 		// Remove the character from the current tierlist if it already exists
 
 		if (event.currentTarget.className === "CharacterBank") {
-			dropCardCharacterBank(draggedCharacter!);
-			setTimeout(() => {}, 100);
+			dropCardCharacterBank(characterData);
+			setTimeout(() => {
+				setdraggingPreventHoverPlus(false);
+			}, 100);
 			return;
 		}
-		if (draggedCharacter) {
-			removeCharacterIfExists(draggedCharacter, currentTierlist);
-		}
+
+		removeCharacterIfExists(characterData, currentTierlist);
 
 		if (insertIndex !== null) {
 			// If an insert index is provided, insert the character at that index
 			const index = parseInt(insertIndex);
-			removeCharFromBank(draggedCharacter!);
+			const character = JSON.parse(characterData) as Character;
+			removeCharFromBank(character);
 			const updatedTierlist = currentTierlist;
 			updatedTierlist!.tiers.forEach((tier) => {
 				if (tier.tierName === tierName) {
-					tier.characters.splice(index, 0, draggedCharacter!);
+					tier.characters.splice(index, 0, character);
 				}
 			});
 			setCurrentTierlist(updatedTierlist!);
-			setTimeout(() => {}, 100);
+			setTimeout(() => {
+				setdraggingPreventHoverPlus(false);
+			}, 100);
 
 			return;
 		}
 
 		// If no insert index is provided, add the character to the end of the tier
-
-		removeCharFromBank(draggedCharacter!);
+		const character = JSON.parse(characterData) as Character;
+		removeCharFromBank(character);
 		const updatedTierlist = currentTierlist;
 		updatedTierlist!.tiers.forEach((tier) => {
 			if (tier.tierName === tierName) {
-				tier.characters.push(draggedCharacter!);
+				tier.characters.push(character);
 			}
 		});
 		setCurrentTierlist(updatedTierlist!);
-		setTimeout(() => {}, 100);
+		setTimeout(() => {
+			setdraggingPreventHoverPlus(false);
+		}, 100);
 	};
 
 	const handleDragOver = (event: React.DragEvent<HTMLImageElement>) => {
@@ -217,22 +223,23 @@ const UserCreateTierlist = () => {
 		console.log(`changed tier name to ${event.target.value} at index ${tierIndex}`);
 	};
 
-	function removeCharacterIfExists(characterData: Character, currentTierlist: Tierlist | null) {
+	function removeCharacterIfExists(characterData: string, currentTierlist: Tierlist | null) {
+		const characterToRemove = JSON.parse(characterData) as Character;
 		const updatedTierlist = (currentTierlist && { ...currentTierlist }) || null;
 
 		if (updatedTierlist) {
 			updatedTierlist.tiers.forEach((tier) => {
 				tier.characters = tier.characters.filter(
-					(character) => character.name !== characterData.name
+					(character) => character.name !== characterToRemove.name
 				);
 			});
 		}
 	}
 
-	const dropCardCharacterBank = (characterData: Character) => {
+	const dropCardCharacterBank = (characterData: string) => {
 		removeCharacterIfExists(characterData, currentTierlist);
 		const currentCharacterBank = tierlistCharacterBank;
-		const characterToAdd = characterData;
+		const characterToAdd = JSON.parse(characterData) as Character;
 
 		const characterExists = currentCharacterBank.some(
 			(character) => character.name === characterToAdd.name
@@ -348,9 +355,6 @@ const UserCreateTierlist = () => {
 												handleCardBankDropOntoTierlist(event, tier.tierName)
 											}
 											onDragOver={handleDragOver}
-											onDragEnter={(event: React.DragEvent<HTMLDivElement>) =>
-												handleCardBankDropOntoTierlist(event, tier.tierName)
-											}
 										>
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
@@ -369,14 +373,7 @@ const UserCreateTierlist = () => {
 																	tier.tierName
 																)
 															}
-															onDragEnter={(
-																event: React.DragEvent<HTMLDivElement>
-															) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
-															}
+															onDragOver={handleDragOver}
 														></div>
 														<img
 															className="characterImage"
@@ -401,14 +398,7 @@ const UserCreateTierlist = () => {
 																	tier.tierName
 																)
 															}
-															onDragEnter={(
-																event: React.DragEvent<HTMLDivElement>
-															) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
-															}
+															onDragOver={handleDragOver}
 														></div>
 													</div>
 												))}
