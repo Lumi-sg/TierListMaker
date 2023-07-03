@@ -1,9 +1,9 @@
-import "./App.css";
-import "./reset.css";
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
-import Body from "./Components/Body/Body";
 import ".//Components/Body/styles/tierlist.css";
+import "./App.css";
+import Body from "./Components/Body/Body";
+import Footer from "./Components/Footer/Footer";
+import Header from "./Components/Header/Header";
+import "./reset.css";
 
 function App() {
 	return (

@@ -1,17 +1,12 @@
-import "../styles/Templates.css";
-import { TierlistArray } from "../../../Tierlists/TierlistArray";
-import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
-import { useTierListStore } from "../../../Stores/tierListStore";
 import { Tierlist } from "../../../Classes/TierlistClass";
+import { useTierListStore } from "../../../Stores/tierListStore";
+import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
+import { TierlistArray } from "../../../Tierlists/TierlistArray";
+import "../styles/Templates.css";
 
 const Templates = () => {
-	const {
-		setSelectedGame,
-		createMode,
-		setDisplayPremades,
-		setDisplayTemplates,
-		setDisplayCreateTierlist,
-	} = useUiNavigationStore();
+	const { setSelectedGame, createMode, setDisplayPremades, setDisplayTemplates, setDisplayCreateTierlist } =
+		useUiNavigationStore();
 
 	const { setCurrentTierlist } = useTierListStore();
 

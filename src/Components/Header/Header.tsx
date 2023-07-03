@@ -1,9 +1,8 @@
-import "./header.css";
-import logoImage from "../../assets/tiermaker-logo.png";
-
-import LOGIN from "./components/LOGIN";
 import { useUiNavigationStore } from "../../Stores/uiNavigationStore";
 import { useUserStore } from "../../Stores/userStore";
+import logoImage from "../../assets/tiermaker-logo.png";
+import LOGIN from "./components/LOGIN";
+import "./header.css";
 
 function Header() {
 	const {

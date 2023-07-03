@@ -1,15 +1,15 @@
+import { addDoc, collection } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
-import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
+import { v4 as uuid } from "uuid";
+import { Character, Tier, Tierlist, tierColors } from "../../../Classes/TierlistClass";
+import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 import { useTierListStore } from "../../../Stores/tierListStore";
-import { Tierlist, Tier, tierColors, Character } from "../../../Classes/TierlistClass";
+import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
-import { collection, addDoc } from "firebase/firestore";
-import { v4 as uuid } from "uuid";
-import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 
 const UserCreateTierlist = () => {
-	const { selectedGame, isDragging, setIsDragging } = useUiNavigationStore();
+	const { selectedGame } = useUiNavigationStore();
 
 	const {
 		currentTierlist,
@@ -92,7 +92,7 @@ const UserCreateTierlist = () => {
 	}
 
 	//Handle the event when a card is dropped onto a tierlist.
-	const handleCardBankDropOntoTierlist = (event: React.DragEvent<HTMLDivElement>, tierName: string) => {
+	const handleCardBankDropOntoTierlist = (event: React.DragEvent<HTMLDivElement>, tierName?: string) => {
 		event.preventDefault();
 		event.stopPropagation();
 		// Disable dropping the card onto text inputs
@@ -102,6 +102,15 @@ const UserCreateTierlist = () => {
 		// Get the character data from the data transfer
 		const characterData = event.dataTransfer.getData("text/plain");
 		// Remove the character from the current tierlist if it already exists
+
+		if (event.currentTarget.className === "CharacterBank") {
+			dropCardCharacterBank(characterData);
+			setTimeout(() => {
+				setdraggingPreventHoverPlus(false);
+			}, 100);
+			return;
+		}
+
 		removeCharacterIfExists(characterData, currentTierlist);
 
 		if (insertIndex !== null) {
@@ -229,9 +238,23 @@ const UserCreateTierlist = () => {
 		}
 	}
 
-	// const handleDragStateRows = (setting: boolean) => {
-	// 	setdraggingPreventHoverPlus(setting);
-	// };
+	const dropCardCharacterBank = (characterData: string) => {
+		removeCharacterIfExists(characterData, currentTierlist);
+		const currentCharacterBank = tierlistCharacterBank;
+		const characterToAdd = JSON.parse(characterData) as Character;
+
+		const characterExists = currentCharacterBank.some(
+			(character) => character.name === characterToAdd.name
+		);
+
+		if (characterExists) {
+			console.log("Character found in bank, not added");
+			return;
+		}
+
+		currentCharacterBank.push(characterToAdd);
+		console.log(`Dropped character ${characterToAdd.name} into the bank`);
+	};
 
 	useEffect(() => {
 		if (currentTierlist) {
@@ -334,8 +357,6 @@ const UserCreateTierlist = () => {
 												handleCardBankDropOntoTierlist(event, tier.tierName)
 											}
 											onDragOver={handleDragOver}
-											// onMouseEnter={() => handleDragStateRows(true)}
-											// onMouseLeave={() => handleDragStateRows(false)}
 										>
 											<div className="characterImages">
 												{tier.characters.map((character, index) => (
@@ -391,7 +412,11 @@ const UserCreateTierlist = () => {
 						</div>
 					</>
 				)}
-				<div className="CharacterBank">
+				<div
+					className="CharacterBank"
+					onDrop={(event) => handleCardBankDropOntoTierlist(event)}
+					onDragOver={(event) => event.preventDefault()}
+				>
 					{tierlistCharacterBank.map((character, index) => (
 						<img
 							className="characterImageBank"

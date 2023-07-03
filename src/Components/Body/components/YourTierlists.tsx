@@ -1,13 +1,12 @@
+import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Tierlist, tierColors } from "../../../Classes/TierlistClass";
+import { convertFirestoreDataToTierlist } from "../../../Helpers/convertFirestoreDataToTierlist";
+import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
+import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
 import { useUserStore } from "../../../Stores/userStore";
 import { firestoreDB } from "../../../main";
-import { collection, getDocs, query, where, deleteDoc } from "firebase/firestore";
-import { convertFirestoreDataToTierlist } from "../../../Helpers/convertFirestoreDataToTierlist";
-import { Tierlist } from "../../../Classes/TierlistClass";
 import "../styles/YourTierlists.css";
-import { tierColors } from "../../../Classes/TierlistClass";
-import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
-import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 
 const YourTierlists = () => {
 	const { currentUserData } = useUserStore();
