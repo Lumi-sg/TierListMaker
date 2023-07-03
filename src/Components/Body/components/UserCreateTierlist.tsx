@@ -73,13 +73,13 @@ const UserCreateTierlist = () => {
 
 	const handleCardBankDrag = (event: React.DragEvent<HTMLImageElement>, character: Character) => {
 		setdraggingPreventHoverPlus(true);
-		event.dataTransfer.setData("text/plain", JSON.stringify(character));
+
 		setdraggedCharacter(character);
 	};
 
 	const handleTierlistDrag = (event: React.DragEvent<HTMLDivElement>, character: Character) => {
 		setdraggingPreventHoverPlus(true);
-		event.dataTransfer.setData("text/plain", JSON.stringify(character));
+
 		setdraggedCharacter(character);
 	};
 
@@ -250,22 +250,17 @@ const UserCreateTierlist = () => {
 		const currentBank = tierlistCharacterBank;
 
 		currentBank.push(charToAdd!);
-		setTierlistCharacterBank(currentBank);
+		const uniqueBank = Array.from(new Set(currentBank));
+		setTierlistCharacterBank(uniqueBank);
 		removeCharacterIfExists(charToAdd!, currentTierlist!);
 		console.log(`Dropped character ${charToAdd!.name} into the bank`);
 	};
 
 	const dragRemoveCardBank = () => {
 		const charToRemove = draggedCharacter;
-		const currentBank = tierlistCharacterBank;
+		const uniqueBank = Array.from(new Set(tierlistCharacterBank));
 
-		currentBank.forEach((character, index) => {
-			if (character.name === charToRemove!.name) {
-				currentBank.splice(index, 1);
-			}
-			setTierlistCharacterBank(currentBank);
-		});
-		setTierlistCharacterBank(currentBank);
+		setTierlistCharacterBank(uniqueBank);
 	};
 
 	useEffect(() => {
@@ -449,7 +444,7 @@ const UserCreateTierlist = () => {
 				>
 					{tierlistCharacterBank.map((character, index) => (
 						<img
-							className="characterImageBank"
+							className={`characterImageBank${draggingPreventHoverPlus ? " dragging" : ""}`}
 							key={index}
 							src={character.imageURL}
 							alt={character.name}

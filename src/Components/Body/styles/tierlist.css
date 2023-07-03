@@ -203,3 +203,7 @@ input.dragging {
 .characterImage.noDrag {
 	cursor: auto;
 }
+
+.characterImageBank.dragging {
+	pointer-events: none;
+}
