@@ -21,9 +21,6 @@ import AST from "../assets/FFXIV/8.webp";
 import BLU from "../assets/FFXIV/9.webp";
 import FFXIVLogo from "../assets/Logos/co48rz.webp";
 
-
-
-
 const templateFFXIVTiers: Tier[] = [
 	{
 		tierName: TierName.S,
