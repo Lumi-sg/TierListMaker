@@ -232,19 +232,40 @@ const UserCreateTierlist = () => {
 	const dropCardCharacterBank = (characterData: Character) => {
 		removeCharacterIfExists(characterData, currentTierlist);
 		const currentCharacterBank = tierlistCharacterBank;
-		const characterToAdd = characterData;
 
 		const characterExists = currentCharacterBank.some(
-			(character) => character.name === characterToAdd.name
+			(character) => character.name === characterData.name
 		);
 
 		if (characterExists) {
-			console.log("Character found in bank, not added");
 			return;
 		}
 
-		currentCharacterBank.push(characterToAdd);
-		console.log(`Dropped character ${characterToAdd.name} into the bank`);
+		currentCharacterBank.push(characterData);
+		console.log(`Dropped character ${characterData.name} into the bank`);
+	};
+
+	const dragAddCardBank = (event: React.DragEvent<HTMLDivElement>) => {
+		const charToAdd = draggedCharacter;
+		const currentBank = tierlistCharacterBank;
+
+		currentBank.push(charToAdd!);
+		setTierlistCharacterBank(currentBank);
+		removeCharacterIfExists(charToAdd!, currentTierlist!);
+		console.log(`Dropped character ${charToAdd!.name} into the bank`);
+	};
+
+	const dragRemoveCardBank = () => {
+		const charToRemove = draggedCharacter;
+		const currentBank = tierlistCharacterBank;
+
+		currentBank.forEach((character, index) => {
+			if (character.name === charToRemove!.name) {
+				currentBank.splice(index, 1);
+			}
+			setTierlistCharacterBank(currentBank);
+		});
+		setTierlistCharacterBank(currentBank);
 	};
 
 	useEffect(() => {
@@ -422,8 +443,9 @@ const UserCreateTierlist = () => {
 				)}
 				<div
 					className="CharacterBank"
-					onDrop={(event) => handleCardBankDropOntoTierlist(event)}
 					onDragOver={(event) => event.preventDefault()}
+					onDragEnter={(event) => dragAddCardBank(event)}
+					onDragLeave={dragRemoveCardBank}
 				>
 					{tierlistCharacterBank.map((character, index) => (
 						<img
