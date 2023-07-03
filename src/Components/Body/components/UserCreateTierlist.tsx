@@ -33,7 +33,7 @@ const UserCreateTierlist = () => {
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
-			console.log("tierlist is null");
+			console.log("tierlist is null!");
 			return null;
 		}
 		//empty out the tiers
