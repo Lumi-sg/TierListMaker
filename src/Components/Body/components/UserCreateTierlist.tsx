@@ -71,13 +71,13 @@ const UserCreateTierlist = () => {
 		}
 	};
 
-	const handleCardBankDrag = (event: React.DragEvent<HTMLImageElement>, character: Character) => {
+	const handleCardBankDrag = (character: Character) => {
 		setdraggingPreventHoverPlus(true);
 
 		setdraggedCharacter(character);
 	};
 
-	const handleTierlistDrag = (event: React.DragEvent<HTMLDivElement>, character: Character) => {
+	const handleTierlistDrag = (character: Character) => {
 		setdraggingPreventHoverPlus(true);
 
 		setdraggedCharacter(character);
@@ -245,7 +245,7 @@ const UserCreateTierlist = () => {
 		console.log(`Dropped character ${characterData.name} into the bank`);
 	};
 
-	const dragAddCardBank = (event: React.DragEvent<HTMLDivElement>) => {
+	const dragAddCardBank = () => {
 		const charToAdd = draggedCharacter;
 		const currentBank = tierlistCharacterBank;
 
@@ -257,7 +257,6 @@ const UserCreateTierlist = () => {
 	};
 
 	const dragRemoveCardBank = () => {
-		const charToRemove = draggedCharacter;
 		const uniqueBank = Array.from(new Set(tierlistCharacterBank));
 
 		setTierlistCharacterBank(uniqueBank);
@@ -399,9 +398,7 @@ const UserCreateTierlist = () => {
 															src={character.imageURL}
 															alt={character.name}
 															draggable={true}
-															onDragStart={(event) =>
-																handleTierlistDrag(event, character)
-															}
+															onDragStart={() => handleTierlistDrag(character)}
 															onDragEnd={() =>
 																setdraggingPreventHoverPlus(false)
 															}
@@ -439,7 +436,7 @@ const UserCreateTierlist = () => {
 				<div
 					className="CharacterBank"
 					onDragOver={(event) => event.preventDefault()}
-					onDragEnter={(event) => dragAddCardBank(event)}
+					onDragEnter={() => dragAddCardBank()}
 					onDragLeave={dragRemoveCardBank}
 				>
 					{tierlistCharacterBank.map((character, index) => (
@@ -449,7 +446,7 @@ const UserCreateTierlist = () => {
 							src={character.imageURL}
 							alt={character.name}
 							draggable={true}
-							onDragStart={(event) => handleCardBankDrag(event, character)}
+							onDragStart={() => handleCardBankDrag(character)}
 							style={{ cursor: "grab" }}
 							onDragEnd={() => setdraggingPreventHoverPlus(false)}
 						/>
