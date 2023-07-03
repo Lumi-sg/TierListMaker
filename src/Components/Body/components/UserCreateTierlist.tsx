@@ -75,13 +75,11 @@ const UserCreateTierlist = () => {
 	const handleCardBankDrag = (event: React.DragEvent<HTMLImageElement>, character: Character) => {
 		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
-		console.log(`drag started: ${character.name}`);
 	};
 
 	const handleTierlistDrag = (event: React.DragEvent<HTMLDivElement>, character: Character) => {
 		setdraggingPreventHoverPlus(true);
 		event.dataTransfer.setData("text/plain", JSON.stringify(character));
-		console.log(`drag started: ${character.name}`);
 	};
 
 	function removeCharFromBank(character: Character) {
@@ -321,9 +319,9 @@ const UserCreateTierlist = () => {
 							}}
 						>
 							{currentTierlist.tiers.map((tier, index) => {
-								// if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
-								// 	return null; // Skip the iteration
-								// }
+								if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
+									return null; // Skip the iteration
+								}
 
 								return (
 									<div

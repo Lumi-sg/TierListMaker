@@ -179,13 +179,13 @@
 }
 
 .placeholder2.dragging {
-	/* background-color: rgba(6, 255, 43, 0.525); */
+	background-color: rgba(6, 255, 43, 0.525);
 	display: block;
 }
 
 .placeholder1.dragging {
 	display: block;
-	/* background-color: rgba(209, 255, 4, 0.491); */
+	background-color: rgba(209, 255, 4, 0.491);
 }
 
 .tierNameInput {
@@ -199,7 +199,6 @@
 .tierNameInput:focus {
 	border: none;
 	outline: none;
-	border: #383838 1px solid;
 }
 input.dragging {
 	pointer-events: none;
