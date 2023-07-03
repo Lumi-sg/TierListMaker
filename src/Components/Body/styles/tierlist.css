@@ -110,10 +110,11 @@
 	flex-wrap: wrap;
 	justify-content: left;
 	align-items: center;
-	width: 46.5rem;
+	width: 47rem;
 	height: auto;
+	min-height: 6rem;
 	margin: 1rem;
-	padding: 0.25rem;
+	padding: 0.5rem;
 	background-color: #141412;
 	border-radius: 10px;
 	border: #383838 1px solid;
