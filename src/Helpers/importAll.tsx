@@ -8,6 +8,5 @@ export const importAll = async (files: Record<string, () => Promise<{ default: s
 			images[filename] = image;
 		}
 	}
-	console.table(images);
 	return images;
 };
