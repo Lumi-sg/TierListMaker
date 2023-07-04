@@ -31,6 +31,9 @@ const UserCreateTierlist = () => {
 
 	const [draggingPreventHoverPlus, setdraggingPreventHoverPlus] = useState(false);
 	const [draggedCharacter, setdraggedCharacter] = useState<Character | null>(null);
+	const [displayModal, setdisplayModal] = useState(false);
+	const [resetModalDisplay, setResetModalDisplay] = useState(false);
+	const [savedTierlist, setsavedTierlist] = useState(false);
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -152,21 +155,28 @@ const UserCreateTierlist = () => {
 		setTierlistCharacterBank(copiedTemplateCharacterBank);
 		setBugFixCharacterBank(copiedTemplateCharacterBank);
 		setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
+		setResetModalDisplay(false);
+		setdisplayModal(false);
+	};
+
+	const displayResetModal = () => {
+		setResetModalDisplay(true);
+		setdisplayModal(true);
 	};
 
 	const handleSaveTierlistClick = async () => {
 		if (tierlistName === "") {
 			console.log("tierlist name is empty");
+			setdisplayModal(true);
 			return;
 		}
-		setTierlistName("saving!");
 		try {
 			const tierlistObject = convertTierlistToNormalObject();
 			const docRef = await saveTierlistToFirestore(tierlistObject);
 			setTierlistName("");
 			console.log("Document written with ID: ", docRef.id);
 			handleResetClick();
-
+			setsavedTierlist(true);
 			return docRef.id;
 		} catch (error) {
 			console.log("Error saving tierlist:", error);
@@ -262,6 +272,12 @@ const UserCreateTierlist = () => {
 		setTierlistCharacterBank(uniqueBank);
 	};
 
+	const closeModal = () => {
+		setdisplayModal(false);
+		setResetModalDisplay(false);
+		setsavedTierlist(false);
+	};
+
 	useEffect(() => {
 		if (currentTierlist) {
 			currentTierlist.name = tierlistName;
@@ -275,182 +291,231 @@ const UserCreateTierlist = () => {
 	}, []);
 
 	return (
-		<div onMouseUp={() => setdraggingPreventHoverPlus(false)}>
-			<div className="TierlistContainer">
-				{currentTierlist && (
-					<>
-						<div className="TopOfTierlistContainer">
-							<div className="listLogoContainer">
-								<img
-									className="listLogo"
-									src={currentTierlist.logoImageURL}
-									alt="List Logo"
-								/>
-							</div>
-							<div className="TierListTextInfo">
-								<h1>{currentTierlist.game}</h1>
-								<p>{currentTierlist.description}</p>
-							</div>
-						</div>
-						<div className="tierlistButtonContainer">
-							<input
-								className={`tierlistNameInput${draggingPreventHoverPlus ? " dragging" : ""}`}
-								placeholder="Tierlist Name"
-								onChange={handleTierListNameChange}
-								value={tierlistName}
-							></input>
-							<button
-								className="tierListButton"
-								onClick={handleSaveTierlistClick}
-								disabled={!isLoggedIn}
-							>
-								Save Tierlist
-							</button>
-							<button
-								className="tierListButton"
-								onClick={handleDownloadClick}
-							>
-								Download Tierlist
-							</button>
-							<button
-								className="tierListButton"
-								onClick={handleResetClick}
-							>
-								Reset Tierlist
-							</button>
-						</div>
-						<div
-							className="TierList"
-							ref={tierlistRef}
-							onMouseLeave={() => {
-								setdraggingPreventHoverPlus(false);
-							}}
-						>
-							{currentTierlist.tiers.map((tier, index) => {
-								if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
-									return null; // Skip the iteration
-								}
+		<div>
+			{displayModal && (
+				<div className="modal">
+					<div className="modal-content">
+						{resetModalDisplay ? (
+							<>
+								<h3>Confirm reset tierlist</h3>
+								<button
+									className="otherButton"
+									onClick={handleResetClick}
+								>
+									Reset
+								</button>
+								<button
+									className="closeButton"
+									onClick={closeModal}
+								>
+									X
+								</button>
+							</>
+						) : (
+							<>
+								<h3>Error</h3>
+								<p>Tierlist name cannot be blank.</p>
+							</>
+						)}
+					</div>
+				</div>
+			)}
 
-								return (
-									<div
-										className="rowContainer"
-										key={tier.tierName}
-									>
+			{savedTierlist && (
+				<div className="modal">
+					<div className="modal-content">
+						<h3>Tierlist Saved!</h3>
+						<button
+							className="closeButton"
+							onClick={closeModal}
+						>
+							X
+						</button>
+					</div>
+				</div>
+			)}
+
+			<div onMouseUp={() => setdraggingPreventHoverPlus(false)}>
+				<div className="TierlistContainer">
+					{currentTierlist && (
+						<>
+							<div className="TopOfTierlistContainer">
+								<div className="listLogoContainer">
+									<img
+										className="listLogo"
+										src={currentTierlist.logoImageURL}
+										alt="List Logo"
+									/>
+								</div>
+								<div className="TierListTextInfo">
+									<h1>{currentTierlist.game}</h1>
+									<p>{currentTierlist.description}</p>
+								</div>
+							</div>
+							<div className="tierlistButtonContainer">
+								<input
+									className={`tierlistNameInput${
+										draggingPreventHoverPlus ? " dragging" : ""
+									}`}
+									placeholder="Tierlist Name"
+									onChange={handleTierListNameChange}
+									value={tierlistName}
+								></input>
+								<button
+									className="tierListButton"
+									onClick={handleSaveTierlistClick}
+									disabled={!isLoggedIn}
+								>
+									Save Tierlist
+								</button>
+								<button
+									className="tierListButton"
+									onClick={handleDownloadClick}
+								>
+									Download Tierlist
+								</button>
+								<button
+									className="tierListButton"
+									onClick={displayResetModal}
+								>
+									Reset Tierlist
+								</button>
+							</div>
+							<div
+								className="TierList"
+								ref={tierlistRef}
+								onMouseLeave={() => {
+									setdraggingPreventHoverPlus(false);
+								}}
+							>
+								{currentTierlist.tiers.map((tier, index) => {
+									if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
+										return null; // Skip the iteration
+									}
+
+									return (
 										<div
-											className={`tier-name ${tier.tierName}-tier`}
-											style={{ backgroundColor: tierColors[index] }}
+											className="rowContainer"
+											key={tier.tierName}
 										>
-											<input
-												value={domTierListNames[index]}
-												className={`tierNameInput${
-													draggingPreventHoverPlus ? " dragging" : ""
-												}`}
+											<div
+												className={`tier-name ${tier.tierName}-tier`}
 												style={{ backgroundColor: tierColors[index] }}
-												onChange={(event) => changeTierNameChange(event, index)}
-												type="text"
-												onDrop={(event) => {
-													event.preventDefault();
-												}}
-												onDragOver={(event) => {
-													event.preventDefault();
-												}}
-												required
-											/>
-										</div>
-										<div
-											className={`tier-row ${tier.tierName}`}
-											onDrop={(event: React.DragEvent<HTMLDivElement>) =>
-												handleCardBankDropOntoTierlist(event, tier.tierName)
-											}
-											onDragOver={handleDragOver}
-											onDragEnter={(event: React.DragEvent<HTMLDivElement>) =>
-												handleCardBankDropOntoTierlist(event, tier.tierName)
-											}
-										>
-											<div className="characterImages">
-												{tier.characters.map((character, index) => (
-													<div
-														className="characterContainer"
-														key={index}
-													>
+											>
+												<input
+													value={domTierListNames[index]}
+													className={`tierNameInput${
+														draggingPreventHoverPlus ? " dragging" : ""
+													}`}
+													style={{ backgroundColor: tierColors[index] }}
+													onChange={(event) => changeTierNameChange(event, index)}
+													type="text"
+													onDrop={(event) => {
+														event.preventDefault();
+													}}
+													onDragOver={(event) => {
+														event.preventDefault();
+													}}
+													required
+												/>
+											</div>
+											<div
+												className={`tier-row ${tier.tierName}`}
+												onDrop={(event: React.DragEvent<HTMLDivElement>) =>
+													handleCardBankDropOntoTierlist(event, tier.tierName)
+												}
+												onDragOver={handleDragOver}
+												onDragEnter={(event: React.DragEvent<HTMLDivElement>) =>
+													handleCardBankDropOntoTierlist(event, tier.tierName)
+												}
+											>
+												<div className="characterImages">
+													{tier.characters.map((character, index) => (
 														<div
-															className={`placeholder1 ${
-																draggingPreventHoverPlus ? "dragging" : ""
-															}`}
-															data-index={index}
-															onDrop={(event) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
-															}
-															onDragEnter={(
-																event: React.DragEvent<HTMLDivElement>
-															) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
-															}
-														></div>
-														<img
-															className="characterImage"
-															src={character.imageURL}
-															alt={character.name}
-															draggable={true}
-															onDragStart={() => handleTierlistDrag(character)}
-															onDragEnd={() =>
-																setdraggingPreventHoverPlus(false)
-															}
-														/>
-														<div
-															className={`placeholder2 ${
-																draggingPreventHoverPlus ? "dragging" : ""
-															}`}
-															data-index={index + 1}
-															onDrop={(event) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
-															}
-															onDragEnter={(
-																event: React.DragEvent<HTMLDivElement>
-															) =>
-																handleCardBankDropOntoTierlist(
-																	event,
-																	tier.tierName
-																)
-															}
-														></div>
-													</div>
-												))}
+															className="characterContainer"
+															key={index}
+														>
+															<div
+																className={`placeholder1 ${
+																	draggingPreventHoverPlus ? "dragging" : ""
+																}`}
+																data-index={index}
+																onDrop={(event) =>
+																	handleCardBankDropOntoTierlist(
+																		event,
+																		tier.tierName
+																	)
+																}
+																onDragEnter={(
+																	event: React.DragEvent<HTMLDivElement>
+																) =>
+																	handleCardBankDropOntoTierlist(
+																		event,
+																		tier.tierName
+																	)
+																}
+															></div>
+															<img
+																className="characterImage"
+																src={character.imageURL}
+																alt={character.name}
+																draggable={true}
+																onDragStart={() =>
+																	handleTierlistDrag(character)
+																}
+																onDragEnd={() =>
+																	setdraggingPreventHoverPlus(false)
+																}
+															/>
+															<div
+																className={`placeholder2 ${
+																	draggingPreventHoverPlus ? "dragging" : ""
+																}`}
+																data-index={index + 1}
+																onDrop={(event) =>
+																	handleCardBankDropOntoTierlist(
+																		event,
+																		tier.tierName
+																	)
+																}
+																onDragEnter={(
+																	event: React.DragEvent<HTMLDivElement>
+																) =>
+																	handleCardBankDropOntoTierlist(
+																		event,
+																		tier.tierName
+																	)
+																}
+															></div>
+														</div>
+													))}
+												</div>
 											</div>
 										</div>
-									</div>
-								);
-							})}
-						</div>
-					</>
-				)}
-				<div
-					className="CharacterBank"
-					onDragOver={(event) => event.preventDefault()}
-					onDragEnter={() => dragAddCardBank()}
-					onDragLeave={dragRemoveCardBank}
-				>
-					{tierlistCharacterBank.map((character, index) => (
-						<img
-							className={`characterImageBank${draggingPreventHoverPlus ? " dragging" : ""}`}
-							key={index}
-							src={character.imageURL}
-							alt={character.name}
-							draggable={true}
-							onDragStart={() => handleCardBankDrag(character)}
-							style={{ cursor: "grab" }}
-							onDragEnd={() => setdraggingPreventHoverPlus(false)}
-						/>
-					))}
+									);
+								})}
+							</div>
+						</>
+					)}
+					<div
+						className="CharacterBank"
+						onDragOver={(event) => event.preventDefault()}
+						onDragEnter={() => dragAddCardBank()}
+						onDragLeave={dragRemoveCardBank}
+					>
+						{tierlistCharacterBank.map((character, index) => (
+							<img
+								className={`characterImageBank${draggingPreventHoverPlus ? " dragging" : ""}`}
+								key={index}
+								src={character.imageURL}
+								alt={character.name}
+								draggable={true}
+								onDragStart={() => handleCardBankDrag(character)}
+								style={{ cursor: "grab" }}
+								onDragEnd={() => setdraggingPreventHoverPlus(false)}
+							/>
+						))}
+					</div>
 				</div>
 			</div>
 		</div>
