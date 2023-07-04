@@ -26,9 +26,11 @@ const UserCreateTierlist = () => {
 	const [tierlistName, setTierlistName] = useState("");
 
 	const [domTierListNames, setDomTierListNames] = useState<string[]>(
-		selectedGame?.tiers.map((tier) => tier.tierName) || []
+		selectedGame!.tiers.map((tier) => tier.tierName) || []
 	);
-	const [domTierColors, setDomTierColors] = useState<string[]>(tierColors.map((color) => color));
+	const [domTierColors, setDomTierColors] = useState<string[]>(
+		selectedGame!.tiers.map((tier) => tier.tierColor) || []
+	);
 
 	const [draggingPreventHoverPlus, setdraggingPreventHoverPlus] = useState(false);
 	const [draggedCharacter, setdraggedCharacter] = useState<Character | null>(null);
@@ -193,6 +195,7 @@ const UserCreateTierlist = () => {
 				uniqueID: uuid(),
 				tiers: currentTierlist!.tiers.map((tier, index) => ({
 					tierName: domTierListNames[index],
+					tierColor: domTierColors[index],
 					characters: tier.characters,
 				})),
 				dateCreated: new Date(),
@@ -205,7 +208,7 @@ const UserCreateTierlist = () => {
 			description: string;
 			logoImageURL: string;
 			uniqueID: string;
-			tiers: { tierName: string; characters: Character[] }[];
+			tiers: { tierName: string; tierColor: string; characters: Character[] }[];
 			dateCreated: Date;
 		}) {
 			return await addDoc(collection(firestoreDB, "tierlistData"), {
@@ -312,6 +315,8 @@ const UserCreateTierlist = () => {
 		extractCharactersFromTierlist(selectedGame);
 		const newEmptyTierList = prepareForUserCreatedTierlist(selectedGame);
 		setCurrentTierlist(newEmptyTierList!);
+		const colorArray = newEmptyTierList?.tiers.map((tier) => tier.tierColor) || [];
+		setDomTierColors(colorArray);
 	}, []);
 
 	return (

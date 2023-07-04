@@ -1,4 +1,4 @@
-import { Tierlist, Tier, Character } from "../Classes/TierlistClass";
+import { Character, Tier, Tierlist } from "../Classes/TierlistClass";
 
 export const convertFirestoreDataToTierlist = (firestoreData: any): Tierlist | null => {
 	if (!firestoreData) {
@@ -7,7 +7,7 @@ export const convertFirestoreDataToTierlist = (firestoreData: any): Tierlist | n
 	const { name, game, description, logoImageURL, uniqueID, tiers, dateCreated } = firestoreData;
 
 	const convertedTiers: Tier[] = tiers.map((tierData: any) => {
-		const { tierName, characters } = tierData;
+		const { tierName, tierColor, characters } = tierData;
 
 		// Convert the characters array
 		const convertedCharacters: Character[] = characters.map((characterData: any) => {
@@ -23,6 +23,7 @@ export const convertFirestoreDataToTierlist = (firestoreData: any): Tierlist | n
 
 		return {
 			tierName,
+			tierColor,
 			characters: convertedCharacters,
 		};
 	});

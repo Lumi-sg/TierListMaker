@@ -9,6 +9,7 @@ const images = await importAll(
 const templatePPlusTiers: Tier[] = [
 	{
 		tierName: TierName.S,
+		tierColor: "#ff7f7f",
 		characters: [
 			{
 				name: "Metaknight",
@@ -60,6 +61,7 @@ const templatePPlusTiers: Tier[] = [
 
 	{
 		tierName: TierName.A,
+		tierColor: "#ffbf7f",
 		characters: [
 			{
 				name: "Knuckles",
@@ -120,6 +122,7 @@ const templatePPlusTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.B,
+		tierColor: "#ffdf7f",
 		characters: [
 			{
 				name: "Charizard",
@@ -190,6 +193,7 @@ const templatePPlusTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.C,
+		tierColor: "#bfff7f",
 		characters: [
 			{
 				name: "Snake",
@@ -225,6 +229,7 @@ const templatePPlusTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.D,
+		tierColor: "#7fff7f",
 		characters: [
 			{
 				name: "Luigi",

@@ -8,6 +8,7 @@ const images = await importAll(
 const templateSSBMTiers: Tier[] = [
 	{
 		tierName: TierName.S,
+		tierColor: "#ff7f7f",
 		characters: [
 			{
 				name: "Fox",
@@ -34,6 +35,7 @@ const templateSSBMTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.A,
+		tierColor: "#ffbf7f",
 		characters: [
 			{
 				name: "Sheik",
@@ -55,6 +57,7 @@ const templateSSBMTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.B,
+		tierColor: "#ffdf7f",
 		characters: [
 			{
 				name: "Ice Climbers",
@@ -101,6 +104,7 @@ const templateSSBMTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.C,
+		tierColor: "#bfff7f",
 		characters: [
 			{
 				name: "Donkey Kong",
@@ -122,6 +126,7 @@ const templateSSBMTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.D,
+		tierColor: "#7fff7f",
 		characters: [
 			{
 				name: "Game&Watch",

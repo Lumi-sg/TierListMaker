@@ -9,6 +9,7 @@ const images = await importAll(
 const templateStriveTiers: Tier[] = [
 	{
 		tierName: TierName.S,
+		tierColor: "#ff7f7f",
 		characters: [
 			{
 				name: "Happy Chaos",
@@ -39,6 +40,7 @@ const templateStriveTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.A,
+		tierColor: "#ffbf7f",
 		characters: [
 			{
 				name: "Zato-1",
@@ -84,6 +86,7 @@ const templateStriveTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.B,
+		tierColor: "#ffdf7f",
 		characters: [
 			{
 				name: "I-No",
@@ -129,6 +132,7 @@ const templateStriveTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.C,
+		tierColor: "#bfff7f",
 		characters: [
 			{
 				name: "Asuka",
@@ -139,6 +143,7 @@ const templateStriveTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.D,
+		tierColor: "#7fff7f",
 		characters: [
 			{
 				name: "Sin",

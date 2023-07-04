@@ -37,7 +37,9 @@ export type Character = {
 
 export type Tier = {
 	tierName: string;
+	tierColor: string
 	characters: Character[];
+
 };
 export class Tierlist {
 	name: string;

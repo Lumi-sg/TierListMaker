@@ -9,6 +9,7 @@ const images = await importAll(
 const sf6Tiers: Tier[] = [
 	{
 		tierName: TierName.S,
+		tierColor: "#ff7f7f",
 		characters: [
 			{
 				name: "Luke",
@@ -39,6 +40,7 @@ const sf6Tiers: Tier[] = [
 	},
 	{
 		tierName: TierName.A,
+		tierColor: "#ffbf7f",
 		characters: [
 			{
 				name: "ChunLi",
@@ -59,6 +61,7 @@ const sf6Tiers: Tier[] = [
 	},
 	{
 		tierName: TierName.B,
+		tierColor: "#ffdf7f",
 		characters: [
 			{
 				name: "Marisa",
@@ -94,6 +97,7 @@ const sf6Tiers: Tier[] = [
 	},
 	{
 		tierName: TierName.C,
+		tierColor: "#bfff7f",
 		characters: [
 			{
 				name: "Zangief",
@@ -109,6 +113,7 @@ const sf6Tiers: Tier[] = [
 	},
 	{
 		tierName: TierName.D,
+		tierColor: "#7fff7f",
 		characters: [
 			{
 				name: "Dhalsim",

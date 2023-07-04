@@ -9,6 +9,7 @@ const images = await importAll(
 const pooTiers: Tier[] = [
 	{
 		tierName: TierName.S,
+		tierColor: "#ff7f7f",
 		characters: [
 			{
 				name: "M4A1",
@@ -265,84 +266,87 @@ const pooTiers: Tier[] = [
 				imageURL: images["scar-lpng"],
 				withinTierRank: 51,
 			},
-            {
-                name: "sicklepng",
-                imageURL: images["sicklepng"],
-                withinTierRank: 52,
-            },
-            {
-                name: "skorpionpng",
-                imageURL: images["skorpionpng"],
-                withinTierRank: 53,
+			{
+				name: "sicklepng",
+				imageURL: images["sicklepng"],
+				withinTierRank: 52,
+			},
+			{
+				name: "skorpionpng",
+				imageURL: images["skorpionpng"],
+				withinTierRank: 53,
+			},
+			{
+				name: "skspng",
+				imageURL: images["skspng"],
+				withinTierRank: 54,
+			},
+			{
+				name: "slrpng",
+				imageURL: images["slrpng"],
+				withinTierRank: 55,
+			},
+			{
+				name: "smoke-laucherpng",
+				imageURL: images["smoke-laucherpng"],
+				withinTierRank: 56,
+			},
+			{
+				name: "smokebombpng",
+				imageURL: images["smokebombpng"],
+				withinTierRank: 57,
+			},
 
-            },
-            {
-                name: "skspng",
-                imageURL: images["skspng"],
-                withinTierRank: 54,
-            },
-            {
-                name: "slrpng",
-                imageURL: images["slrpng"],
-                withinTierRank: 55,
-            },
-            {
-                name: "smoke-laucherpng",
-                imageURL: images["smoke-laucherpng"],
-                withinTierRank: 56,
-            },
-            {
-                name: "smokebombpng",
-                imageURL: images["smokebombpng"],
-                withinTierRank: 57,
-            },
-
-            {
-                name: "stickybombpng",
-                imageURL: images["stickybombpng"],
-                withinTierRank: 58,
-            },
-            {
-                name: "tommy-gunpng",
-                imageURL: images["tommy-gunpng"],
-                withinTierRank: 59,
-            },
-            {
-                name: "ump45png",
-                imageURL: images["ump45png"],
-                withinTierRank: 60,
-            },
-            {
-                name: "vectorpng",
-                imageURL: images["vectorpng"],
-                withinTierRank: 61,
-            },
-            {
-                name: "vsspng",
-                imageURL: images["vsspng"],
-                withinTierRank: 62,
-            },
-            {
-                name: "win94png",
-                imageURL: images["win94png"],
-                withinTierRank: 63,
-            }
+			{
+				name: "stickybombpng",
+				imageURL: images["stickybombpng"],
+				withinTierRank: 58,
+			},
+			{
+				name: "tommy-gunpng",
+				imageURL: images["tommy-gunpng"],
+				withinTierRank: 59,
+			},
+			{
+				name: "ump45png",
+				imageURL: images["ump45png"],
+				withinTierRank: 60,
+			},
+			{
+				name: "vectorpng",
+				imageURL: images["vectorpng"],
+				withinTierRank: 61,
+			},
+			{
+				name: "vsspng",
+				imageURL: images["vsspng"],
+				withinTierRank: 62,
+			},
+			{
+				name: "win94png",
+				imageURL: images["win94png"],
+				withinTierRank: 63,
+			},
 		],
 	},
 	{
 		tierName: TierName.A,
+		tierColor: "#ffbf7f",
 		characters: [],
 	},
 	{
 		tierName: TierName.B,
+		tierColor: "#ffdf7f",
 		characters: [],
 	},
 	{
 		tierName: TierName.C,
+		tierColor: "#bfff7f",
 		characters: [],
 	},
 	{
 		tierName: TierName.D,
+		tierColor: "#7fff7f",
 		characters: [],
 	},
 ];

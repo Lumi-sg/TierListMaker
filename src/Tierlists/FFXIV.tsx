@@ -9,6 +9,8 @@ const images = await importAll(
 const templateFFXIVTiers: Tier[] = [
 	{
 		tierName: TierName.S,
+		tierColor: "#ff7f7f",
+
 		characters: [
 			{
 				name: "Scholar",
@@ -49,6 +51,7 @@ const templateFFXIVTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.A,
+		tierColor: "#ffbf7f",
 		characters: [
 			{
 				name: "Astrologian",
@@ -59,6 +62,7 @@ const templateFFXIVTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.B,
+		tierColor: "#ffdf7f",
 		characters: [
 			{
 				name: "Blue Mage",
@@ -69,6 +73,7 @@ const templateFFXIVTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.C,
+		tierColor: "#bfff7f",
 		characters: [
 			{
 				name: "White Mage",
@@ -79,6 +84,7 @@ const templateFFXIVTiers: Tier[] = [
 	},
 	{
 		tierName: TierName.D,
+		tierColor: "#7fff7f",
 		characters: [
 			{
 				name: "Red Mage",
