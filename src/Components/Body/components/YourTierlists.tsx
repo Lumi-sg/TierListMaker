@@ -177,7 +177,7 @@ const YourTierlists = () => {
 						>
 							<div
 								className={`tier-name ${tier.tierName}-tier`}
-								style={{ backgroundColor: tierColors[index] }}
+								style={{ backgroundColor: tier.tierColor}}
 								key={tier.tierName + index}
 							>
 								{tier.tierName}

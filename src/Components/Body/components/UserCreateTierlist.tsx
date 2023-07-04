@@ -302,7 +302,6 @@ const UserCreateTierlist = () => {
 			updatedTierListColors[indexA],
 		];
 		setDomTierColors(updatedTierListColors);
-		console.log(domTierColors);
 	};
 
 	useEffect(() => {
