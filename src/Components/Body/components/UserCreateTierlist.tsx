@@ -28,6 +28,7 @@ const UserCreateTierlist = () => {
 	const [domTierListNames, setDomTierListNames] = useState<string[]>(
 		selectedGame?.tiers.map((tier) => tier.tierName) || []
 	);
+	const [domTierColors, setDomTierColors] = useState<string[]>(tierColors.map((color) => color));
 
 	const [draggingPreventHoverPlus, setdraggingPreventHoverPlus] = useState(false);
 	const [draggedCharacter, setdraggedCharacter] = useState<Character | null>(null);
@@ -157,6 +158,7 @@ const UserCreateTierlist = () => {
 		setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
 		setResetModalDisplay(false);
 		setdisplayModal(false);
+		setDomTierColors(tierColors);
 	};
 
 	const displayResetModal = () => {
@@ -290,6 +292,14 @@ const UserCreateTierlist = () => {
 			updatedTierListNamesDOM[indexA],
 		];
 		setDomTierListNames(updatedTierListNamesDOM);
+
+		const updatedTierListColors = domTierColors;
+		[updatedTierListColors[indexA], updatedTierListColors[indexB]] = [
+			updatedTierListColors[indexB],
+			updatedTierListColors[indexA],
+		];
+		setDomTierColors(updatedTierListColors);
+		console.log(domTierColors);
 	};
 
 	useEffect(() => {
@@ -416,14 +426,14 @@ const UserCreateTierlist = () => {
 										>
 											<div
 												className={`tier-name ${tier.tierName}-tier`}
-												style={{ backgroundColor: tierColors[index] }}
+												style={{ backgroundColor: domTierColors[index] }}
 											>
 												<input
 													value={domTierListNames[index]}
 													className={`tierNameInput${
 														draggingPreventHoverPlus ? " dragging" : ""
 													}`}
-													style={{ backgroundColor: tierColors[index] }}
+													style={{ backgroundColor: domTierColors[index] }}
 													onChange={(event) => changeTierNameChange(event, index)}
 													type="text"
 													onDrop={(event) => {
