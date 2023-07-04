@@ -65,4 +65,9 @@ export class Tierlist {
 		this.dateCreated = dateCreated;
 		this.uniqueId = uniqueId;
 	}
+
+	swapTiers(indexA: number, indexB: number) {
+		[this.tiers[indexA], this.tiers[indexB]] = [this.tiers[indexB], this.tiers[indexA]];
+		console.log("Tiers swapped!");
+	}
 }

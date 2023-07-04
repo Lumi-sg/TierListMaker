@@ -395,10 +395,6 @@ const UserCreateTierlist = () => {
 								}}
 							>
 								{currentTierlist.tiers.map((tier, index) => {
-									if (tier.tierName.includes("-") || tier.tierName.includes("+")) {
-										return null; // Skip the iteration
-									}
-
 									return (
 										<div
 											className="rowContainer"
@@ -495,6 +491,28 @@ const UserCreateTierlist = () => {
 															></div>
 														</div>
 													))}
+												</div>
+											</div>
+											<div className="tier-config">
+												<div className="btn settings">
+													<i
+														className="tier fa fa-cog"
+														aria-hidden="true"
+													></i>
+												</div>
+												<div>
+													<div className="btn move_up">
+														<i
+															className="tier fa fa-chevron-up"
+															aria-hidden="true"
+														></i>
+													</div>
+													<div className="btn move_down">
+														<i
+															className="tier fa fa-chevron-down"
+															aria-hidden="true"
+														></i>
+													</div>
 												</div>
 											</div>
 										</div>
