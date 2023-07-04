@@ -14,6 +14,8 @@ const YourTierlists = () => {
 	const { displayingTierlist, setDisplayingTierlist } = useUiNavigationStore();
 
 	const [tierlistToView, settierlistToView] = useState<Tierlist | null>(null);
+	const [displayModal, setdisplayModal] = useState(false);
+	const [deletedTierlist, setDeletedTierlist] = useState(false);
 
 	const retrieveData = async () => {
 		try {
@@ -37,6 +39,11 @@ const YourTierlists = () => {
 		} catch (error) {
 			console.log("Error retrieving tierlist data:", error);
 		}
+	};
+
+	const closeModal = () => {
+		setdisplayModal(false);
+		setDeletedTierlist(false);
 	};
 
 	const handleViewTierlistClick = (uniqueId: string) => {
@@ -66,6 +73,8 @@ const YourTierlists = () => {
 			});
 			console.log("Deleted tierlist: ", uniqueId);
 			retrieveData();
+			setDeletedTierlist(true);
+			setdisplayModal(true);
 		} catch (error) {
 			console.error("Error deleting document: ", error);
 		}
@@ -115,6 +124,19 @@ const YourTierlists = () => {
 						</div>
 					</div>
 				))
+			)}
+			{deletedTierlist && displayModal && (
+				<div className="modal">
+					<div className="modal-content">
+						<h3>Tierlist Deleted!</h3>
+						<button
+							className="closeButton"
+							onClick={closeModal}
+						>
+							X
+						</button>
+					</div>
+				</div>
 			)}
 		</div>
 	) : (
