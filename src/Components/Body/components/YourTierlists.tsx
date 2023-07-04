@@ -1,6 +1,6 @@
 import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Tierlist, tierColors } from "../../../Classes/TierlistClass";
+import { Tierlist } from "../../../Classes/TierlistClass";
 import { convertFirestoreDataToTierlist } from "../../../Helpers/convertFirestoreDataToTierlist";
 import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
@@ -80,12 +80,27 @@ const YourTierlists = () => {
 		}
 	};
 
+	const modalOverlay = document.querySelector(".modal");
+	modalOverlay?.addEventListener("click", () => {
+		closeModal();
+	});
+
 	useEffect(() => {
 		setDisplayingTierlist(false);
 		retrieveData();
 	}, []);
 
 	useEffect(() => {}, [tierlistData]);
+
+	useEffect(() => {
+		const modalOverlay = document.querySelector(".modal");
+		if (!modalOverlay) {
+			return;
+		}
+		modalOverlay.addEventListener("click", () => {
+			closeModal();
+		});
+	}, [displayModal, deletedTierlist]);
 
 	return !displayingTierlist ? (
 		<div className="YourTierlists">
@@ -177,7 +192,7 @@ const YourTierlists = () => {
 						>
 							<div
 								className={`tier-name ${tier.tierName}-tier`}
-								style={{ backgroundColor: tier.tierColor}}
+								style={{ backgroundColor: tier.tierColor }}
 								key={tier.tierName + index}
 							>
 								{tier.tierName}

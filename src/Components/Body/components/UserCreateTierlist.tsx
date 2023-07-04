@@ -282,6 +282,7 @@ const UserCreateTierlist = () => {
 		setdisplayModal(false);
 		setResetModalDisplay(false);
 		setsavedTierlist(false);
+		console.log("modal closed");
 	};
 
 	const handleSwapTiersClick = (indexA: number, indexB: number) => {
@@ -317,6 +318,16 @@ const UserCreateTierlist = () => {
 		const colorArray = newEmptyTierList?.tiers.map((tier) => tier.tierColor) || [];
 		setDomTierColors(colorArray);
 	}, []);
+
+	useEffect(() => {
+		const modalOverlay = document.querySelector(".modal");
+		if (!modalOverlay) {
+			return;
+		}
+		modalOverlay.addEventListener("click", () => {
+			closeModal();
+		});
+	}, [displayModal, savedTierlist]);
 
 	return (
 		<div>
