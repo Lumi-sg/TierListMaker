@@ -1,5 +1,10 @@
-import { Tierlist, Tier, TierName } from "../Classes/TierlistClass";
+import { Tier, TierName, Tierlist } from "../Classes/TierlistClass";
+import { importAll } from "../Helpers/importAll";
 import pPlusLogo from "../assets/Logos/P+Logo.png";
+
+const images = await importAll(
+	import.meta.glob("../assets/PPlus/*.webp") as Record<string, () => Promise<{ default: string }>>
+);
 
 const templatePPlusTiers: Tier[] = [
 	{
@@ -7,122 +12,108 @@ const templatePPlusTiers: Tier[] = [
 		characters: [
 			{
 				name: "Metaknight",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/meta-knightpng.png",
+				imageURL: images["meta-knightpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Zero Suit Samus",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/zero-suit-samuspng.png",
+				imageURL: images["zero-suit-samuspng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Wolf",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/wolfpng.png",
+				imageURL: images["wolfpng"],
 				withinTierRank: 3,
 			},
-		],
-	},
-	{
-		tierName: TierName.APlus,
-		characters: [
 			{
 				name: "Sonic",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/sonicpng.png",
+				imageURL: images["sonicpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Mewtwo",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/mewtwopng.png",
+				imageURL: images["mewtwopng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Wario",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/wariopng.png",
+				imageURL: images["wariopng"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Sheik",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/sheikpng.png",
+				imageURL: images["sheikpng"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Fox",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/foxpng.png",
+				imageURL: images["foxpng"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Captain Falcon",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/captain-falconpng.png",
+				imageURL: images["captain-falconpng"],
 				withinTierRank: 6,
 			},
 		],
 	},
+
 	{
 		tierName: TierName.A,
 		characters: [
 			{
 				name: "Knuckles",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/knucklespng.png",
+				imageURL: images["knucklespng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Marth",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/marthpng.png",
+				imageURL: images["marthpng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Lucario",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/lucariopng.png",
+				imageURL: images["lucariopng"],
 				withinTierRank: 3,
 			},
-
 			{
 				name: "Ice Climbers",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/ice-climberspng.png",
+				imageURL: images["ice-climberspng"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Ike",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/ikepng.png",
+				imageURL: images["ikepng"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Donkey Kong",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/donkey-kongpng.png",
+				imageURL: images["donkey-kongpng"],
 				withinTierRank: 6,
 			},
 			{
 				name: "Mario",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/mariopng.png",
+				imageURL: images["mariopng"],
 				withinTierRank: 7,
 			},
 			{
 				name: "Lucas",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/lucaspng.png",
+				imageURL: images["lucaspng"],
 				withinTierRank: 8,
 			},
 			{
 				name: "Diddy Kong",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/diddy-kongpng.png",
+				imageURL: images["diddy-kongpng"],
 				withinTierRank: 9,
 			},
 			{
 				name: "Ivysaur",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/ivysaurpng.png",
+				imageURL: images["ivysaurpng"],
 				withinTierRank: 10,
 			},
 			{
 				name: "Falco",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/falcopng.png",
+				imageURL: images["falcopng"],
 				withinTierRank: 11,
 			},
 		],
@@ -132,72 +123,67 @@ const templatePPlusTiers: Tier[] = [
 		characters: [
 			{
 				name: "Charizard",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/charizardpng.png",
+				imageURL: images["charizardpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Pit",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/pitpng.png",
+				imageURL: images["pitpng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Link",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/linkpng.png",
+				imageURL: images["linkpng"],
 				withinTierRank: 3,
 			},
 			{
 				name: "G&W",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/mr-game-and-watchpng.png",
+				imageURL: images["mr-game-and-watchpng"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Roy",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/roypng.png",
+				imageURL: images["roypng"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Pikachu",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/pikachupng.png",
+				imageURL: images["pikachupng"],
 				withinTierRank: 6,
 			},
 			{
 				name: "Ness",
-				imageURL: " https://tiermaker.com/images/chart/chart/project-20-26953/nesspng.png",
+				imageURL: images["nesspng"],
 				withinTierRank: 7,
 			},
 			{
 				name: "ROB",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/robpng.png",
+				imageURL: images["robpng"],
 				withinTierRank: 8,
 			},
 			{
 				name: "Squirtle",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/squirtlepng.png",
+				imageURL: images["squirtlepng"],
 				withinTierRank: 9,
 			},
 			{
-				name: "Young Link",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/toon-linkpng.png",
+				name: "Toon Link",
+				imageURL: images["toon-linkpng"],
 				withinTierRank: 10,
 			},
 			{
 				name: "Peach",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/peachpng.png",
+				imageURL: images["peachpng"],
 				withinTierRank: 11,
 			},
 			{
 				name: "Bowser",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/bowserpng.png",
+				imageURL: images["bowserpng"],
 				withinTierRank: 12,
 			},
 			{
 				name: "Olimar",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/olimarpng.png",
+				imageURL: images["olimarpng"],
 				withinTierRank: 13,
 			},
 		],
@@ -207,33 +193,32 @@ const templatePPlusTiers: Tier[] = [
 		characters: [
 			{
 				name: "Snake",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/snakepng.png",
+				imageURL: images["snakepng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Kirby",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/kirbypng.png",
+				imageURL: images["kirbypng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Samus",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/samuspng.png",
+				imageURL: images["samuspng"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Ganondorf",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/ganondorfpng.png",
+				imageURL: images["ganondorfpng"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Yoshi",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/yoshipng.png",
+				imageURL: images["yoshipng"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Zelda",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/zeldapng.png",
+				imageURL: images["zeldapng"],
 				withinTierRank: 6,
 			},
 		],
@@ -243,18 +228,17 @@ const templatePPlusTiers: Tier[] = [
 		characters: [
 			{
 				name: "Luigi",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/luigipng.png",
+				imageURL: images["luigipng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "King Dedede",
-				imageURL: "https://tiermaker.com/images/chart/chart/project-20-26953/dededepng.png",
+				imageURL: images["dededepng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Jigglypuff",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/project-20-26953/jigglypuffpng.png",
+				imageURL: images["jigglypuffpng"],
 				withinTierRank: 3,
 			},
 		],

@@ -2,7 +2,7 @@ export const importAll = async (files: Record<string, () => Promise<{ default: s
 	const images: Record<string, string> = {};
 	for (const path in files) {
 		const { default: image } = await files[path]();
-		const matches = path.match(/\/(\d+)\.\w+$/);
+		const matches = path.match(/\/([^/]+)\.\w+$/);
 		if (matches) {
 			const filename = matches[1];
 			images[filename] = image;
