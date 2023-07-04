@@ -100,6 +100,12 @@ const templateFFXIVTiers: Tier[] = [
 				imageURL: images["14"],
 				withinTierRank: 1,
 			},
+
+			{
+				name: "Warrior",
+				imageURL: images["15"],
+				withinTierRank: 1,
+			},
 			{
 				name: "Summoner",
 				imageURL: images["16"],
