@@ -1,5 +1,10 @@
-import { Tierlist, Tier, TierName } from "../Classes/TierlistClass";
+import { Tier, TierName, Tierlist } from "../Classes/TierlistClass";
+import { importAll } from "../Helpers/importAll";
 import StriveLogo from "../assets/Logos/GGST_Logo.png";
+
+const images = await importAll(
+	import.meta.glob("../assets/Strive/*.webp") as Record<string, () => Promise<{ default: string }>>
+);
 
 const templateStriveTiers: Tier[] = [
 	{
@@ -7,32 +12,27 @@ const templateStriveTiers: Tier[] = [
 		characters: [
 			{
 				name: "Happy Chaos",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/82nceh3sjpeg.png",
+				imageURL: images["18jpg"],
 				withinTierRank: 1,
 			},
 			{
 				name: "May",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivemay-1jpeg.png",
+				imageURL: images["03jpg"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Leo",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archiveleojpeg.png",
+				imageURL: images["11jpg"],
 				withinTierRank: 3,
 			},
 			{
 				name: "RamLethal",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archiveram-1jpeg.png",
+				imageURL: images["10jpg"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Jack-O",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/jkojpeg.png",
+				imageURL: images["17jpg"],
 				withinTierRank: 5,
 			},
 		],
@@ -42,50 +42,42 @@ const templateStriveTiers: Tier[] = [
 		characters: [
 			{
 				name: "Zato-1",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivezatjpeg.png",
+				imageURL: images["09jpg"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Nagoriyuki",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivenagjpeg.png",
+				imageURL: images["12jpg"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Chipp",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivechpjpeg.png",
+				imageURL: images["05jpg"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Bridget",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/zzzzz-1663086668bridgetjpeg.png",
+				imageURL: images["21jpg"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Baiken",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/94gvos0fjpeg.png",
+				imageURL: images["19jpg"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Giovanna",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivegiojpeg.png",
+				imageURL: images["13jpg"],
 				withinTierRank: 6,
 			},
 			{
 				name: "Millia",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivemlljpeg.png",
+				imageURL: images["08jpg"],
 				withinTierRank: 7,
 			},
 			{
 				name: "Testament",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/icon-1ubduiakjpeg.png",
+				imageURL: images["20jpg"],
 				withinTierRank: 8,
 			},
 		],
@@ -95,50 +87,42 @@ const templateStriveTiers: Tier[] = [
 		characters: [
 			{
 				name: "I-No",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/rxx82us-1-306x305jpeg.png",
+				imageURL: images["15jpg"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Goldlewis",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/gol-306x305jpeg.png",
+				imageURL: images["16jpg"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Axl",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archiveaxljpeg.png",
+				imageURL: images["04jpg"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Ky",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivekykjpeg.png",
+				imageURL: images["02jpg"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Sol",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivejpeg.png",
+				imageURL: images["01jpg"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Faust",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivefaujpeg.png",
+				imageURL: images["07jpg"],
 				withinTierRank: 6,
 			},
 			{
 				name: "Anji",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/anji-306x305jpeg.png",
+				imageURL: images["14jpg"],
 				withinTierRank: 7,
 			},
 			{
 				name: "Potemkin",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/archivepotjpeg.png",
+				imageURL: images["06jpg"],
 				withinTierRank: 8,
 			},
 		],
@@ -148,8 +132,7 @@ const templateStriveTiers: Tier[] = [
 		characters: [
 			{
 				name: "Asuka",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/zzzzz-1678893007bedmanjpeg.png",
+				imageURL: images["7791381684381662"],
 				withinTierRank: 1,
 			},
 		],
@@ -159,8 +142,7 @@ const templateStriveTiers: Tier[] = [
 		characters: [
 			{
 				name: "Sin",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/guilty-gear-strive-characters-2/zzzzz-1678892996sinjpeg.png",
+				imageURL: images["zzzzz-1669082330n5idg73diw3jpg"],
 				withinTierRank: 1,
 			},
 		],

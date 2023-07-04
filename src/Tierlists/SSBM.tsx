@@ -1,5 +1,9 @@
-import { Tierlist, Tier, TierName } from "../Classes/TierlistClass";
+import { Tier, TierName, Tierlist } from "../Classes/TierlistClass";
+import { importAll } from "../Helpers/importAll";
 import ssbmLogo from "../assets/Logos/logo_melee.webp";
+const images = await importAll(
+	import.meta.glob("../assets/SSBM/*.webp") as Record<string, () => Promise<{ default: string }>>
+);
 
 const templateSSBMTiers: Tier[] = [
 	{
@@ -7,28 +11,25 @@ const templateSSBMTiers: Tier[] = [
 		characters: [
 			{
 				name: "Fox",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/foxiconssbmpng",
+				imageURL: images["foxiconssbmpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Marth",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/marthiconssbmpng",
+				imageURL: images["marthiconssbmpng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Jigglypuff",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/jigglypufficonssbmpng",
+				imageURL: images["jigglypufficonssbmpng"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Falco",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/falcoiconssbmpng",
+				imageURL: images["falcoiconssbmpng"],
 				withinTierRank: 4,
 			},
+			// Add more characters here
 		],
 	},
 	{
@@ -36,22 +37,20 @@ const templateSSBMTiers: Tier[] = [
 		characters: [
 			{
 				name: "Sheik",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/sheikiconssbmpng",
+				imageURL: images["sheikiconssbmpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Captain Falcon",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/captainfalconiconssbmpng",
+				imageURL: images["captainfalconiconssbmpng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Peach",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/peachiconssbmpng",
+				imageURL: images["peachiconssbmpng"],
 				withinTierRank: 3,
 			},
+			// Add more characters here
 		],
 	},
 	{
@@ -59,52 +58,45 @@ const templateSSBMTiers: Tier[] = [
 		characters: [
 			{
 				name: "Ice Climbers",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/iceclimbersiconssbmpng",
+				imageURL: images["iceclimbersiconssbmpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Pikachu",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/pikachuiconssbmpng",
+				imageURL: images["pikachuiconssbmpng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Yoshi",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/yoshiiconssbmpng",
+				imageURL: images["yoshiiconssbmpng"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Samus",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/samusiconssbmpng",
+				imageURL: images["samusiconssbmpng"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Luigi",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/luigiiconssbmpng",
+				imageURL: images["luigiiconssbmpng"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Dr.Mario",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/drmarioiconssbmpng",
+				imageURL: images["drmarioiconssbmpng"],
 				withinTierRank: 6,
 			},
 			{
 				name: "Ganondorf",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/ganondorficonssbmpng",
+				imageURL: images["ganondorficonssbmpng"],
 				withinTierRank: 7,
 			},
 			{
 				name: "Mario",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/marioiconssbmpng",
+				imageURL: images["marioiconssbmpng"],
 				withinTierRank: 8,
 			},
+			// Add more characters here
 		],
 	},
 	{
@@ -112,22 +104,20 @@ const templateSSBMTiers: Tier[] = [
 		characters: [
 			{
 				name: "Donkey Kong",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/donkeykongiconssbmpng",
+				imageURL: images["donkeykongiconssbmpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Young Link",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/younglinkiconssbmpng",
+				imageURL: images["younglinkiconssbmpng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Link",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/linkiconssbmpng",
+				imageURL: images["linkiconssbmpng"],
 				withinTierRank: 3,
 			},
+			// Add more characters here
 		],
 	},
 	{
@@ -135,50 +125,42 @@ const templateSSBMTiers: Tier[] = [
 		characters: [
 			{
 				name: "Game&Watch",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/mrgameandwatchiconssbmpng",
+				imageURL: images["mrgameandwatchiconssbmpng"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Mewtwo",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/mewtwoiconssbmpng",
+				imageURL: images["mewtwoiconssbmpng"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Roy",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/royiconssbmpng",
+				imageURL: images["royiconssbmpng"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Pichu",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/pichuiconssbmpng",
+				imageURL: images["pichuiconssbmpng"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Ness",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/nessiconssbmpng",
+				imageURL: images["nessiconssbmpng"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Zelda",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/zeldaiconssbmpng",
+				imageURL: images["zeldaiconssbmpng"],
 				withinTierRank: 6,
 			},
 			{
 				name: "Kirby",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/kirbyiconssbmpng",
+				imageURL: images["kirbyiconssbmpng"],
 				withinTierRank: 7,
 			},
 			{
 				name: "Bowser",
-				imageURL:
-					"https://tiermaker.com/images/chart/chart/super-smash-bros-melee-2506/bowsericonssbmpng",
+				imageURL: images["bowsericonssbmpng"],
 				withinTierRank: 8,
 			},
 		],
