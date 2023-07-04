@@ -1,63 +1,48 @@
 import { Tier, TierName, Tierlist } from "../Classes/TierlistClass";
-import SCH from "../assets/FFXIV/1.webp";
-import WHM from "../assets/FFXIV/10.webp";
-import RDM from "../assets/FFXIV/11.webp";
-import PLD from "../assets/FFXIV/12.webp";
-import MCH from "../assets/FFXIV/13.webp";
-import SAM from "../assets/FFXIV/14.webp";
-import WAR from "../assets/FFXIV/15.webp";
-import SMN from "../assets/FFXIV/16.webp";
-import DRG from "../assets/FFXIV/17.webp";
-import DNC from "../assets/FFXIV/18.webp";
-import RPR from "../assets/FFXIV/19.webp";
-import DRK from "../assets/FFXIV/2.webp";
-import SGE from "../assets/FFXIV/20.webp";
-import BLM from "../assets/FFXIV/3.webp";
-import MNK from "../assets/FFXIV/4.webp";
-import BRD from "../assets/FFXIV/5.webp";
-import NIN from "../assets/FFXIV/6.webp";
-import GNB from "../assets/FFXIV/7.webp";
-import AST from "../assets/FFXIV/8.webp";
-import BLU from "../assets/FFXIV/9.webp";
+import { importAll } from "../Helpers/importAll";
 import FFXIVLogo from "../assets/Logos/co48rz.webp";
+
+const images = await importAll(
+	import.meta.glob("../assets/FFXIV/*.webp") as Record<string, () => Promise<{ default: string }>>
+);
 
 const templateFFXIVTiers: Tier[] = [
 	{
 		tierName: TierName.S,
 		characters: [
 			{
-				name: "Sage",
-				imageURL: SCH,
+				name: "Scholar",
+				imageURL: images["1"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Dark Knight",
-				imageURL: DRK,
+				imageURL: images["2"],
 				withinTierRank: 2,
 			},
 			{
-				name: "Sage",
-				imageURL: SGE,
+				name: "Black Mage",
+				imageURL: images["3"],
 				withinTierRank: 3,
 			},
 			{
-				name: "Black Mage",
-				imageURL: BLM,
+				name: "Monk",
+				imageURL: images["4"],
 				withinTierRank: 4,
 			},
 			{
-				name: "Monk",
-				imageURL: MNK,
+				name: "Bard",
+				imageURL: images["5"],
 				withinTierRank: 5,
 			},
 			{
-				name: "Bard",
-				imageURL: BRD,
+				name: "Ninja",
+				imageURL: images["6"],
 				withinTierRank: 6,
 			},
 			{
-				name: "Ninja",
-				imageURL: NIN,
+				name: "Gunbreaker",
+				imageURL: images["7"],
 				withinTierRank: 7,
 			},
 		],
@@ -66,8 +51,8 @@ const templateFFXIVTiers: Tier[] = [
 		tierName: TierName.A,
 		characters: [
 			{
-				name: "White Mage",
-				imageURL: WHM,
+				name: "Astrologian",
+				imageURL: images["8"],
 				withinTierRank: 1,
 			},
 		],
@@ -76,8 +61,8 @@ const templateFFXIVTiers: Tier[] = [
 		tierName: TierName.B,
 		characters: [
 			{
-				name: "Red Mage",
-				imageURL: RDM,
+				name: "Blue Mage",
+				imageURL: images["9"],
 				withinTierRank: 1,
 			},
 		],
@@ -86,8 +71,8 @@ const templateFFXIVTiers: Tier[] = [
 		tierName: TierName.C,
 		characters: [
 			{
-				name: "Paladin",
-				imageURL: PLD,
+				name: "White Mage",
+				imageURL: images["10"],
 				withinTierRank: 1,
 			},
 		],
@@ -96,53 +81,48 @@ const templateFFXIVTiers: Tier[] = [
 		tierName: TierName.D,
 		characters: [
 			{
+				name: "Red Mage",
+				imageURL: images["11"],
+				withinTierRank: 1,
+			},
+			{
+				name: "Paladin",
+				imageURL: images["12"],
+				withinTierRank: 1,
+			},
+			{
 				name: "Machinist",
-				imageURL: MCH,
+				imageURL: images["13"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Samurai",
-				imageURL: SAM,
-				withinTierRank: 1,
-			},
-			{
-				name: "Warrior",
-				imageURL: WAR,
+				imageURL: images["14"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Summoner",
-				imageURL: SMN,
+				imageURL: images["16"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Dragoon",
-				imageURL: DRG,
+				imageURL: images["17"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Dancer",
-				imageURL: DNC,
+				imageURL: images["18"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Reaper",
-				imageURL: RPR,
+				imageURL: images["19"],
 				withinTierRank: 1,
 			},
 			{
-				name: "Gunbreaker",
-				imageURL: GNB,
-				withinTierRank: 1,
-			},
-			{
-				name: "Astrologian",
-				imageURL: AST,
-				withinTierRank: 1,
-			},
-			{
-				name: "Blue Mage",
-				imageURL: BLU,
+				name: "Sage",
+				imageURL: images["20"],
 				withinTierRank: 1,
 			},
 		],
