@@ -315,6 +315,12 @@ const UserCreateTierlist = () => {
 							<>
 								<h3>Error</h3>
 								<p>Tierlist name cannot be blank.</p>
+								<button
+									className="closeButton"
+									onClick={closeModal}
+								>
+									X
+								</button>
 							</>
 						)}
 					</div>
