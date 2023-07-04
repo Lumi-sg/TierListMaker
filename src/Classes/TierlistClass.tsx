@@ -36,7 +36,7 @@ export type Character = {
 };
 
 export type Tier = {
-	tierName: TierName;
+	tierName: string;
 	characters: Character[];
 };
 export class Tierlist {
@@ -66,8 +66,18 @@ export class Tierlist {
 		this.uniqueId = uniqueId;
 	}
 
-	swapTiers(indexA: number, indexB: number) {
+	swapTiers(indexA: number, indexB: number): void {
+		if (!this.isValidIndex(indexA) || !this.isValidIndex(indexB)) {
+			console.error("Invalid indices provided for tier swap.");
+			return;
+		}
+
+		console.log(`Swapping tiers ${this.tiers[indexA].tierName} and ${this.tiers[indexB].tierName}`);
+
 		[this.tiers[indexA], this.tiers[indexB]] = [this.tiers[indexB], this.tiers[indexA]];
-		console.log("Tiers swapped!");
+	}
+
+	private isValidIndex(index: number): boolean {
+		return index >= 0 && index < this.tiers.length;
 	}
 }

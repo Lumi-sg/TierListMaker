@@ -222,6 +222,7 @@ const UserCreateTierlist = () => {
 	const changeTierNameChange = (event: React.ChangeEvent<HTMLInputElement>, tierIndex: number) => {
 		const updatedTierListNames = [...domTierListNames];
 		updatedTierListNames[tierIndex] = event.target.value;
+
 		setDomTierListNames(updatedTierListNames);
 
 		console.log(`changed tier name to ${event.target.value} at index ${tierIndex}`);
@@ -276,6 +277,19 @@ const UserCreateTierlist = () => {
 		setdisplayModal(false);
 		setResetModalDisplay(false);
 		setsavedTierlist(false);
+	};
+
+	const handleSwapTiersClick = (indexA: number, indexB: number) => {
+		const updatedTierlist = currentTierlist;
+		updatedTierlist?.swapTiers(indexA, indexB);
+		setCurrentTierlist(updatedTierlist!);
+
+		const updatedTierListNamesDOM = domTierListNames;
+		[updatedTierListNamesDOM[indexA], updatedTierListNamesDOM[indexB]] = [
+			updatedTierListNamesDOM[indexB],
+			updatedTierListNamesDOM[indexA],
+		];
+		setDomTierListNames(updatedTierListNamesDOM);
 	};
 
 	useEffect(() => {
@@ -493,7 +507,7 @@ const UserCreateTierlist = () => {
 													))}
 												</div>
 											</div>
-											<div className="tier-config">
+											<div className="tier-config pictureIgnore">
 												<div className="btn settings">
 													<i
 														className="tier fa fa-cog"
@@ -505,12 +519,18 @@ const UserCreateTierlist = () => {
 														<i
 															className="tier fa fa-chevron-up"
 															aria-hidden="true"
+															onClick={() =>
+																handleSwapTiersClick(index, index - 1)
+															}
 														></i>
 													</div>
 													<div className="btn move_down">
 														<i
 															className="tier fa fa-chevron-down"
 															aria-hidden="true"
+															onClick={() =>
+																handleSwapTiersClick(index, index + 1)
+															}
 														></i>
 													</div>
 												</div>

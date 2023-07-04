@@ -61,12 +61,14 @@
 	background-color: #141412;
 	border-bottom: none;
 	margin-bottom: 1rem;
+	border-radius: 5px;
 }
 
 .tier-row {
 	border-bottom: #383838 2px solid;
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
 	min-height: 6.15rem; /* Update the min-height property */
 	width: 100%;
 }
