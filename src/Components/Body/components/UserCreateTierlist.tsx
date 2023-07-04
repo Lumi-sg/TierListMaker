@@ -37,6 +37,7 @@ const UserCreateTierlist = () => {
 	const [displayModal, setdisplayModal] = useState(false);
 	const [resetModalDisplay, setResetModalDisplay] = useState(false);
 	const [savedTierlist, setsavedTierlist] = useState(false);
+	const [displayCogModal, setdisplayCogModal] = useState(false);
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -305,6 +306,10 @@ const UserCreateTierlist = () => {
 		setDomTierColors(updatedTierListColors);
 	};
 
+	const handleCogWheelClick = (index: number, tier: Tier) => {
+		setdisplayCogModal(true);
+	};
+
 	useEffect(() => {
 		if (currentTierlist) {
 			currentTierlist.name = tierlistName;
@@ -327,7 +332,7 @@ const UserCreateTierlist = () => {
 		modalOverlay.addEventListener("click", () => {
 			closeModal();
 		});
-	}, [displayModal, savedTierlist]);
+	}, [displayModal, savedTierlist, displayCogModal]);
 
 	return (
 		<div>
@@ -376,6 +381,31 @@ const UserCreateTierlist = () => {
 						>
 							X
 						</button>
+					</div>
+				</div>
+			)}
+			{displayCogModal && (
+				<div className="modal">
+					<div className="modalWrapper">
+						<span
+							className="modal-close"
+							onClick={() => {
+								setdisplayCogModal(false);
+							}}
+						>
+							✕
+						</span>
+						<h5>Choose a Tier Background Color:</h5>
+						<div className="color-select">
+							<span style={{ background: "rgb(255, 127, 127)" }}></span>
+						</div>
+
+						<div className="btn-settings-container">
+							<button id="delete-row">Delete Row</button>
+							<button id="clear-row">Clear Row Images</button>
+							<button id="add-row-up">Add a Row Above</button>
+							<button id="add-row-below">Add a Row Below</button>
+						</div>
 					</div>
 				</div>
 			)}
@@ -537,6 +567,7 @@ const UserCreateTierlist = () => {
 													<i
 														className="tier fa fa-cog"
 														aria-hidden="true"
+														onClick={() => handleCogWheelClick(index, tier)}
 													></i>
 												</div>
 												<div>

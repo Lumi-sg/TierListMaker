@@ -310,3 +310,47 @@ input.dragging {
 	transform: none;
 	color: #bbbbbb;
 }
+.modalWrapper {
+	background-color: #141412;
+	padding: 3rem;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	border: 1px solid #7fff7f;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+.modalWrapper > h5 {
+	font-size: 1.75rem;
+}
+.color-select {
+	display: flex;
+	justify-content: center;
+}
+
+.btn-settings-container {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 60px;
+}
+.modal-close {
+	background-color: #367e39;
+	margin-top: 0.15rem;
+	margin-right: 0.15rem;
+	border-radius: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.modal-close:hover {
+	background-color: #ab2020;
+	cursor: pointer;
+}
