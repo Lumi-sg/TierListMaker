@@ -1,5 +1,10 @@
-import { Tierlist, Tier, TierName } from "../Classes/TierlistClass";
+import { Tier, TierName, Tierlist } from "../Classes/TierlistClass";
+import { importAll } from "../Helpers/importAll";
 import sf6Logo from "../assets/Logos/Street_fighter_6_logo.webp";
+
+const images = await importAll(
+	import.meta.glob("../assets/SF6/*.webp") as Record<string, () => Promise<{ default: string }>>
+);
 
 const sf6Tiers: Tier[] = [
 	{
@@ -7,32 +12,27 @@ const sf6Tiers: Tier[] = [
 		characters: [
 			{
 				name: "Luke",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124113png.png",
+				imageURL: images["Luke"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Guile",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124224png.png",
+				imageURL: images["Guile"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Juri",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124243png.png",
+				imageURL: images["Juri"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Ken",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124254png.png",
+				imageURL: images["Ken"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Dee-Jay",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124341png.png",
+				imageURL: images["DJ"],
 				withinTierRank: 5,
 			},
 		],
@@ -41,24 +41,20 @@ const sf6Tiers: Tier[] = [
 		tierName: TierName.A,
 		characters: [
 			{
-				name: "Chun-Li",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124216png.png",
+				name: "ChunLi",
+				imageURL: images["ChunLi"],
 				withinTierRank: 1,
 			},
 			{
 				name: "JP",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-134919png.png",
+				imageURL: images["JP"],
 				withinTierRank: 2,
 			},
 			{
-				name: "E-Honda",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124329png.png",
+				name: "Ehonda",
+				imageURL: images["Ehonda"],
 				withinTierRank: 3,
 			},
-			// Add more characters for tier A
 		],
 	},
 	{
@@ -66,41 +62,34 @@ const sf6Tiers: Tier[] = [
 		characters: [
 			{
 				name: "Marisa",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-134910png.png",
+				imageURL: images["Marisa"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Ryu",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124051png.png",
+				imageURL: images["Ryu"],
 				withinTierRank: 2,
 			},
 			{
 				name: "Manon",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124348png.png",
+				imageURL: images["Manon"],
 				withinTierRank: 3,
 			},
 			{
 				name: "Kimberly",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124235png.png",
+				imageURL: images["Kimberly"],
 				withinTierRank: 4,
 			},
 			{
 				name: "Blanka",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124307png.png",
+				imageURL: images["Blanka"],
 				withinTierRank: 5,
 			},
 			{
 				name: "Cammy",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-134944png.png",
+				imageURL: images["Cammy"],
 				withinTierRank: 6,
 			},
-			// Add more characters for tier B
 		],
 	},
 	{
@@ -108,17 +97,14 @@ const sf6Tiers: Tier[] = [
 		characters: [
 			{
 				name: "Zangief",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-134925png.png",
+				imageURL: images["Zangief"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Jamie",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124135png.png",
+				imageURL: images["Jamie"],
 				withinTierRank: 2,
 			},
-			// Add more characters for tier C
 		],
 	},
 	{
@@ -126,17 +112,14 @@ const sf6Tiers: Tier[] = [
 		characters: [
 			{
 				name: "Dhalsim",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-124315png.png",
+				imageURL: images["Dhalsim"],
 				withinTierRank: 1,
 			},
 			{
 				name: "Lily",
-				imageURL:
-					"https://tiermaker.com/images/template_images/2022/276810/street-fighter-6-all-characters--sf6-official-roster-276810/screenshot-2023-02-24-at-134932png.png",
+				imageURL: images["Lily"],
 				withinTierRank: 2,
 			},
-			// Add more characters for tier D
 		],
 	},
 ];
