@@ -162,15 +162,17 @@ const UserCreateTierlist = () => {
 			return;
 		}
 
-		setTierlistCharacterBank(copiedTemplateCharacterBank);
-		setBugFixCharacterBank(copiedTemplateCharacterBank);
-		setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
-		setResetModalDisplay(false);
-		setdisplayModal(false);
-		setDomTierColors(tierColors);
-		resetTierlist?.resetTierlist();
-		setCurrentTierlist(resetTierlist!);
-		console.table(currentTierlist);
+		for (let i = 0; i < 2; i++) {
+			setTierlistCharacterBank(copiedTemplateCharacterBank);
+			setBugFixCharacterBank(copiedTemplateCharacterBank);
+			setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
+			setResetModalDisplay(false);
+			setdisplayModal(false);
+			setDomTierColors(tierColors);
+			resetTierlist?.resetTierlist();
+			setCurrentTierlist(resetTierlist!);
+			console.table(currentTierlist);
+		}
 	};
 
 	const displayResetModal = () => {
@@ -356,7 +358,7 @@ const UserCreateTierlist = () => {
 		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
 
 		const existingTierNames = updatedTierlist!.tiers.map((tier) => tier.tierName);
-		const newTierName = `${clickedTiername}-`;
+		const newTierName = `${clickedTiername}+`;
 
 		if (existingTierNames.includes(newTierName)) {
 			updatedTierlist!.tiers.splice(clickedIndex, 0, {
