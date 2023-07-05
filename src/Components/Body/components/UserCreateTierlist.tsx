@@ -171,7 +171,6 @@ const UserCreateTierlist = () => {
 			setDomTierColors(tierColors);
 			resetTierlist?.resetTierlist();
 			setCurrentTierlist(resetTierlist!);
-			console.table(currentTierlist);
 		}
 	};
 
