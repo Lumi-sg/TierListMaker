@@ -296,24 +296,49 @@ const UserCreateTierlist = () => {
 		console.log("modal closed");
 	};
 
+	const isValidIndex = (index: number, tierlist: Tierlist): boolean => {
+		return index >= 0 && index < tierlist.tiers.length;
+	};
+
+	const swapTiers = (indexA: number, indexB: number, tierlist: Tierlist): boolean => {
+		console.table(tierlist);
+		const correctColors = domTierColors;
+		if (!isValidIndex(indexA, tierlist) || !isValidIndex(indexB, tierlist)) {
+			console.error("Invalid indices provided for tier swap.");
+			setDomTierColors(correctColors);
+			return false;
+		} else {
+			[tierlist.tiers[indexA], tierlist.tiers[indexB]] = [
+				tierlist.tiers[indexB],
+				tierlist.tiers[indexA],
+			];
+			[tierlist.tiers[indexA].tierName, tierlist.tiers[indexB].tierName] = [
+				tierlist.tiers[indexB].tierName,
+				tierlist.tiers[indexA].tierName,
+			];
+			return true;
+		}
+	};
+
 	const handleSwapTiersClick = (indexA: number, indexB: number) => {
 		const updatedTierlist = currentTierlist;
-		updatedTierlist?.swapTiers(indexA, indexB);
-		setCurrentTierlist(updatedTierlist!);
+		if (swapTiers(indexA, indexB, updatedTierlist!)) {
+			setCurrentTierlist(updatedTierlist!);
 
-		const updatedTierListNamesDOM = domTierListNames;
-		[updatedTierListNamesDOM[indexA], updatedTierListNamesDOM[indexB]] = [
-			updatedTierListNamesDOM[indexB],
-			updatedTierListNamesDOM[indexA],
-		];
-		setDomTierListNames(updatedTierListNamesDOM);
+			const updatedTierListNamesDOM = domTierListNames;
+			[updatedTierListNamesDOM[indexA], updatedTierListNamesDOM[indexB]] = [
+				updatedTierListNamesDOM[indexB],
+				updatedTierListNamesDOM[indexA],
+			];
+			setDomTierListNames(updatedTierListNamesDOM);
 
-		const updatedTierListColors = domTierColors;
-		[updatedTierListColors[indexA], updatedTierListColors[indexB]] = [
-			updatedTierListColors[indexB],
-			updatedTierListColors[indexA],
-		];
-		setDomTierColors(updatedTierListColors);
+			const updatedTierListColors = domTierColors;
+			[updatedTierListColors[indexA], updatedTierListColors[indexB]] = [
+				updatedTierListColors[indexB],
+				updatedTierListColors[indexA],
+			];
+			setDomTierColors(updatedTierListColors);
+		}
 	};
 
 	const handleCogWheelClick = (index: number, tiername: string) => {
