@@ -1,7 +1,7 @@
 import { addDoc, collection } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { Character, Tier, Tierlist, tierColors } from "../../../Classes/TierlistClass";
+import { Character, DEFAULT_TIERNAMES, Tier, Tierlist, tierColors } from "../../../Classes/TierlistClass";
 import { handleDownloadClick } from "../../../Helpers/handleDownloadClick";
 import { useTierListStore } from "../../../Stores/tierListStore";
 import { useUiNavigationStore } from "../../../Stores/uiNavigationStore";
@@ -162,16 +162,14 @@ const UserCreateTierlist = () => {
 			return;
 		}
 
-		for (let i = 0; i < 2; i++) {
-			setTierlistCharacterBank(copiedTemplateCharacterBank);
-			setBugFixCharacterBank(copiedTemplateCharacterBank);
-			setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
-			setResetModalDisplay(false);
-			setdisplayModal(false);
-			setDomTierColors(tierColors);
-			resetTierlist?.resetTierlist();
-			setCurrentTierlist(resetTierlist!);
-		}
+		setTierlistCharacterBank(copiedTemplateCharacterBank);
+		setBugFixCharacterBank(copiedTemplateCharacterBank);
+		setDomTierListNames(DEFAULT_TIERNAMES);
+		setResetModalDisplay(false);
+		setdisplayModal(false);
+		setDomTierColors(tierColors);
+		resetTierlist?.resetTierlist();
+		setCurrentTierlist(resetTierlist!);
 	};
 
 	const displayResetModal = () => {

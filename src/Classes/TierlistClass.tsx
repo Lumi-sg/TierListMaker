@@ -15,6 +15,7 @@ export enum TierName {
 	D = "D",
 	DMinus = "D-",
 }
+export const DEFAULT_TIERNAMES = ["S", "A", "B", "C", "D"];
 
 export const tierColors: string[] = [
 	"#ff7f7f",
