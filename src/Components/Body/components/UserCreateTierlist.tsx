@@ -39,6 +39,8 @@ const UserCreateTierlist = () => {
 	const [savedTierlist, setsavedTierlist] = useState(false);
 	const [displayCogModal, setdisplayCogModal] = useState(false);
 	const [clickedTiername, setClickedTiername] = useState("");
+	const [counter, setcounter] = useState(0);
+	const [counterAdd, setcounterAdd] = useState(0);
 
 	const [clickedIndex, setClickedIndex] = useState(0);
 
@@ -155,15 +157,20 @@ const UserCreateTierlist = () => {
 
 	const handleResetClick = () => {
 		const resetTierlist = selectedGame;
-		resetTierlist?.resetTierlist();
-		setCurrentTierlist(resetTierlist!);
-		console.table(resetTierlist);
+		if (!resetTierlist) {
+			console.log("tierlist is null");
+			return;
+		}
+
 		setTierlistCharacterBank(copiedTemplateCharacterBank);
 		setBugFixCharacterBank(copiedTemplateCharacterBank);
 		setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
 		setResetModalDisplay(false);
 		setdisplayModal(false);
 		setDomTierColors(tierColors);
+		resetTierlist?.resetTierlist();
+		setCurrentTierlist(resetTierlist!);
+		console.table(currentTierlist);
 	};
 
 	const displayResetModal = () => {
@@ -333,6 +340,7 @@ const UserCreateTierlist = () => {
 			const newTierNames = updatedTierlist.tiers.map((tier) => tier.tierName);
 			setDomTierColors(newColors);
 			setDomTierListNames(newTierNames);
+			setClickedTiername("");
 			setdisplayCogModal(false);
 		}
 	};
@@ -340,16 +348,32 @@ const UserCreateTierlist = () => {
 		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
 		updatedTierlist!.tiers[clickedIndex].characters = [];
 		setCurrentTierlist(updatedTierlist!);
+		setClickedTiername("");
 		setdisplayCogModal(false);
 	};
 
 	const handleAddRowAboveClick = () => {
 		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
-		updatedTierlist!.tiers.splice(clickedIndex, 0, {
-			tierName: "",
-			tierColor: "white",
-			characters: [],
-		});
+
+		const existingTierNames = updatedTierlist!.tiers.map((tier) => tier.tierName);
+		const newTierName = `${clickedTiername}-`;
+
+		if (existingTierNames.includes(newTierName)) {
+			updatedTierlist!.tiers.splice(clickedIndex, 0, {
+				tierName: `tier-${counterAdd}`,
+				tierColor: "white",
+				characters: [],
+			});
+		} else {
+			updatedTierlist!.tiers.splice(clickedIndex, 0, {
+				tierName: newTierName,
+				tierColor: "white",
+				characters: [],
+			});
+		}
+		let newCounter = counterAdd;
+		newCounter++;
+		setcounterAdd(newCounter);
 		const newColors = updatedTierlist!.tiers.map((tier) => tier.tierColor);
 		const newTierNames = updatedTierlist!.tiers.map((tier) => tier.tierName);
 		setDomTierColors(newColors);
@@ -359,11 +383,26 @@ const UserCreateTierlist = () => {
 	};
 	const handleAddRowBelowClick = () => {
 		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
-		updatedTierlist!.tiers.splice(clickedIndex + 1, 0, {
-			tierName: "",
-			tierColor: "white",
-			characters: [],
-		});
+
+		const existingTierNames = updatedTierlist!.tiers.map((tier) => tier.tierName);
+		const newTierName = `${clickedTiername}-`;
+
+		if (existingTierNames.includes(newTierName)) {
+			updatedTierlist!.tiers.splice(clickedIndex + 1, 0, {
+				tierName: `tier-${counter}`,
+				tierColor: "white",
+				characters: [],
+			});
+		} else {
+			updatedTierlist!.tiers.splice(clickedIndex + 1, 0, {
+				tierName: newTierName,
+				tierColor: "white",
+				characters: [],
+			});
+		}
+		let newCounter = counter;
+		newCounter++;
+		setcounter(newCounter);
 		const newColors = updatedTierlist!.tiers.map((tier) => tier.tierColor);
 		const newTierNames = updatedTierlist!.tiers.map((tier) => tier.tierName);
 		setDomTierColors(newColors);
@@ -622,7 +661,7 @@ const UserCreateTierlist = () => {
 									return (
 										<div
 											className="rowContainer"
-											key={tier.tierName}
+											key={tier.tierName + index}
 										>
 											<div
 												className={`tier-name ${tier.tierName}-tier`}
@@ -646,6 +685,7 @@ const UserCreateTierlist = () => {
 												/>
 											</div>
 											<div
+												key={tier.tierName + index}
 												className={`tier-row ${tier.tierName}`}
 												onDrop={(event: React.DragEvent<HTMLDivElement>) =>
 													handleCardBankDropOntoTierlist(event, tier.tierName)
