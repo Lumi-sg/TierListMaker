@@ -162,8 +162,11 @@ const UserCreateTierlist = () => {
 			return;
 		}
 
-		setTierlistCharacterBank(copiedTemplateCharacterBank);
-		setBugFixCharacterBank(copiedTemplateCharacterBank);
+		const setObjectTemplateCharacterBank = new Set(copiedTemplateCharacterBank);
+		const prunedCharacterBank = Array.from(setObjectTemplateCharacterBank);
+
+		setTierlistCharacterBank(prunedCharacterBank);
+		setBugFixCharacterBank(prunedCharacterBank);
 		setDomTierListNames(DEFAULT_TIERNAMES);
 		setResetModalDisplay(false);
 		setdisplayModal(false);
