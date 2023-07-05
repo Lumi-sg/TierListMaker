@@ -38,6 +38,9 @@ const UserCreateTierlist = () => {
 	const [resetModalDisplay, setResetModalDisplay] = useState(false);
 	const [savedTierlist, setsavedTierlist] = useState(false);
 	const [displayCogModal, setdisplayCogModal] = useState(false);
+	const [clickedTiername, setClickedTiername] = useState("");
+
+	const [clickedIndex, setClickedIndex] = useState(0);
 
 	const prepareForUserCreatedTierlist = (tierlist: Tierlist | null): Tierlist | null => {
 		if (!tierlist) {
@@ -152,10 +155,9 @@ const UserCreateTierlist = () => {
 
 	const handleResetClick = () => {
 		const resetTierlist = selectedGame;
-		resetTierlist?.tiers.forEach((tier) => {
-			tier.characters = [];
-		});
+		resetTierlist?.resetTierlist();
 		setCurrentTierlist(resetTierlist!);
+		console.table(resetTierlist);
 		setTierlistCharacterBank(copiedTemplateCharacterBank);
 		setBugFixCharacterBank(copiedTemplateCharacterBank);
 		setDomTierListNames(resetTierlist?.tiers.map((tier) => tier.tierName) || []);
@@ -306,8 +308,68 @@ const UserCreateTierlist = () => {
 		setDomTierColors(updatedTierListColors);
 	};
 
-	const handleCogWheelClick = (index: number, tier: Tier) => {
+	const handleCogWheelClick = (index: number, tiername: string) => {
 		setdisplayCogModal(true);
+		setClickedIndex(index);
+		setClickedTiername(tiername);
+	};
+
+	const changeTierColor = (index: number, color: string) => {
+		const updatedTierlist = currentTierlist;
+		updatedTierlist!.tiers[index].tierColor = `"${color}"`;
+		setCurrentTierlist(updatedTierlist!);
+		const currentColors = domTierColors;
+		currentColors[index] = color;
+		setDomTierColors(currentColors);
+	};
+
+	const handleDeleteRowClick = () => {
+		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
+
+		if (updatedTierlist) {
+			updatedTierlist.tiers.splice(clickedIndex, 1);
+			setCurrentTierlist(updatedTierlist);
+			const newColors = updatedTierlist.tiers.map((tier) => tier.tierColor);
+			const newTierNames = updatedTierlist.tiers.map((tier) => tier.tierName);
+			setDomTierColors(newColors);
+			setDomTierListNames(newTierNames);
+			setdisplayCogModal(false);
+		}
+	};
+	const handleClearRowClick = () => {
+		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
+		updatedTierlist!.tiers[clickedIndex].characters = [];
+		setCurrentTierlist(updatedTierlist!);
+		setdisplayCogModal(false);
+	};
+
+	const handleAddRowAboveClick = () => {
+		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
+		updatedTierlist!.tiers.splice(clickedIndex, 0, {
+			tierName: "",
+			tierColor: "white",
+			characters: [],
+		});
+		const newColors = updatedTierlist!.tiers.map((tier) => tier.tierColor);
+		const newTierNames = updatedTierlist!.tiers.map((tier) => tier.tierName);
+		setDomTierColors(newColors);
+		setDomTierListNames(newTierNames);
+		setCurrentTierlist(updatedTierlist!);
+		setdisplayCogModal(false);
+	};
+	const handleAddRowBelowClick = () => {
+		const updatedTierlist = currentTierlist ? ({ ...currentTierlist } as Tierlist) : null;
+		updatedTierlist!.tiers.splice(clickedIndex + 1, 0, {
+			tierName: "",
+			tierColor: "white",
+			characters: [],
+		});
+		const newColors = updatedTierlist!.tiers.map((tier) => tier.tierColor);
+		const newTierNames = updatedTierlist!.tiers.map((tier) => tier.tierName);
+		setDomTierColors(newColors);
+		setDomTierListNames(newTierNames);
+		setCurrentTierlist(updatedTierlist!);
+		setdisplayCogModal(false);
 	};
 
 	useEffect(() => {
@@ -326,13 +388,27 @@ const UserCreateTierlist = () => {
 
 	useEffect(() => {
 		const modalOverlay = document.querySelector(".modal");
-		if (!modalOverlay) {
+
+		if (!modalOverlay || !displayModal || !displayCogModal) {
 			return;
 		}
 		modalOverlay.addEventListener("click", () => {
 			closeModal();
 		});
-	}, [displayModal, savedTierlist, displayCogModal]);
+	}, [displayModal, savedTierlist]);
+
+	useEffect(() => {
+		if (!displayCogModal) {
+			return;
+		}
+		const colorSpans = document.querySelectorAll(".colorspan");
+		colorSpans.forEach((span) => {
+			span.addEventListener("click", (event) => {
+				const colorPicked = (event.target as HTMLDivElement)?.style.backgroundColor;
+				changeTierColor(clickedIndex, colorPicked);
+			});
+		});
+	}, [displayCogModal]);
 
 	return (
 		<div>
@@ -397,14 +473,93 @@ const UserCreateTierlist = () => {
 						</span>
 						<h5>Choose a Tier Background Color:</h5>
 						<div className="color-select">
-							<span style={{ background: "rgb(255, 127, 127)" }}></span>
+							<span
+								style={{ background: "#FF7F7F" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#FFBF7F" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#FFDF7F" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#FFFF7F" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#BFFF7F" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#7FFF7F" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#7FFFFF" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#7FBFFF" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#7F7FFF" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#FF7FFF" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#BF7FBF" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#3B3B3B" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#858585" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#CFCFCF" }}
+								className="colorspan"
+							></span>
+							<span
+								style={{ background: "#F7F7F7" }}
+								className="colorspan"
+							></span>
 						</div>
 
 						<div className="btn-settings-container">
-							<button id="delete-row">Delete Row</button>
-							<button id="clear-row">Clear Row Images</button>
-							<button id="add-row-up">Add a Row Above</button>
-							<button id="add-row-below">Add a Row Below</button>
+							<button
+								onClick={handleDeleteRowClick}
+								className="cogButton"
+							>
+								Delete Row
+							</button>
+							<button
+								className="cogButton"
+								onClick={handleClearRowClick}
+							>
+								Clear Row{" "}
+							</button>
+							<button
+								className="cogButton"
+								onClick={handleAddRowAboveClick}
+							>
+								Add a Row Above
+							</button>
+							<button
+								className="cogButton"
+								onClick={handleAddRowBelowClick}
+							>
+								Add a Row Below
+							</button>
 						</div>
 					</div>
 				</div>
@@ -567,7 +722,9 @@ const UserCreateTierlist = () => {
 													<i
 														className="tier fa fa-cog"
 														aria-hidden="true"
-														onClick={() => handleCogWheelClick(index, tier)}
+														onClick={() =>
+															handleCogWheelClick(index, tier.tierName)
+														}
 													></i>
 												</div>
 												<div>

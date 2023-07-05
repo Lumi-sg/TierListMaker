@@ -37,9 +37,8 @@ export type Character = {
 
 export type Tier = {
 	tierName: string;
-	tierColor: string
+	tierColor: string;
 	characters: Character[];
-
 };
 export class Tierlist {
 	name: string;
@@ -81,5 +80,34 @@ export class Tierlist {
 
 	private isValidIndex(index: number): boolean {
 		return index >= 0 && index < this.tiers.length;
+	}
+	resetTierlist(): void {
+		this.tiers = [
+			{
+				tierName: TierName.S,
+				tierColor: "#ff7f7f",
+				characters: [],
+			},
+			{
+				tierName: TierName.A,
+				tierColor: "#ffbf7f",
+				characters: [],
+			},
+			{
+				tierName: TierName.B,
+				tierColor: "#ffdf7f",
+				characters: [],
+			},
+			{
+				tierName: TierName.C,
+				tierColor: "#bfff7f",
+				characters: [],
+			},
+			{
+				tierName: TierName.D,
+				tierColor: "#7fff7f",
+				characters: [],
+			},
+		];
 	}
 }

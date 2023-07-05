@@ -324,6 +324,7 @@ input.dragging {
 }
 .modalWrapper > h5 {
 	font-size: 1.75rem;
+	margin-bottom: 2rem;
 }
 .color-select {
 	display: flex;
@@ -331,9 +332,11 @@ input.dragging {
 }
 
 .btn-settings-container {
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
 	margin-top: 60px;
+	gap: 0.5rem;
 }
 .modal-close {
 	background-color: #367e39;
@@ -353,4 +356,20 @@ input.dragging {
 .modal-close:hover {
 	background-color: #ab2020;
 	cursor: pointer;
+}
+
+.cogButton {
+	width: 15rem;
+	height: 3rem;
+}
+
+.color-select > span {
+	width: 30px;
+	height: 30px;
+	margin: 3px;
+	display: inline-block;
+	transition: box-shadow 0.1s;
+	cursor: pointer;
+	border-radius: 50%;
+	border: 2px solid #fff;
 }
